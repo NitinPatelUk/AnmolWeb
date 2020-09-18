@@ -1,0 +1,109 @@
+﻿@using _Anmol.Common
+@model _Anmol.Entity.UserModel
+@{
+    ViewBag.Title = "AddEditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>User List</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.User)">User List</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    @if (Model.UserId > 0)
+                    {
+                        <strong>Edit User</strong>
+                    }
+                    else
+                    {
+                        <strong>Add New User</strong>
+                    }
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(ActionHelper.SaveUser, ControllerHelper.User, FormMethod.Post, new { @id = "formAddEditUser", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.UserId);
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>User Details</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Full Name *</label>
+                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control ", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Role *</label>
+                            @Html.DropDownListFor(x => x.UserRoleId, new SelectList((IEnumerable<SelectListItem>)ViewBag.UserRoleList, "Value", "Text"), "--- Select Role ---", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.UserRoleId, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Email *</label>
+                            @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.EmailAddress, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Password</label>
+                            @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @type = "password" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Mobile</label>
+                            @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control"})
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Joining Date *</label>
+                            @Html.TextBoxFor(x => x.JoiningDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @required = "required", @type = "date" })
+                            @Html.ValidationMessageFor(m => m.JoiningDate, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Leaving Date</label>
+                            @Html.TextBoxFor(x => x.LeavingDate, "{0:yyyy-MM-dd}", new { @class = "form-control ", @type = "date" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Reporting Manager</label>
+                            @Html.DropDownListFor(x => x.ReportingManagerId, new SelectList((IEnumerable<SelectListItem>)ViewBag.ReportingManagerList, "Value", "Text"), "None", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right pb-5">
+            <button class="btn btn-primary" type="submit" id="btnUserSave" onclick="return checkvalidation();">Save</button>
+            <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#side-menu li.active').removeClass('active');
+        $("#usermenu").addClass("active");
+    });
+
+    function checkvalidation() {
+        var form = $("#formAddEditUser")
+        if (form.valid()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function CancelClick() {
+        window.location.href ="@Url.Action(ActionHelper.Index, ControllerHelper.User)";
+    }
+</script>

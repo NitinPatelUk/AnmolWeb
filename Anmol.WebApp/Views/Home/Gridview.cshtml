@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Gridview";
+}
+
+<div style="width:90%; margin:0 auto;">
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>Email</th>
+                <th>IsActive</th>
+                <th>CreatedDate</th>
+                <th>DeviceType</th>
+                <th>ConfirmPassword</th>
+                <th>TokenKey</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myTable").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "orderMulti": true,
+                "ajax": {
+                    "url": "/Login/GridviewList",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                        { "data": "FirstName", "name": "FirstName", "width": "10%"},
+                        { "data": "Email", "name": "Email", "width": "10%" },
+                        { "data": "IsActive", "name": "IsActive", "width": "10%" },
+                        { "data": "CreatedDate", "name": "CreatedDate", "width": "10%" },
+                        { "data": "DeviceType", "name": "DeviceType", "width": "10%" },
+                        { "data": "ConfirmPassword", "name": "ConfirmPassword", "width": "10%"},
+                        { "data": "TokenKey", "name": "TokenKey", "width": "10%" }
+
+                ]
+            });
+        });
+    </script>
+}
+

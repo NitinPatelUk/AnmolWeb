@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anmol | Login</title>
+    <link href="~/Content/AnmolTheme/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/AnmolTheme/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/AnmolTheme/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/AnmolTheme/css/style.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
+    <script src="~/Content/AnmolTheme/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Content/AnmolTheme/js/popper.min.js"></script>
+    <script src="~/Content/AnmolTheme/js/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+</head>
+<body class="gray-bg" id="bodyPartLogin">
+
+    @Html.Partial("_ToastrNotification")
+
+    @RenderBody()
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ajaxError(function (event, result, settings, thrownError) {
+        $('#bodyPartLogin').unblock();
+    });
+    $(document).ajaxStart(function () {
+        $('#bodyPartLogin').block({ message: '<div class="sk-spinner sk-spinner-double-bounce"><div class="sk-double-bounce1"></div><div class="sk-double-bounce2"></div></div>', css: { border: '3px #1e2c68 !important' } });
+    });
+    $(document).ajaxStop(function () {
+        $('#bodyPartLogin').unblock();
+    });
+</script>
+
+<style type="text/css">
+    .blockMsg {
+        border-radius: 30px;
+    }
+</style>
