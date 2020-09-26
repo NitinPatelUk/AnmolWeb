@@ -73,11 +73,11 @@
                     <li class="nav-header" style="border-bottom: 5px solid #15416e;">
                         <div class="dropdown profile-element">
                             @*<h3 class="block m-t-xs text-center text-white font-bold">@SessionHelper.LoggedInUserName</h3>*@
-                            <img src="~/Content/images/Satva.png" style="width: 140px;" />
+                            <img src="~/Content/images/Satva.png" style="width: 140px;"/>
                         </div>
                         <div class="logo-element">
                             @*@SessionHelper.LoggedInInitials*@
-                            <img alt="image" src="~/Content/images/Satva_S.png" style="width: 60px;" />
+                            <img alt="image" src="~/Content/images/Satva_S.png" style="width: 60px;"/>
                         </div>
                     </li>
                     @*<li id="homemenu">
@@ -85,12 +85,6 @@
         </li>*@
                     <li id="usermenu">
                         <a href="@Url.Action(ActionHelper.Index, ControllerHelper.User)"><i class="fa fa-user"></i> <span class="nav-label">Users</span></a>
-                    </li>
-                    <li id="usermenu">
-                        <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Cow)"><i class="fa fa-user"></i> <span class="nav-label">Cow</span></a>
-                    </li>
-                    <li id="usermenu">
-                        <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Customer)"><i class="fa fa-user"></i> <span class="nav-label">Customer</span></a>
                     </li>
                 </ul>
 

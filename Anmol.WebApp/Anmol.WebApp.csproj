@@ -219,8 +219,6 @@
     <Compile Include="Common\WebApiHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CowController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -3102,10 +3100,6 @@
     <Content Include="Views\Home\Gridview.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\AddEditUser.cshtml" />
-    <Content Include="Views\Cow\Index.cshtml" />
-    <Content Include="Views\Cow\AddEditCow.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\AddEditCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

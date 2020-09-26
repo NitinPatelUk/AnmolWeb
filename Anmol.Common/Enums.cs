@@ -22,12 +22,6 @@ namespace _Anmol.Common
             ClientRegister = 1,
         }
 
-        public enum Gender
-        {
-            Male,
-            Female
-        }
-
         public enum InvestorType
         {
             [Description("Entity")]
