@@ -21,29 +21,14 @@ namespace _Anmol.Common
         public const string AddEditUser = "~/Views/User/AddEditUser.cshtml";
         #endregion
 
-        #region Client
-        public const string AddEditClient = "~/Views/Client/AddEditClient.cshtml";
+        #region COW
+        public const string Cow = "~/Views/Cow/Index.cshtml";
+        public const string AddEditCow = "~/Views/Cow/AddEditCow.cshtml";
         #endregion
 
-        #region Project
-        public const string AddEditProject = "~/Views/Project/AddEditProject.cshtml";
-        public const string ProjectSummary = "~/Views/Project/ProjectSummary.cshtml";
-        #endregion
-
-        #region ProjectDetail
-        public const string AddEditProjectDetail = "~/Views/ProjectDetail/AddEditProjectDetail.cshtml";
-        #endregion
-
-        #region ProjectDetail
-        public const string AddEditTransaction  = "~/Views/Transaction/AddEditTransaction.cshtml";
-        #endregion
-
-        #region ClientContact
-        public const string AddEditClientContact = "~/Views/ClientContact/AddEditClientContact.cshtml";
-        #endregion
-
-        #region DevelopmentRate
-        public const string AddEditDevelopmentRate = "~/Views/DevelopmentRate/AddEditDevelopmentRate.cshtml";
+        #region CUSTOMER
+        public const string Customer = "~/Views/Customer/Index.cshtml";
+        public const string AddEditCustomer = "~/Views/Customer/AddEditCustomer.cshtml";
         #endregion
     }
 }

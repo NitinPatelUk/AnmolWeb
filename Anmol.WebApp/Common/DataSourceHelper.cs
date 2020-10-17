@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using _Anmol.Common;
 using _Anmol.Entity;
 
@@ -62,9 +63,47 @@ namespace _Anmol.WebApp.Common
                 return new List<SelectListItem>();
             }
         }
- 
- 
 
+        public static IEnumerable<SelectListItem> GetCowList()
+        {
+            var result = new ApiResponse<CowModel>();
+            var uri = "GetCowList";
+            result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                IEnumerable<SelectListItem> items = result.Data
+                .Select(c => new SelectListItem
+                {
+                    Value = Convert.ToString(c.CowID),
+                    Text = c.CowID+"-"+c.CowName
+                });
+                return items;
+            }
+            else
+            {
+                return new List<SelectListItem>();
+            }
+        }
 
+        public static IEnumerable<SelectListItem> GetBullList()
+        {
+            var result = new ApiResponse<CowModel>();
+            var uri = "GetBullList";
+            result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                IEnumerable<SelectListItem> items = result.Data
+                .Select(c => new SelectListItem
+                {
+                    Value = Convert.ToString(c.CowID),
+                    Text = c.CowID + "-" + c.CowName
+                });
+                return items;
+            }
+            else
+            {
+                return new List<SelectListItem>();
+            }
+        }
     }
 }

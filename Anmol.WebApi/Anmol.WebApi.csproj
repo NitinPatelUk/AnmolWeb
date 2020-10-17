@@ -261,6 +261,8 @@
     <Compile Include="Auth\JwtAuthManager.cs" />
     <Compile Include="Auth\UnauthorizedResult .cs" />
     <Compile Include="Controllers\CommonAPIController.cs" />
+    <Compile Include="Controllers\CowAPIController.cs" />
+    <Compile Include="Controllers\CustomerAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
@@ -327,6 +329,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\CowAPI\" />
+    <Folder Include="Views\CustomerAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
