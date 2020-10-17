@@ -12,6 +12,7 @@ namespace _Anmol.Entity
         public int CowID { get; set; }
         [Required(ErrorMessage = "Name is required.")]
         public string CowName { get; set; }
+        public int CowPin { get; set; }
         public DateTime? DoB { get; set; }
         public DateTime? DoD { get; set; }
         public int? PurchaseAmt { get; set; }

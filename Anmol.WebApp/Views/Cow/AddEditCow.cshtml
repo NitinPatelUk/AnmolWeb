@@ -31,7 +31,7 @@
 </div>
 @using (Html.BeginForm(ActionHelper.SaveCow, ControllerHelper.Cow, FormMethod.Post, new { @id = "formAddEditCow", @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
-    @Html.HiddenFor(model => model.CowID);
+    @Html.HiddenFor(model => model.CowID, "CowID");
     <div class="row">
         <div class="col-md-12 pt-2">
             <div class="ibox">
@@ -51,12 +51,12 @@
                             Cow : @Html.RadioButton("gender", "Cow")
                         </div>
                         <div class="col-md-3 form-group">
-                            <label>Father N</label>
+                            <label>Father</label>
                             @Html.DropDownListFor(x => x.FatherName, new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.FatherName, null, new { @class = "text-danger help-block" })
                         </div>
                         <div class="col-md-3 form-group">
-                            <label>Mother Name</label>
+                            <label>Mother</label>
                             @Html.DropDownListFor(x => x.MotherName, new SelectList((IEnumerable<SelectListItem>)ViewBag.CowList, "Value", "Text"), "--- Select Mother ---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.MotherName, null, new { @class = "text-danger help-block" })
                         </div>
@@ -100,6 +100,13 @@
                             @Html.TextAreaFor(x => x.Notes, new { @class = "form-control ", @required = "required" })
                             @Html.ValidationMessageFor(m => m.Notes, "", new { @class = "text-danger help-block" })
                         </div>
+                        <div class="col-md-3 form-group">
+                            <label>Image</label>
+                            <div class="custom-file mb-2">
+                                <input type="file" class="custom-file-input" id="UploadImage">
+                                <label class="custom-file-label" for="UploadImage">Choose file</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,4 +140,52 @@
     function CancelClick() {
         window.location.href ="@Url.Action(ActionHelper.Index, ControllerHelper.Cow)";
     }
+
+    $('#UploadImage').on('change', function (e) {
+        debugger;
+        var files = e.target.files;
+        if (files.length > 0) {
+            var extension = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+            var allowedext = ["jpg", "png","jpeg","JPEG","PNG","JPG"];
+            if (allowedext.indexOf(extension) == -1) {
+                toastr.error("Please select Image file.")
+                return false;
+            }
+            else
+                //var myID = 3; //uncomment this to make sure the ajax URL works
+                if (files.length > 0) {
+                    if (window.FormData !== undefined) {
+                        var data = new FormData();
+                        for (var i = 0; i < files.length; i++) {
+                            data.append(files[i].name, files[i]);
+                        }
+                        var CowId = $('#CowID').val();
+                        $.ajax({
+                            type: "POST",
+                            url: '/CowImage/UploadImage?CowId=' + CowId,
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (data) {
+                                if (data.SurveyDocId > 0) {
+                                    $("#SurveyDocument").hide();
+                                    $(".saved-document").append("<li id='Document_" + data.SurveyDocId + "'><span>" + data.DocName + "</span><a href='javascript:;' onclick='DeleteSurveyDocument(" + data.SurveyDocId + ")' class='btn btn-primary' ><i class='bx bx-x'></i></a></li>");
+
+
+                                    "javascript:;"
+                            },
+                            error: function (xhr, status, p3, p4) {
+                                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                                if (xhr.responseText && xhr.responseText[0] == "{")
+                                    err = JSON.parse(xhr.responseText).Message;
+                                console.log(err);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error("This browser doesn't support HTML5 file uploads!");
+                    }
+                }
+        }
+     });
 </script>
