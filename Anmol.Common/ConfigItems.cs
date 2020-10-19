@@ -259,6 +259,13 @@ namespace _Anmol.Common
             return DateTime.UtcNow;
         }
 
+        public static string CowImagePath
+        {
+            get
+            {
+                return string.Format(ConfigurationManager.AppSettings["ImagePath"]);
+            }
+        }
 
         public static string HostingUrl
         {

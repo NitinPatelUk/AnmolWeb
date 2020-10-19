@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace _Anmol.Entity
 {
@@ -33,6 +34,7 @@ namespace _Anmol.Entity
         public DateTime CreatedOn { get; set; }
         public string LoggedinUserName { get; set; }
         public string DateOfBirth { get; set; }
+        public List<HttpPostedFileBase> UploadImage { get; set; }
     }
 
 }

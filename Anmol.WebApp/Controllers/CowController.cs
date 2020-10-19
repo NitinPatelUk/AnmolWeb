@@ -3,8 +3,10 @@ using _Anmol.Entity;
 using _Anmol.WebApp.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace _Anmol.WebApp.Controllers
@@ -67,11 +69,30 @@ namespace _Anmol.WebApp.Controllers
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
+                List<HttpPostedFileBase> files = model.UploadImage.ToList();
+                model.UploadImage = null;
+
                 var response = new ApiResponse<CowModel>();
                 var url = "SaveCow";
                 response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<CowModel>, CowModel>(model, url, SessionHelper.AuthToken);
                 if (response.Success == true)
                 {
+                    CowModel cow= response.Data == null ? null : response.Data.FirstOrDefault();
+                    if (cow != null && files.Count > 0)
+                    {
+                        string imageFolderName = Path.Combine(ConfigItems.CowImagePath, cow.CowID.ToString()); //Ganga/Jamuna
+
+                        if (!Directory.Exists(imageFolderName))
+                            Directory.CreateDirectory(imageFolderName);
+
+                        foreach (var file in files)
+                        {
+                            string fileName = model.CowID + "_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + "." + Path.GetExtension(file.FileName);
+                            string filePath = Path.Combine(imageFolderName, fileName);
+                            file.SaveAs(filePath);
+                        }
+                    }
+
                     if (model.CowID > 0)
                     {
                         await DataSourceHelper.SaveAuditTrail("Edit Cow", "Edit");
