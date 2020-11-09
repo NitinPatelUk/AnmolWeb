@@ -265,6 +265,7 @@
     <Compile Include="Controllers\CustomerAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
+    <Compile Include="Controllers\MedicalAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -331,6 +332,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\CowAPI\" />
     <Folder Include="Views\CustomerAPI\" />
+    <Folder Include="Views\MedicalAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

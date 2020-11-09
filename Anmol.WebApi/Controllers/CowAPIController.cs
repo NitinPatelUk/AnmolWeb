@@ -21,12 +21,6 @@ namespace _Anmol.WebApi.Controllers
             _cowService = new CowService();
         }
 
-        [Route("GetAllCowList")]
-        public ApiResponse<CowModel> GetAllCowList(string name, int? cowId)
-        {
-            return _cowService.GetAllCowList(name, cowId);
-        }
-
         [Route("GetCowById")]
         public ApiPostResponse<CowModel> GetCowById(int cowId)
         {
@@ -48,15 +42,9 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetCowList")]
-        public ApiResponse<CowModel> GetCowList()
+        public ApiResponse<CowModel> GetCowList(string name, int? CowId,int gen)
         {
-            return _cowService.GetCowList();
-        }
-
-        [Route("GetBullList")]
-        public ApiResponse<CowModel> GetBullList()
-        {
-            return _cowService.GetBullList();
+            return _cowService.GetCowList(name, CowId, gen);
         }
     }
 }

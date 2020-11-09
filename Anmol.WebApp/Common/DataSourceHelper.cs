@@ -67,7 +67,7 @@ namespace _Anmol.WebApp.Common
         public static IEnumerable<SelectListItem> GetCowList()
         {
             var result = new ApiResponse<CowModel>();
-            var uri = "GetCowList";
+            var uri = "GetCowList?name=" + null + "&CowId=" + null + "&gen=" + 1;
             result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
             if (result.Data != null)
             {
@@ -88,7 +88,28 @@ namespace _Anmol.WebApp.Common
         public static IEnumerable<SelectListItem> GetBullList()
         {
             var result = new ApiResponse<CowModel>();
-            var uri = "GetBullList";
+            var uri = "GetCowList?name=" + null + "&CowId=" + null + "&gen=" + 2;
+            result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                IEnumerable<SelectListItem> items = result.Data
+                .Select(c => new SelectListItem
+                {
+                    Value = Convert.ToString(c.CowID),
+                    Text = c.CowID + "-" + c.CowName
+                });
+                return items;
+            }
+            else
+            {
+                return new List<SelectListItem>();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> GetAllCowList()
+        {
+            var result = new ApiResponse<CowModel>();
+            var uri = "GetCowList?name=" + null + "&CowId=" + null + "&gen=" + 0;
             result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
             if (result.Data != null)
             {

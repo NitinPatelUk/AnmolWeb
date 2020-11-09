@@ -12,26 +12,6 @@ namespace _Anmol.Service
 {
     public class CowService
     {
-        public ApiResponse<CowModel> GetAllCowList(string name, int? CowId)
-        {
-            ApiResponse<CowModel> response = new ApiResponse<CowModel>();
-            try
-            {
-                GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
-                var result = objGenericRepository.QuerySQL<CowModel>("SP_GetAllCowList", Utility.GetSQLParam("Name", SqlDbType.VarChar, (object)name ?? DBNull.Value)
-                                                                                      , Utility.GetSQLParam("CowId", SqlDbType.Int, (object)CowId ?? DBNull.Value));
-                response.Data = result.ToList();
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Data = null;
-                response.Message.Add(ex.Message);
-                response.Success = false;
-            }
-            return response;
-        }
-
         public ApiPostResponse<CowModel> GetCowById(int cowId)
         {
             ApiPostResponse<CowModel> response = new ApiPostResponse<CowModel>();
@@ -106,32 +86,16 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<CowModel> GetCowList()
+        public ApiResponse<CowModel> GetCowList(string name, int? CowId, int gen)
         {
             ApiResponse<CowModel> response = new ApiResponse<CowModel>();
             try
             {
                 GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
-                var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowList");
-                response.Data = result.ToList();
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Data = null;
-                response.Message.Add(ex.Message);
-                response.Success = false;
-            }
-            return response;
-        }
-
-        public ApiResponse<CowModel> GetBullList()
-        {
-            ApiResponse<CowModel> response = new ApiResponse<CowModel>();
-            try
-            {
-                GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
-                var result = objGenericRepository.QuerySQL<CowModel>("SP_GetBullList");
+                var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowList"
+                    ,Utility.GetSQLParam("name", SqlDbType.VarChar, (object)name ?? DBNull.Value)
+                    ,Utility.GetSQLParam("CowId", SqlDbType.Int, (object)CowId ?? DBNull.Value)
+                    ,Utility.GetSQLParam("gen", SqlDbType.Int, (object)gen ?? DBNull.Value));
                 response.Data = result.ToList();
                 response.Success = true;
             }

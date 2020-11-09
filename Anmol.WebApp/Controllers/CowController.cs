@@ -20,10 +20,10 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        public async Task<ActionResult> GetAllCowList(string name, int? CowId)
+        public async Task<ActionResult> GetCowList(string name, int? CowId)
         {
             var result = new ApiResponse<CowModel>();
-            var uri = "GetAllCowList?name=" + name + "&cowId=" + CowId;
+            var uri = "GetCowList?name=" + name + "&cowId=" + CowId +"&gen=0";
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {
@@ -80,7 +80,8 @@ namespace _Anmol.WebApp.Controllers
                     CowModel cow= response.Data == null ? null : response.Data.FirstOrDefault();
                     if (cow != null && files.Count > 0)
                     {
-                        string imageFolderName = Path.Combine(ConfigItems.CowImagePath, cow.CowID.ToString()); //Ganga/Jamuna
+                        string imageFolderName = Server.MapPath(ConfigItems.CowImagePath) ;                       
+                        imageFolderName = Path.Combine(imageFolderName, cow.CowID.ToString()); //Ganga/Jamuna
 
                         if (!Directory.Exists(imageFolderName))
                             Directory.CreateDirectory(imageFolderName);

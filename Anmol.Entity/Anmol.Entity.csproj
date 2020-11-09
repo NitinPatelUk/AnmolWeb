@@ -48,6 +48,7 @@
     <Compile Include="CowModel.cs" />
     <Compile Include="CustomerModel.cs" />
     <Compile Include="LoginModel.cs" />
+    <Compile Include="MedicalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="UserRoleModel.cs" />

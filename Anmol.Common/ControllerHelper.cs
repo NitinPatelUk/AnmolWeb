@@ -27,6 +27,10 @@ namespace _Anmol.Common
         public const string GetCustomerList = "GetCustomerList";
         public const string DeleteCustomer = "DeleteCustomer";
         public const string SaveCustomer = "SaveCustomer";
+        public const string GetMedicalById= "GetMedicalById";
+        public const string GetMedicalList = "GetMedicalList";
+        public const string SaveMedical = "SaveMedical";
+        public const string DeleteMedical = "DeleteMedical";
     }
     public class ControllerHelper
     {
@@ -35,7 +39,7 @@ namespace _Anmol.Common
         public const string Login = "Login";
         public const string Cow = "Cow";
         public const string Customer = "Customer";
-
+        public const string Medical = "Medical";
     }
 }
 

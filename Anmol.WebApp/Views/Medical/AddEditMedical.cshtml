@@ -1,0 +1,125 @@
+﻿@using _Anmol.Common
+@model _Anmol.Entity.MedicalModel
+@{
+    ViewBag.Title = "AddEditMedical";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Medical List</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Medical)">Medical List</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    @if (Model.MedicalID > 0)
+                    {
+                        <strong>Edit Medical</strong>
+                    }
+                    else
+                    {
+                        <strong>Add New Medical</strong>
+                    }
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(ActionHelper.SaveMedical, ControllerHelper.Medical, FormMethod.Post, new { @id = "formAddEditMedical", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.MedicalID, "MedicalID");
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Medical Details</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Cow Name*</label>
+                            @Html.DropDownListFor(x => x.CowID, new SelectList((IEnumerable<SelectListItem>)ViewBag.CowList, "Value", "Text"), "--- Select Cow ---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CowID, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Heading</label>
+                            @Html.TextBoxFor(x => x.Heading, new { @class = "form-control " })
+                            @Html.ValidationMessageFor(m => m.Heading, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Treatment Date</label>
+                            @Html.TextBoxFor(x => x.TreatmentDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @required = "required", @type = "date" })
+                            @Html.ValidationMessageFor(m => m.TreatmentDate, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Doctor Name</label>
+                            @Html.TextBoxFor(x => x.DoctorName, new { @class = "form-control " })
+                            @Html.ValidationMessageFor(m => m.DoctorName, "", new { @class = "text-danger help-block" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Treatment Notes</label>
+                            @Html.TextBoxFor(x => x.TreatmentNotes, new { @class = "form-control " })
+                            @Html.ValidationMessageFor(m => m.TreatmentNotes, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Report Notes</label>
+                            @Html.TextBoxFor(x => x.ReportNotes, new { @class = "form-control " })
+                            @Html.ValidationMessageFor(m => m.ReportNotes, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Cost</label>
+                            @Html.TextBoxFor(x => x.Cost, new { @class = "form-control " })
+                            @Html.ValidationMessageFor(m => m.Cost, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Reports</label>
+                            <div class="custom-file mb-2">
+                                <input type="file" class="custom-file-input" id="UploadReport" name="UploadReport" value="UploadReport" multiple="multiple" accept="image/png, image/jpeg,.doc,.pdf,.docx,.docm">
+                                <label class="custom-file-label" for="UploadReport">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right pb-5">
+            <button class="btn btn-primary" type="submit" id="btnMedicalSave" onclick="return checkvalidation();">Save</button>
+            <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#side-menu li.active').removeClass('active');
+        $("#Cowmenu").addClass("active");
+    });
+
+    function checkvalidation() {
+        var form = $("#formAddEditMedical")
+        if (form.valid()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function CancelClick() {
+        window.location.href ="@Url.Action(ActionHelper.Index, ControllerHelper.Medical)";
+    }
+    $('#UploadReport').on('change', function ()
+    {
+        files = $(this)[0].files; name = '';
+        for (var i = 0; i < files.length; i++)
+        {
+            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
+        }
+        $(".custom-file-label").html(name);
+    });
+</script>

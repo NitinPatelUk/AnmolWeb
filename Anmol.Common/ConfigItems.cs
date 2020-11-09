@@ -267,6 +267,14 @@ namespace _Anmol.Common
             }
         }
 
+        public static string MedicalReportPath
+        {
+            get
+            {
+                return string.Format(ConfigurationManager.AppSettings["ReportPath"]);
+            }
+        }
+
         public static string HostingUrl
         {
             get

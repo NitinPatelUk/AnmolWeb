@@ -30,5 +30,10 @@ namespace _Anmol.Common
         public const string Customer = "~/Views/Customer/Index.cshtml";
         public const string AddEditCustomer = "~/Views/Customer/AddEditCustomer.cshtml";
         #endregion
+
+        #region MEDICAL
+        public const string Medical = "~/Views/Medical/Index.cshtml";
+        public const string AddEditMedical = "~/Views/Medical/AddEditMedical.cshtml";
+        #endregion
     }
 }
