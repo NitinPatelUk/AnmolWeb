@@ -73,6 +73,7 @@
                         <thead>
                             <tr>
                                 <th>CowId</th>
+                                <th>Image</th>
                                 <th>CowName</th>
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
@@ -106,13 +107,13 @@
 
     function GetData(data) {
         try {
-                var dt = $('#tblCow').DataTable();
+            
+             var dt = $('#tblCow').DataTable();
                  if (dt != 'undefined') {
                     dt.destroy();
                     }
-
-            dt = $('#tblCow').DataTable({
-                "lengthMenu":[50,100,200,500],
+                dt = $('#tblCow').DataTable({
+                "lengthMenu": [50, 100, 200, 500],
                 "pageLength": 50,
                 "order": [0, 'desc'],
                 "dom": 'frtlip',
@@ -122,6 +123,12 @@
                 "aoColumns": [
                     {
                         "mData": "CowID",
+                    },
+                    {
+                        
+                        "render": function (data, type, row, meta) {
+                            return '<img src="/Document/CowImage/' + row.ImageName + '"height="70px" width="100px"/>';
+                        }  
                     },
                     {
                         "mData": "CowName"
@@ -156,7 +163,6 @@
             $(".dataTables_length").css('margin-right', '20px');
             $(".dataTables_info").css('clear', 'none');
             $(".dataTables_info").css('padding', '0');
-
         } catch (e) {
             alert(e.message);
         }

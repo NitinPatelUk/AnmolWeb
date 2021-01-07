@@ -25,6 +25,7 @@ namespace _Anmol.Entity
         public string PlaceOfOrigin { get; set; }
         public string Notes { get; set; }
         public string ImagePath { get; set; }
+        public string ImageName { get; set; }
         public bool IsMilkable { get; set; }
         [Required(ErrorMessage = "Gender is required.")]
         public string gender { get; set; }
@@ -34,7 +35,7 @@ namespace _Anmol.Entity
         public DateTime CreatedOn { get; set; }
         public string LoggedinUserName { get; set; }
         public string DateOfBirth { get; set; }
-        public List<HttpPostedFileBase> UploadImage { get; set; }
+        public HttpPostedFileBase UploadImage { get; set; }
     }
 
 }

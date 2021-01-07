@@ -49,6 +49,7 @@ namespace _Anmol.Service
                     Utility.GetSQLParam("MotherID", SqlDbType.Int, (object)model.MotherID ?? DBNull.Value),
                     Utility.GetSQLParam("PlaceOfOrigin", SqlDbType.VarChar, (object)model.PlaceOfOrigin ?? DBNull.Value),
                     Utility.GetSQLParam("Notes", SqlDbType.VarChar, (object)model.Notes ?? DBNull.Value),
+                    Utility.GetSQLParam("ImageName", SqlDbType.VarChar, (object)model.ImageName?? DBNull.Value),
                     Utility.GetSQLParam("ImagePath", SqlDbType.VarChar, (object)model.ImagePath ?? DBNull.Value),
                     Utility.GetSQLParam("IsMilkable", SqlDbType.Bit, (object)model.IsMilkable ?? DBNull.Value), 
                     Utility.GetSQLParam("Gender", SqlDbType.VarChar, (object)model.gender ?? DBNull.Value), 
