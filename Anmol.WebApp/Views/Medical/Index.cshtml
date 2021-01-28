@@ -83,7 +83,7 @@
                                 <th>Cow Id</th>
                                 <th>Cow Name</th>
                                 <th>Heading</th>
-                                <th>Date</th>
+                                <th>Treatment Date</th>
                                 <th>Doctor</th>
                                 <th>Treatment Note</th>
                                 <th>Report Note</th>
@@ -146,7 +146,7 @@
                         "mData": "Heading"
                     },
                     {
-                        "mData": "date"
+                        "mData": "TreatDate"
                     },
                     {
                         "mData": "DoctorName"
@@ -162,7 +162,7 @@
                         "className": "dt-center",
                         "orderable": false,
                         "render": function (data, type, row, meta) {
-                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMedicalById, ControllerHelper.Medical)?MedicalId=' + row.MedicalID + '" title="Edit Medical Detail"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
+                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMedicalById, ControllerHelper.Medical)?MedicalId=' + row.MedicalID+'" title="Edit Medical Detail"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Medical Detail" onclick="deleteMedicalClick(' + row.MedicalID+')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;

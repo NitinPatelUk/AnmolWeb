@@ -31,7 +31,7 @@ namespace _Anmol.WebApp.Controllers
             }
             else
             {
-                return RedirectToAction(ActionHelper.Index, ControllerHelper.Cow);
+                return RedirectToAction(ActionHelper.Index, ControllerHelper.Medical);
             }
         }
 
@@ -52,7 +52,7 @@ namespace _Anmol.WebApp.Controllers
                 else
                 {
                     TempData["Error"] = "Somthing went wrong.";
-                    return View(ViewHelper.Cow);
+                    return View(ViewHelper.Medical);
                 }
             }
             else
@@ -68,46 +68,57 @@ namespace _Anmol.WebApp.Controllers
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
-                List<HttpPostedFileBase> files = model.UploadReport.ToList();
-                model.UploadReport = null;
+                if (model.UploadReport != null)
+                {
+                    HttpPostedFileBase files = model.UploadReport;
+                    model.UploadReport = null;
+                    string ReportFolderName = Server.MapPath(ConfigItems.MedicalReportPath);
+
+                    if (!Directory.Exists(ReportFolderName))
+                        Directory.CreateDirectory(ReportFolderName);
+
+                    if (files.ContentLength>0) {
+                        if (model.ReportPath != null)
+                        {
+                            System.IO.File.Delete(model.ReportPath);
+                            string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
+                            string filePath = Path.Combine(ReportFolderName, fileName);
+                            files.SaveAs(filePath);
+                            model.ReportPath = filePath;
+                            model.ReportName = fileName;
+                        }
+                        else
+                        {
+                            string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
+                            string filePath = Path.Combine(ReportFolderName, fileName);
+                            files.SaveAs(filePath);
+                            model.ReportPath = filePath;
+                            model.ReportName = fileName;
+                        }
+                    }
+                }
 
                 var response = new ApiResponse<MedicalModel>();
                 var url = "SaveMedical";
                 response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MedicalModel>, MedicalModel>(model, url, SessionHelper.AuthToken);
                 if (response.Success == true)
                 {
-                    MedicalModel medical = response.Data == null ? null : response.Data.FirstOrDefault();
-                    if (medical != null && files.Count > 0)
+
+                    if (model.MedicalID > 0)
                     {
-                        string imageFolderName = Server.MapPath(ConfigItems.MedicalReportPath);
-                        imageFolderName = Path.Combine(imageFolderName, medical.MedicalID.ToString()); //Ganga/Jamuna
-
-                        if (!Directory.Exists(imageFolderName))
-                            Directory.CreateDirectory(imageFolderName);
-
-                        foreach (var file in files)
-                        {
-                            string fileName = model.MedicalID + "_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + "." + Path.GetExtension(file.FileName);
-                            string filePath = Path.Combine(imageFolderName, fileName);
-                            file.SaveAs(filePath);
-                        }
-                    }
-
-                    if (model.CowID > 0)
-                    {
-                        await DataSourceHelper.SaveAuditTrail("Edit Cow", "Edit");
+                        await DataSourceHelper.SaveAuditTrail("Edit Medical Report", "Edit");
                     }
                     else
                     {
-                        await DataSourceHelper.SaveAuditTrail("Add new Cow", "Add");
+                        await DataSourceHelper.SaveAuditTrail("Add new Medical Report", "Add");
                     }
-                    TempData["Message"] = model.CowID > 0 ? "Cow Updated Successfully" : "Cow Added Successfully";
+                    TempData["Message"] = model.CowID > 0 ? "Medical Report Updated Successfully" : "Cow Added Successfully";
                 }
                 else
                 {
                     TempData["Error"] = response.Message;
                 }
-                return RedirectToAction("Index", ControllerHelper.Cow);
+                return RedirectToAction("Index", ControllerHelper.Medical);
             }
             catch (Exception ex)
             {

@@ -19,8 +19,10 @@ namespace _Anmol.Entity
         public string ReportNotes { get; set; }
         public string Heading { get; set; }
         public decimal Cost { get; set; }
-        public List<HttpPostedFileBase> UploadReport { get; set; }
+        public HttpPostedFileBase UploadReport { get; set; }
+        public string ReportPath { get; set; }
+        public string ReportName { get; set; }
         public string LoggedinUserName { get; set; }
-        public string date { get; set; }
+        public string TreatDate { get; set; }
     }
 }

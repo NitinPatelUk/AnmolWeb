@@ -33,6 +33,8 @@
 @using (Html.BeginForm(ActionHelper.SaveMedical, ControllerHelper.Medical, FormMethod.Post, new { @id = "formAddEditMedical", @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.MedicalID, "MedicalID");
+    @Html.HiddenFor(model => model.ReportPath);
+    @Html.HiddenFor(model => model.ReportName);
     <div class="row">
         <div class="col-md-12 pt-2">
             <div class="ibox">
@@ -81,8 +83,12 @@
                         <div class="col-md-3 form-group">
                             <label>Reports</label>
                             <div class="custom-file mb-2">
-                                <input type="file" class="custom-file-input" id="UploadReport" name="UploadReport" value="UploadReport" multiple="multiple" accept="image/png, image/jpeg,.doc,.pdf,.docx,.docm">
-                                <label class="custom-file-label" for="UploadReport">Choose file</label>
+                                <input type="file" class="custom-file-input" id="UploadReport" name="UploadReport" value="UploadReport" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, image/*">
+                                <label class="custom-file-label" for="UploadReport">@Model.ReportName</label>
+                                <div class="embed-responsive embed-responsive-1by1" style="margin-top:10px">
+                                    <iframe class="embed-responsive-item" src="~/Document/MedicalReport/@Model.ReportName" height="100px" width="100px"></iframe>
+                                </div>
+                                @*<embed src="~/Document/MedicalReport/@Model.ReportName" width="100px" height="100px" allowfullscreen/>*@
                             </div>
                         </div>
                     </div>
@@ -115,11 +121,9 @@
     }
     $('#UploadReport').on('change', function ()
     {
+        debugger;
         files = $(this)[0].files; name = '';
-        for (var i = 0; i < files.length; i++)
-        {
-            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
-        }
+        name = files[0].name
         $(".custom-file-label").html(name);
     });
 </script>

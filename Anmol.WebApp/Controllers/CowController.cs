@@ -80,11 +80,25 @@ namespace _Anmol.WebApp.Controllers
                         Directory.CreateDirectory(imageFolderName);
 
 
-                    string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
-                    string filePath = Path.Combine(imageFolderName, fileName);
-                    files.SaveAs(filePath);
-                    model.ImagePath = filePath;
-                    model.ImageName = fileName;
+                    if (files.ContentLength > 0)
+                    {
+                        if (model.ImagePath != null)
+                        {
+                            System.IO.File.Delete(model.ImagePath);
+                            string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
+                            string filePath = Path.Combine(imageFolderName, fileName);
+                            files.SaveAs(filePath);
+                            model.ImagePath = filePath;
+                            model.ImageName = fileName;
+                        }
+                        else {
+                            string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
+                            string filePath = Path.Combine(imageFolderName, fileName);
+                            files.SaveAs(filePath);
+                            model.ImagePath = filePath;
+                            model.ImageName = fileName;
+                        }
+                    }
                 }
                 
                 var response = new ApiResponse<CowModel>();

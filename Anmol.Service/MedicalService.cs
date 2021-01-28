@@ -70,8 +70,10 @@ namespace _Anmol.Service
                     Utility.GetSQLParam("ReportNotes", SqlDbType.VarChar, (object)model.ReportNotes ?? DBNull.Value),
                     Utility.GetSQLParam("Heading", SqlDbType.VarChar, (object)model.Heading ?? DBNull.Value),
                     Utility.GetSQLParam("cost", SqlDbType.Decimal, (object)model.Cost ?? DBNull.Value),
-                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)
-                   );
+                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value),
+                    Utility.GetSQLParam("ReportPath", SqlDbType.VarChar, (object)model.ReportPath ?? DBNull.Value),
+                    Utility.GetSQLParam("ReportName", SqlDbType.VarChar, (object)model.ReportName ?? DBNull.Value)
+                    );
                 response.Data = result.ToList();
                 response.Success = true;
             }
