@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace _Anmol.Entity
@@ -34,7 +30,6 @@ namespace _Anmol.Entity
         public DateTime ModifiedOn { get; set; }
         public DateTime CreatedOn { get; set; }
         public string LoggedinUserName { get; set; }
-        public string DateOfBirth { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
     }
 

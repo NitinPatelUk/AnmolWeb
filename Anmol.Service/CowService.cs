@@ -2,11 +2,8 @@
 using _Anmol.Data.Repository;
 using _Anmol.Entity;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _Anmol.Service
 {

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace _Anmol.Entity
@@ -23,6 +18,5 @@ namespace _Anmol.Entity
         public string ReportPath { get; set; }
         public string ReportName { get; set; }
         public string LoggedinUserName { get; set; }
-        public string TreatDate { get; set; }
     }
 }

@@ -2,14 +2,10 @@
 using _Anmol.Entity;
 using _Anmol.WebApp.Common;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.SqlClient;
-using System.Configuration;
 namespace _Anmol.WebApp.Controllers
 {
     public class CowController : Controller

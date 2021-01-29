@@ -146,7 +146,13 @@
                         "mData": "Heading"
                     },
                     {
-                        "mData": "TreatDate"
+                        "mData": "TreatmentDate",
+                        "render": function (data) {
+                            if (data === null) return "";
+                            var date = new Date(parseInt(data.substr(6)));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            return ("0" + date.getDate()).slice(-2) + '/' + month + '/' + date.getFullYear();
+                        }
                     },
                     {
                         "mData": "DoctorName"

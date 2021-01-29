@@ -223,6 +223,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
+    <Compile Include="Controllers\MilkProductionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -3109,6 +3110,7 @@
     <Content Include="Views\Customer\AddEditCustomer.cshtml" />
     <Content Include="Views\Medical\Index.cshtml" />
     <Content Include="Views\Medical\AddEditMedical.cshtml" />
+    <Content Include="Views\MilkProduction\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,5 +35,10 @@ namespace _Anmol.Common
         public const string Medical = "~/Views/Medical/Index.cshtml";
         public const string AddEditMedical = "~/Views/Medical/AddEditMedical.cshtml";
         #endregion
+
+        #region PRODUCTION
+        public const string MilkProduction = "~/Views/MilkProduction/Index.cshtml";
+        public const string AddEditMilkProduction = "~/Views/MilkProduction/AddEditMilkProduction.cshtml";
+        #endregion
     }
 }
