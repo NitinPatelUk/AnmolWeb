@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a href="@Url.Action(ActionHelper.GetMilkProductionById, ControllerHelper.MilkProduction)?MilkProductionId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Milk Production </a>
+                <a href="@Url.Action(ActionHelper.AddUpdateMilkProduction, ControllerHelper.MilkProduction)?MilkProductionId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Milk Production </a>
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@
                         "className": "dt-center",
                         "orderable": false,
                         "render": function (data, type, row, meta) {
-                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMilkProductionById, ControllerHelper.MilkProduction)?MilkProductionID=' + row.MilkProductionID+'" title="Edit Milk Production"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
+                            @*var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.ge, ControllerHelper.MilkProduction)?MilkProductionID=' + row.MilkProductionID+'" title="Edit Milk Production"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';*@
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Milk Production" onclick="deleteMilkProductionClick(' + row.MilkProductionID+')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;

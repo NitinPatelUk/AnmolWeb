@@ -31,7 +31,7 @@ namespace _Anmol.Common
         public const string GetMedicalList = "GetMedicalList";
         public const string SaveMedical = "SaveMedical";
         public const string DeleteMedical = "DeleteMedical";
-        public const string GetMilkProductionById = "GetMilkProductionById";
+        public const string AddUpdateMilkProduction = "AddUpdateMilkProduction";
         public const string GetMilkProductionList = "GetMilkProductionList";
         public const string SaveMilkProduction = "SaveMilkProduction";
         public const string DeleteMilkProduction = "DeleteMilkProduction";

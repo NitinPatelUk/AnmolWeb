@@ -1,10 +1,9 @@
 ﻿using _Anmol.Common;
 using _Anmol.Entity;
+using _Anmol.WebApi.Auth;
 using _Anmol.WebApp.Common;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,6 +19,7 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
+        [JwtAuthentication]
         public async Task<ActionResult> GetMedicalList(string name, string Heading, string Doctor, int? MedicalID)
         {
             var result = new ApiResponse<MedicalModel>();
@@ -35,7 +35,7 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-
+        [JwtAuthentication]
         public async Task<ActionResult> GetMedicalById(int MedicalID)
         {
             ViewBag.CowList = DataSourceHelper.GetAllCowList();
@@ -63,6 +63,7 @@ namespace _Anmol.WebApp.Controllers
         }
 
         [HttpPost]
+        [JwtAuthentication]
         public async Task<ActionResult> SaveMedical(MedicalModel model)
         {
             try

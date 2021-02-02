@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using _Anmol.Common;
+using _Anmol.Entity;
+using _Anmol.WebApp.Common;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using _Anmol.WebApp.Common;
-using _Anmol.Common;
-using _Anmol.Entity;
-using _Anmol.Service;
 
 namespace _Anmol.WebApp.Controllers
 {

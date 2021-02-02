@@ -28,6 +28,21 @@ namespace _Anmol.WebApp.Controllers
                 return RedirectToAction(ActionHelper.Index, ControllerHelper.MilkProduction);
             }
         }
+        public async Task<ActionResult> AddUpdateMilkProduction()
+        {
+            var result = new ApiResponse<CowModel>();
+            var uri = "GetMilkableCowList";
+            result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
+            if (result.Success)
+            {
+                return View(ViewHelper.AddUpdateMilkProduction,result);
+            }
+            else
+            {
+                return RedirectToAction(ActionHelper.Index, ControllerHelper.Cow);
+            }
+        }
+
 
     }
 }
