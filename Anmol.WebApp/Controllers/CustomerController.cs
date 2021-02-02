@@ -1,8 +1,8 @@
 ﻿using _Anmol.Common;
 using _Anmol.Entity;
-using _Anmol.WebApi.Auth;
 using _Anmol.WebApp.Common;
 using System;
+
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -16,7 +16,6 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        [JwtAuthentication]
         public async Task<ActionResult> GetCustomerList(string name, int? Zipcode, string ContactNumber, string CustAddress)
         {
             var result = new ApiResponse<CustomerModel>();
@@ -32,7 +31,6 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        [JwtAuthentication]
         public async Task<ActionResult> GetCustomerById(int CustId)
         {
             var model = new CustomerModel();
@@ -59,7 +57,6 @@ namespace _Anmol.WebApp.Controllers
         }
 
         [HttpPost]
-        [JwtAuthentication]
         public async Task<ActionResult> SaveCustomer(CustomerModel model)
         {
             try
@@ -93,7 +90,6 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        [JwtAuthentication]
         public async Task<ActionResult> DeleteCustomer(int CustId = 0)
         {
             CustomerModel model = new CustomerModel();

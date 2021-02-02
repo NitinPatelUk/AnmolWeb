@@ -1,6 +1,5 @@
 ﻿using _Anmol.Common;
 using _Anmol.Entity;
-using _Anmol.WebApi.Auth;
 using _Anmol.WebApp.Common;
 using System;
 using System.IO;
@@ -18,7 +17,6 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        [JwtAuthentication]
         public async Task<ActionResult> GetCowList(string name, int? CowId)
         {
             var result = new ApiResponse<CowModel>();
@@ -34,8 +32,8 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        [JwtAuthentication]
-        public async Task<ActionResult> GetCowById(int CowId)
+
+            public async Task<ActionResult> GetCowById(int CowId)
             {
                 ViewBag.BullList = DataSourceHelper.GetBullList();
                 ViewBag.CowList = DataSourceHelper.GetCowList();
@@ -63,7 +61,6 @@ namespace _Anmol.WebApp.Controllers
         }
 
         [HttpPost]
-        [JwtAuthentication]
         public async Task<ActionResult> SaveCow(CowModel model)
         {
             try
@@ -129,7 +126,6 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        [JwtAuthentication]
         public async Task<ActionResult> DeleteCow(int CowId = 0)
         {
             CowModel model = new CowModel();
