@@ -97,5 +97,23 @@ namespace _Anmol.Service
             }
             return response;
         }
+        public ApiResponse<MilkProductionModel> GetMilkableCowList()
+        {
+            ApiResponse<MilkProductionModel> response = new ApiResponse<MilkProductionModel>();
+            try
+            {
+                GenericRepository<MilkProductionModel> objGenericRepository = new GenericRepository<MilkProductionModel>();
+                var result = objGenericRepository.QuerySQL<MilkProductionModel>("SP_GetMilkableCowList");
+                response.Data = result.ToList();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message.Add(ex.Message);
+                response.Success = false;
+            }
+            return response;
+        }
     }
 }

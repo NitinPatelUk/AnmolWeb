@@ -29,5 +29,19 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
+        public async Task<ActionResult> AddUpdateMilkProduction()
+        {
+            var result = new ApiResponse<MilkProductionModel>();
+            var uri = "GetMilkableCowList";
+            result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
+            if (result.Success)
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return RedirectToAction(ActionHelper.Index, ControllerHelper.MilkProduction);
+            }
+        }
     }
 }

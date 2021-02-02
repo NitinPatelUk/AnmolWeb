@@ -25,10 +25,6 @@ namespace _Anmol.Entity
         public bool IsMilkable { get; set; }
         [Required(ErrorMessage = "Gender is required.")]
         public string gender { get; set; }
-        public string ModifiedBy { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
-        public DateTime CreatedOn { get; set; }
         public string LoggedinUserName { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
     }

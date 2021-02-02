@@ -41,5 +41,11 @@ namespace _Anmol.WebApi.Controllers
         {
             return _milkproductionService.GetMilkProductionList(name, CowId, MilkingDate, MilkingTime);
         }
+
+        [Route ("GetMilkableCowList")]
+        public ApiResponse<MilkProductionModel> GetMilkableCowList()
+        {
+            return _milkproductionService.GetMilkableCowList();
+        }
     }
 }

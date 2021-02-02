@@ -1,0 +1,59 @@
+﻿@using _Anmol.Common;
+@model IEnumerable< _Anmol.Entity.MilkProductionModel>
+@{
+    ViewBag.Title = "Add Milk Production";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<body>
+<h1>HELLO!!!!!!!!!!!!</h1>
+</body>
+</html>
+
+@*<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Medical List</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.MilkProduction)">Medical List</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>Add Update New Milk Production</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(ActionHelper.SaveMedical, ControllerHelper.Medical, FormMethod.Post, new { @id = "formAddEditMedical", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Milk Production Details</h5>
+                </div>
+                <div class="ibox-content">
+                    <table>
+                        @foreach (var item in Model) 
+                        {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.CowID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CowName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MilkQty)</td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right pb-5">
+            <button class="btn btn-primary" type="submit" id="btnMedicalSave" onclick="return checkvalidation();">Save</button>
+            <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+        </div>
+    </div>
+}*@
