@@ -1,59 +1,136 @@
 ﻿@using _Anmol.Common;
-@model IEnumerable< _Anmol.Entity.MilkProductionModel>
+@model _Anmol.Entity.MilkProductionModel
 @{
     ViewBag.Title = "Add Milk Production";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<body>
-<h1>HELLO!!!!!!!!!!!!</h1>
-</body>
-</html>
+<style>
+    .dataTables_filter input {
+        outline: 0;
+        width: 200px;
+        padding: 7px 12px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
 
-@*<div class="wrapper border-bottom white-bg page-heading">
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+<div class="wrapper border-bottom white-bg page-heading">
     <div class="row">
-        <div class="col-sm-12">
-            <h2>Medical List</h2>
+        <div class="col-sm-8">
+            <h2><b>Add Milk Production</b></h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.MilkProduction)">Medical List</a>
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.MilkProduction)">Milk Production List</a>
                 </li>
-                <li class="breadcrumb-item active">
-                    <strong>Add Update New Milk Production</strong>
+                <li class="breadcrumb-item">
+                    <strong>Add Milk Production</strong>
                 </li>
             </ol>
         </div>
     </div>
 </div>
-@using (Html.BeginForm(ActionHelper.SaveMedical, ControllerHelper.Medical, FormMethod.Post, new { @id = "formAddEditMedical", @class = "form-horizontal", enctype = "multipart/form-data" }))
-{
-    <div class="row">
-        <div class="col-md-12 pt-2">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Milk Production Details</h5>
-                </div>
-                <div class="ibox-content">
-                    <table>
-                        @foreach (var item in Model) 
-                        {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.CowID)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CowName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MilkQty)</td>
-                        </tr>
-                        }
-                    </table>
+<div class="content">
+    @using (Html.BeginForm(ActionHelper.SaveMilkProduction, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "frmUserRole" }))
+    {
+        @Html.HiddenFor(x=>x.StrCowList)
+        <div class="ibox">
+            <div class="ibox-content" style="display: grid;">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label>Date</label>
+                        @Html.TextBoxFor(x=>x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", id = "MilkingDate" })
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Time</label>
+                        @*@Html.TextBox("CowID", null, new { @class = "form-control" })*@
+                        @Html.DropDownListFor(x => x.MilkingTime, new List<SelectListItem> {
+                                            new SelectListItem { Text = "Morning", Value = "Morning" },
+                                            new SelectListItem { Text = "Evening", Value = "Evening" }, },
+                        new { @class = "form-control", id = "MilkTime" })
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 text-right pb-5">
-            <button class="btn btn-primary" type="submit" id="btnMedicalSave" onclick="return checkvalidation();">Save</button>
-            <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                <div class="col-lg-12" style="padding:0px;border:1px solid #e5e5e5; min-height:100px; padding:20px;">
+                    <table width="100%" class="tblMenu">
+                        <thead>
+                            <tr>
+                                <th align="center">CowId</th>
+                                <th align="center">CowName</th>
+                                <th align="center">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{var count = 0;}
+                            @foreach (var obj in Model.CowList)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <td align="center">
+                                        <span id="CowId_@count">@obj.CowID</span>
+                                        
+                                    </td>
+                                    <td align="left">
+                                        @obj.CowName
+                                    </td>
+                                    <td align="left">
+                                        <input id="QTY_@count" name="QTY_@obj.CowID" type="number" placeholder="0.0" class="form-control" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 mt-5 text-right pb-5">
+                    <button class="btn btn-primary" type="submit" id="btnMilkProductionSave" onclick="checkvalidation()">Save</button>
+                    <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+                </div>
+            </div>
         </div>
-    </div>
-}*@
+    }
+</div>
+
+
+<script type="text/javascript">
+    function CancelClick() {
+            window.location.href = "@Url.Action(ActionHelper.Index, ControllerHelper.MilkProduction)";
+    }
+    function checkvalidation() {
+        var cowList = [];
+        $('.tblMenu  > tbody > tr').each(function (index, tr) {
+            index = index + 1;
+            var cowId = $("#CowId_" + index).text();
+            var qtyVal = $("#QTY_" + index).val();
+            cowList.push({
+                CowID: cowId,
+                CowName: "Test1",
+                MilkQty: qtyVal
+            });
+        });
+        console.log(cowList);
+        $("#StrCowList").val(JSON.stringify(cowList));
+        
+    }
+
+
+</script>

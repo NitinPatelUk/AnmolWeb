@@ -55,14 +55,22 @@ namespace _Anmol.Service
             ApiResponse<MilkProductionModel> response = new ApiResponse<MilkProductionModel>();
             try
             {
+                DataTable dtTable = new DataTable("CowQTYModel");
+                dtTable.Columns.Add("CowID");
+                dtTable.Columns.Add("MilkQty");
+                foreach (var item in model.CowQTYList)
+                {
+                    DataRow dtRow = dtTable.NewRow();
+                    dtRow["CowID"] = item.CowID;
+                    dtRow["MilkQty"] = item.MilkQty;
+                    dtTable.Rows.Add(dtRow);
+                }
                 GenericRepository<MilkProductionModel> objGenericRepository = new GenericRepository<MilkProductionModel>();
-
                 var result = objGenericRepository.QuerySQL<MilkProductionModel>("SP_AddEditMilkProduction",
-                    Utility.GetSQLParam("CowId", SqlDbType.Int, (object)model.CowID ?? DBNull.Value),
                     Utility.GetSQLParam("MilkingDate", SqlDbType.DateTime, (object)model.MilkingDate ?? DBNull.Value),
                     Utility.GetSQLParam("MilkingTime", SqlDbType.VarChar, (object)model.MilkingTime ?? DBNull.Value),
-                    Utility.GetSQLParam("MilkQty", SqlDbType.Decimal, (object)model.MilkQty ?? DBNull.Value),
-                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)
+                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value),
+                    Utility.GetSQLParam("CowQTYModel", SqlDbType.Structured, dtTable, "dbo.MilkQTY")
                    );
                 response.Data = result.ToList();
                 response.Success = true;

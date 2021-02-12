@@ -1,9 +1,13 @@
 ﻿using _Anmol.Common;
 using _Anmol.Entity;
 using _Anmol.WebApp.Common;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace _Anmol.WebApp.Controllers
 {
@@ -14,7 +18,7 @@ namespace _Anmol.WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId,DateTime? MilkingDate,string MilkingTime)
+        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, DateTime? MilkingDate, string MilkingTime)
         {
             var result = new ApiResponse<MilkProductionModel>();
             var uri = "GetMilkProductionList?name=" + name + "&cowId=" + CowId + "&MilkingDate=" + MilkingDate + "&MilkingTime=" + MilkingTime;
@@ -29,19 +33,34 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult> AddUpdateMilkProduction()
+        public async Task<ActionResult> AddEditMilkProduction()
         {
+            //List<MilkProductionModel> CowList = new List<MilkProductionModel>();
+            MilkProductionModel model = new MilkProductionModel();
             var result = new ApiResponse<MilkProductionModel>();
             var uri = "GetMilkableCowList";
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
-            if (result.Success)
+            model.CowList = result.Data.ToList();
+            model.MilkingDate = DateTime.Today;
+            return View(ViewHelper.AddUpdateMilkProduction, model);
+        }
+        public async Task<ActionResult> SaveMilkProduction(MilkProductionModel model)
+        {
+            try
             {
-                return Json(result, JsonRequestBehavior.AllowGet);
+                model.LoggedinUserName = SessionHelper.LoggedInUserName;
+                model.CowQTYList = JsonConvert.DeserializeObject < List<CowQTYModel>>(model.StrCowList);          
+                var response = new ApiResponse<MilkProductionModel>();
+                var url = "SaveMilkProduction";
+                response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MilkProductionModel>, MilkProductionModel>(model, url, SessionHelper.AuthToken);
+                return RedirectToAction("Index", ControllerHelper.MilkProduction);
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction(ActionHelper.Index, ControllerHelper.MilkProduction);
+                Console.WriteLine(ex);
+                throw;
             }
+
         }
     }
 }
