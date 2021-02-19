@@ -47,5 +47,10 @@ namespace _Anmol.WebApi.Controllers
         {
             return _milkproductionService.GetMilkableCowList();
         }
+        [Route("SaveMilkProductionByID")]
+        public ApiResponse<MilkProductionModel> SaveMilkProductionByID(MilkProductionModel model)
+        {
+            return _milkproductionService.SaveMilkProductionByID(model);
+        }
     }
 }

@@ -105,6 +105,27 @@ namespace _Anmol.Service
             }
             return response;
         }
+        public ApiResponse<MilkProductionModel> SaveMilkProductionByID(MilkProductionModel model)
+        {
+            ApiResponse<MilkProductionModel> response = new ApiResponse<MilkProductionModel>();
+            try
+            { 
+                GenericRepository<MilkProductionModel> objGenericRepository = new GenericRepository<MilkProductionModel>();
+                var result = objGenericRepository.QuerySQL<MilkProductionModel>("SP_AddEditMilkProductionById",
+                    Utility.GetSQLParam("MilkProductionID", SqlDbType.Int, (object)model.MilkProductionID ?? DBNull.Value),
+                    Utility.GetSQLParam("MilkQty", SqlDbType.Decimal, (object)model.MilkQty ?? DBNull.Value),
+                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)               
+                    );
+                response.Data = result.ToList();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message.Add(ex.Message);
+                response.Success = false;
+            }
+            return response;
+        }
         public ApiResponse<MilkProductionModel> GetMilkableCowList()
         {
             ApiResponse<MilkProductionModel> response = new ApiResponse<MilkProductionModel>();
