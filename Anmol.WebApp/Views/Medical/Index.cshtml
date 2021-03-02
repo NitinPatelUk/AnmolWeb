@@ -168,8 +168,8 @@
                         "className": "dt-center",
                         "orderable": false,
                         "render": function (data, type, row, meta) {
-                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMedicalById, ControllerHelper.Medical)?MedicalId=' + row.MedicalID+'" title="Edit Medical Detail"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
-                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Medical Detail" onclick="deleteMedicalClick(' + row.MedicalID+')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
+                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMedicalById, ControllerHelper.Medical)?MedicalId=' + row.MedicalID + '" title="Edit Medical Detail"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
+                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Medical Detail" onclick="deleteMedicalClick(\'' + row.MedicalID + '\',\''+ row.ReportPath+'\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;
                             return result;
@@ -187,14 +187,18 @@
         }
     }
 
-    function deleteMedicalClick(MedicalID) {
+    function deleteMedicalClick(MedicalID, ReportPath) {
+        debugger;
         bootbox.confirm("Are you sure you want to delete this record?", function (result) {
             if (result) {
                 $.ajax({
                     url: '@Url.Action(ActionHelper.DeleteMedical, ControllerHelper.Medical)',
                     async: false,
                     type: 'POST',
-                    data: { MedicalId: MedicalID },
+                    data: {
+                        MedicalId: MedicalID,
+                        ReportPath: ReportPath
+                    },
                     success: function (data) {
                         if (data.Flag) {
                             BindMedicalGrid();

@@ -126,5 +126,17 @@ namespace _Anmol.WebApp.Controllers
                 throw;
             }
         }
+        public async Task<ActionResult> DeleteMedical(int MedicalId,string ReportPath) 
+        {
+            MedicalModel model = new MedicalModel();
+            if (ReportPath != null)
+                System.IO.File.Delete(ReportPath);
+
+            model.MedicalID = MedicalId;
+            var uri = "DeleteMedical";
+            var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MedicalModel>, MedicalModel>(model, uri, SessionHelper.AuthToken);
+            await DataSourceHelper.SaveAuditTrail("Delete Medical", "Delete");
+            return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

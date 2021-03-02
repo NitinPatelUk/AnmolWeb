@@ -92,7 +92,7 @@ namespace _Anmol.Service
             {
                 GenericRepository<MedicalModel> objGenericRepository = new GenericRepository<MedicalModel>();
                 var result = objGenericRepository.ExecuteSQL<int>("SP_DeleteMedical",
-                    Utility.GetSQLParam("MedicalID", SqlDbType.Int, (object)model.MedicalID ?? DBNull.Value));
+                    Utility.GetSQLParam("MedicalID", SqlDbType.Int, (object)model.MedicalID?? DBNull.Value));
                 if (result.FirstOrDefault() > 0)
                 {
                     response.Success = true;

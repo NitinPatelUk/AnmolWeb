@@ -54,6 +54,14 @@
                         <label>ID</label>
                         @Html.TextBox("CowID", null, new { @class = "form-control" })
                     </div>
+                    <div class="col-md-3 form-group">
+                        <label>Father Name</label>
+                        @Html.DropDownList("FatherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Mother Name</label>
+                        @Html.DropDownList("MotherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.CowList, "Value", "Text"), "--- Select Mother ---", new { @class = "form-control" })
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
@@ -93,12 +101,15 @@
         BindCowGrid();
     });
     function BindCowGrid() {
+        debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetCowList, ControllerHelper.Cow)'),
             type: "GET",
             data: {
                 name: $('#CowName').val(),
-                CowID: $('#CowID').val()
+                CowID: $('#CowID').val(),
+                fatherid: $('#FatherID').val(),
+                motherid: $('#MotherID').val()
             },
             dataType: "json",
             success: GetData
@@ -199,6 +210,8 @@
     function ClearSearchData() {
         $("#CowName").val("");
         $("#CowID").val("");
+        $("#FatherID").val("");
+        $('#MotherID').val("");
         BindCowGrid();
     }
 </script>
