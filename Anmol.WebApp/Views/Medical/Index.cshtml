@@ -46,12 +46,12 @@
             <div class="ibox-content" style="display: none;">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Name</label>
+                        <label>Cow Name</label>
                         @Html.TextBox("CowName", null, new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>MedicalID</label>
-                        @Html.TextBox("MedicalID", null, new { @class = "form-control" })
+                        <label>Cow ID</label>
+                        @Html.TextBox("CowID", null, new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Doctor</label>
@@ -109,7 +109,7 @@
                 name: $('#CowName').val(),
                 Heading: $('#Heading').val(),
                 Doctor: $('#Doctor').val(),
-                medicalID: $('#MedicalID').val()
+                cowID: $('#CowID').val()
             },
             dataType: "json",
             success: GetData
@@ -216,7 +216,7 @@
     function ClearSearchData() {
         $("#CowName").val("");
         $("#Doctor").val("");
-        $("#MedicalID").val("");
+        $("#CowID").val("");
         $('#Heading').val("")
         BindMedicalGrid();
     }

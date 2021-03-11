@@ -12,7 +12,7 @@ namespace _Anmol.Service
 {
     public class MedicalService
     {
-        public ApiResponse<MedicalModel> GetMedicalList(string name, string Heading, string Doctor, int? MedicalID)
+        public ApiResponse<MedicalModel> GetMedicalList(string name, string Heading, string Doctor, int? CowId)
         {
             ApiResponse<MedicalModel> response = new ApiResponse<MedicalModel>();
             try
@@ -21,7 +21,7 @@ namespace _Anmol.Service
                 var result = objGenericRepository.QuerySQL<MedicalModel>("SP_GetMedicalList", Utility.GetSQLParam("Name", SqlDbType.VarChar, (object)name ?? DBNull.Value)
                                                                                       , Utility.GetSQLParam("Heading", SqlDbType.VarChar, (object)Heading ?? DBNull.Value)
                                                                                       , Utility.GetSQLParam("Doctor", SqlDbType.VarChar, (object)Doctor ?? DBNull.Value)
-                                                                                      , Utility.GetSQLParam("MedicalID", SqlDbType.Int, (object)MedicalID ?? DBNull.Value));
+                                                                                      , Utility.GetSQLParam("CowId", SqlDbType.Int, (object)CowId ?? DBNull.Value));
                 response.Data = result.ToList();
                 response.Success = true;
             }

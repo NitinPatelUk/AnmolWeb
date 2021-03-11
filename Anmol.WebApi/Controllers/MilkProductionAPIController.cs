@@ -37,7 +37,7 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetMilkProductionList")]
-        public ApiResponse<MilkProductionModel> GetMilkProductionList(string name, int? CowId,DateTime? MilkingDate, string MilkingTime)
+        public ApiResponse<MilkProductionModel> GetMilkProductionList(string name, int? CowId, string MilkingDate, string MilkingTime)
         {
             return _milkproductionService.GetMilkProductionList(name, CowId, MilkingDate, MilkingTime);
         }

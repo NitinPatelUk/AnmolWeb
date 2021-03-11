@@ -83,7 +83,7 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<MilkProductionModel> GetMilkProductionList(string name, int? cowId, DateTime? milkingDate, string milkingTime)
+        public ApiResponse<MilkProductionModel> GetMilkProductionList(string name, int? cowId, string milkingDate, string milkingTime)
         {
             ApiResponse<MilkProductionModel> response = new ApiResponse<MilkProductionModel>();
             try
@@ -93,7 +93,7 @@ namespace _Anmol.Service
                     , Utility.GetSQLParam("name", SqlDbType.VarChar, (object)name ?? DBNull.Value)
                     , Utility.GetSQLParam("CowId", SqlDbType.Int, (object)cowId ?? DBNull.Value)
                     , Utility.GetSQLParam("milkingTime", SqlDbType.VarChar, (object)milkingTime ?? DBNull.Value)
-                    , Utility.GetSQLParam("milkingDate", SqlDbType.Int, (object)milkingDate ?? DBNull.Value));
+                    , Utility.GetSQLParam("milkingDate", SqlDbType.VarChar, (object)milkingDate ?? DBNull.Value));
                 response.Data = result.ToList();
                 response.Success = true;
             }

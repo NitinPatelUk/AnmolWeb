@@ -19,7 +19,9 @@ namespace _Anmol.WebApp.Controllers
         public async Task<ActionResult> GetCustomerList(string name, int? Zipcode, string ContactNumber, string CustAddress)
         {
             var result = new ApiResponse<CustomerModel>();
-            var uri = "GetCustomerList?name=" + name + "&zipcode=" + Zipcode + "&contactnumber" + ContactNumber + "&custaddress" + CustAddress;
+            if (ContactNumber != null)
+                ContactNumber = ContactNumber.ToString();
+            var uri = "GetCustomerList?name=" + name + "&zipcode=" + Zipcode + "&contactnumber=" + ContactNumber + "&custaddress=" + CustAddress;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {

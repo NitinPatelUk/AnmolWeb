@@ -17,7 +17,7 @@ namespace _Anmol.WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, DateTime? MilkingDate, string MilkingTime)
+        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, string MilkingDate, string MilkingTime)
         {
             var result = new ApiResponse<MilkProductionModel>();
             var uri = "GetMilkProductionList?name=" + name + "&cowId=" + CowId + "&MilkingDate=" + MilkingDate + "&MilkingTime=" + MilkingTime;

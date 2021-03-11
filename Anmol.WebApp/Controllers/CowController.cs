@@ -41,7 +41,7 @@ namespace _Anmol.WebApp.Controllers
         }
 
 
-            public async Task<ActionResult> GetCowById(int CowId)
+        public async Task<ActionResult> GetCowById(int CowId)
             {
                 ViewBag.BullList = DataSourceHelper.GetBullList();
                 ViewBag.CowList = DataSourceHelper.GetCowList();
@@ -96,7 +96,9 @@ namespace _Anmol.WebApp.Controllers
                     {
                         if (model.ImagePath != null)
                         {
-                            System.IO.File.Delete(model.ImagePath);
+                            string path = @model.ImagePath;
+                            if (System.IO.File.Exists(path))
+                                System.IO.File.Delete(model.ImagePath);
                             string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
                             string filePath = Path.Combine(imageFolderName, fileName);
                             files.SaveAs(filePath);
@@ -142,10 +144,14 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult> DeleteCow(int CowId = 0)
+        public async Task<ActionResult> DeleteCow(string ImageName,int CowId = 0)
         {
             CowModel model = new CowModel();
             model.CowID = CowId;
+            string imageFolderName = Server.MapPath(ConfigItems.CowImagePath);
+            string filename = ImageName;
+            string filePath = Path.Combine(imageFolderName, filename);
+            System.IO.File.Delete(filePath);
             var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<CowModel>, CowModel>(model, "DeleteCow", SessionHelper.AuthToken);
             await DataSourceHelper.SaveAuditTrail("Delete Cow", "Delete");
             return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);

@@ -22,9 +22,9 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetMedicalList")]
-        public ApiResponse<MedicalModel> GetMedicalList(string name, string Heading, string Doctor, int? MedicalID)
+        public ApiResponse<MedicalModel> GetMedicalList(string name, string Heading, string Doctor, int? CowId)
         {
-            return _medicalService.GetMedicalList(name, Heading, Doctor, MedicalID);
+            return _medicalService.GetMedicalList(name, Heading, Doctor, CowId);
         }
 
         [Route("GetMedicalById")]

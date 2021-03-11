@@ -20,10 +20,10 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        public async Task<ActionResult> GetMedicalList(string name, string Heading, string Doctor, int? MedicalID)
+        public async Task<ActionResult> GetMedicalList(string name, string Heading, string Doctor, int? CowId)
         {
             var result = new ApiResponse<MedicalModel>();
-            var uri = "GetMedicalList?name=" + name + "&Heading" + Heading + "&Doctor=" + Doctor + "&medicalId=" + MedicalID ;
+            var uri = "GetMedicalList?name=" + name + "&Heading=" + Heading + "&Doctor=" + Doctor + "&cowId=" + CowId;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {

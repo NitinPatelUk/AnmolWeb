@@ -145,13 +145,14 @@
         BindMilkProductionGrid();
     });
     function BindMilkProductionGrid() {
+        debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetMilkProductionList, ControllerHelper.MilkProduction)'),
             type: "GET",
             data: {
                 name: $('#CowName').val(),
                 CowID: $('#CowID').val(),
-                MilkDate: $('#MilkingDate').val(),
+                MilkingDate: $('#MilkingDate').val(),
                 MilkingTime: $('#MilkingTime').val(),
             },
             dataType: "json",
