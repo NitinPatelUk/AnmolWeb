@@ -35,7 +35,6 @@ namespace _Anmol.WebApp.Controllers
 
         public async Task<ActionResult> AddEditMilkProduction()
         {
-            //List<MilkProductionModel> CowList = new List<MilkProductionModel>();
             MilkProductionModel model = new MilkProductionModel();
             var result = new ApiResponse<MilkProductionModel>();
             var uri = "GetMilkableCowList";
