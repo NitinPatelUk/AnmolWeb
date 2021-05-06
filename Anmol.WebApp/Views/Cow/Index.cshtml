@@ -54,6 +54,14 @@
                         <label>ID</label>
                         @Html.TextBox("CowID", null, new { @class = "form-control" })
                     </div>
+                    <div class="col-md-3 form-group">
+                        <label>Father Name</label>
+                        @Html.DropDownList("FatherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Mother Name</label>
+                        @Html.DropDownList("MotherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.CowList, "Value", "Text"), "--- Select Mother ---", new { @class = "form-control" })
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
@@ -93,12 +101,15 @@
         BindCowGrid();
     });
     function BindCowGrid() {
+        debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetCowList, ControllerHelper.Cow)'),
             type: "GET",
             data: {
                 name: $('#CowName').val(),
-                CowID: $('#CowID').val()
+                CowID: $('#CowID').val(),
+                fatherid: $('#FatherID').val(),
+                motherid: $('#MotherID').val()
             },
             dataType: "json",
             success: GetData
@@ -157,7 +168,7 @@
                         "orderable": false,
                         "render": function (data, type, row, meta) {
                             var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=' + row.CowID+'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
-                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Cow" onclick="deleteCowClick('+row.CowID+')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
+                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Cow" onclick="deleteCowClick(\'' + row.CowID + '\',\'' + row.ImageName + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;
                             return result;
@@ -174,14 +185,18 @@
         }
     }
 
-    function deleteCowClick(CowID) {
+    function deleteCowClick(CowID, ImageName) {
+        debugger;
         bootbox.confirm("Are you sure you want to delete this record?", function (result) {
             if (result) {
                 $.ajax({
                     url: '@Url.Action(ActionHelper.DeleteCow, ControllerHelper.Cow)',
                     async: false,
                     type: 'POST',
-                    data: { CowId: CowID },
+                    data: {
+                        CowId: CowID,
+                        ImageName: ImageName
+                    },
                     success: function (data) {
                         if (data.Flag) {
                             BindCowGrid();
@@ -199,6 +214,8 @@
     function ClearSearchData() {
         $("#CowName").val("");
         $("#CowID").val("");
+        $("#FatherID").val("");
+        $('#MotherID').val("");
         BindCowGrid();
     }
 </script>

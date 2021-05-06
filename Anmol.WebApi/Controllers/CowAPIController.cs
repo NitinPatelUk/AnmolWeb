@@ -42,9 +42,9 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetCowList")]
-        public ApiResponse<CowModel> GetCowList(string name, int? CowId,int gen)
+        public ApiResponse<CowModel> GetCowList(string Name, int? CowId,int gen,int? FatherId,int? MotherId)
         {
-            return _cowService.GetCowList(name, CowId, gen);
+            return _cowService.GetCowList(Name, CowId, gen, FatherId, MotherId);
         }
     }
 }

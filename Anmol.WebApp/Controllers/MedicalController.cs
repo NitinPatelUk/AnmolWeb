@@ -20,10 +20,10 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        public async Task<ActionResult> GetMedicalList(string name, string Heading, string Doctor, int? MedicalID)
+        public async Task<ActionResult> GetMedicalList(string name, string Heading, string Doctor, int? CowId)
         {
             var result = new ApiResponse<MedicalModel>();
-            var uri = "GetMedicalList?name=" + name + "&Heading" + Heading + "&Doctor=" + Doctor + "&medicalId=" + MedicalID ;
+            var uri = "GetMedicalList?name=" + name + "&Heading=" + Heading + "&Doctor=" + Doctor + "&cowId=" + CowId;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {
@@ -125,6 +125,18 @@ namespace _Anmol.WebApp.Controllers
                 Console.WriteLine(ex);
                 throw;
             }
+        }
+        public async Task<ActionResult> DeleteMedical(int MedicalId,string ReportPath) 
+        {
+            MedicalModel model = new MedicalModel();
+            if (ReportPath != null)
+                System.IO.File.Delete(ReportPath);
+
+            model.MedicalID = MedicalId;
+            var uri = "DeleteMedical";
+            var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MedicalModel>, MedicalModel>(model, uri, SessionHelper.AuthToken);
+            await DataSourceHelper.SaveAuditTrail("Delete Medical", "Delete");
+            return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);
         }
     }
 }

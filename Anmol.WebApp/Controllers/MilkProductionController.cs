@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace _Anmol.WebApp.Controllers
 {
@@ -18,7 +17,7 @@ namespace _Anmol.WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, DateTime? MilkingDate, string MilkingTime)
+        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, string MilkingDate, string MilkingTime)
         {
             var result = new ApiResponse<MilkProductionModel>();
             var uri = "GetMilkProductionList?name=" + name + "&cowId=" + CowId + "&MilkingDate=" + MilkingDate + "&MilkingTime=" + MilkingTime;
@@ -48,7 +47,7 @@ namespace _Anmol.WebApp.Controllers
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
-                model.CowQTYList = JsonConvert.DeserializeObject < List<CowQTYModel>>(model.StrCowList);          
+                model.CowQTYList = JsonConvert.DeserializeObject<List<CowQTYModel>>(model.StrCowList);
                 var response = new ApiResponse<MilkProductionModel>();
                 var url = "SaveMilkProduction";
                 response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MilkProductionModel>, MilkProductionModel>(model, url, SessionHelper.AuthToken);
@@ -60,6 +59,49 @@ namespace _Anmol.WebApp.Controllers
                 throw;
             }
 
+        }
+        public async Task<ActionResult> DeleteMilkProduction(int MilkProductionId = 0)
+        {
+            MilkProductionModel model = new MilkProductionModel();
+            model.MilkProductionID = MilkProductionId;
+            var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MilkProductionModel>, MilkProductionModel>(model, "DeleteMilkProduction", SessionHelper.AuthToken);
+            await DataSourceHelper.SaveAuditTrail("Delete Cow", "Delete");
+            return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);
+        }
+        public async Task<ActionResult> SaveMilkProductionByID(MilkProductionModel model) {
+            try
+            {
+                model.LoggedinUserName = SessionHelper.LoggedInUserName;
+                var response = new ApiResponse<MilkProductionModel>();
+                var url = "SaveMilkProductionByID";
+                response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<MilkProductionModel>, MilkProductionModel>(model, url, SessionHelper.AuthToken);
+                return RedirectToAction("Index", ControllerHelper.MilkProduction);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+        public async Task<ActionResult> GetMilkProductionById(int MilkProductionId = 0)
+         {
+            MilkProductionModel model = new MilkProductionModel();
+            var result = new ApiPostResponse<MilkProductionModel>();
+            var uri = "GetMilkProductionById?milkproductionid=" + MilkProductionId;
+            result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
+            if (result.Success)
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return RedirectToAction(ActionHelper.Index, ControllerHelper.MilkProduction);
+            }
+        }
+
+        private ActionResult JsonArrayAttribute(ApiResponse<MilkProductionModel> result, JsonRequestBehavior allowGet)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -32,7 +32,7 @@
 @using (Html.BeginForm(ActionHelper.SaveCow, ControllerHelper.Cow, FormMethod.Post, new { @id = "formAddEditCow", @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.CowID, "CowID");
-    @Html.HiddenFor(model => model.ImageName);
+    @Html.HiddenFor(model => model.ImageName, "ImageName");
     @Html.HiddenFor(model => model.ImagePath);
     <div class="row">
         <div class="col-md-12 pt-2">
@@ -152,6 +152,7 @@
             $('.img-circle').attr('src', e.target.result);
         }
         reader.readAsDataURL(files[0]);
-        $(".custom-file-label").html(name);      
+        $(".custom-file-label").html(name);
+        $("ImageName").html(name);
     });
 </script>

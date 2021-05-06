@@ -13,14 +13,22 @@ namespace _Anmol.WebApp.Controllers
         // GET: Cow
         public ActionResult Index()
         {
+            ViewBag.BullList = DataSourceHelper.GetBullList();
             ViewBag.CowList = DataSourceHelper.GetCowList();
+            ViewBag.GetAllCowList = DataSourceHelper.GetAllCowList();
             return View();
         }
 
-        public async Task<ActionResult> GetCowList(string name, int? CowId)
+        public async Task<ActionResult> GetCowList(string name, int? CowId, string fatherid, string motherid)
         {
+            int FatherId=0;
+            int MotherId=0;
+            if (fatherid !="")
+                FatherId = int.Parse(fatherid);
+            if(motherid !="")
+                MotherId = int.Parse(motherid);
             var result = new ApiResponse<CowModel>();
-            var uri = "GetCowList?name=" + name + "&cowId=" + CowId +"&gen=0";
+            var uri = "GetCowList?name=" + name + "&cowId=" + CowId + "&gen=0&FatherId=" + FatherId + "&MotherId=" + MotherId;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {
@@ -33,7 +41,7 @@ namespace _Anmol.WebApp.Controllers
         }
 
 
-            public async Task<ActionResult> GetCowById(int CowId)
+        public async Task<ActionResult> GetCowById(int CowId)
             {
                 ViewBag.BullList = DataSourceHelper.GetBullList();
                 ViewBag.CowList = DataSourceHelper.GetCowList();
@@ -46,7 +54,11 @@ namespace _Anmol.WebApp.Controllers
                     if (result.Data != null)
                     {
                         model = result.Data;
-                    }
+                        if(model.FatherID!=null)
+                            model.FatherName = result.Data.FatherID.ToString();
+                        if (model.MotherID != null)
+                            model.MotherName = result.Data.MotherID.ToString();
+                }
                     else
                     {
                         TempData["Error"] = "Somthing went wrong.";
@@ -63,6 +75,10 @@ namespace _Anmol.WebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> SaveCow(CowModel model)
         {
+            if (model.FatherName != null)
+                model.FatherID = int.Parse(model.FatherName);
+            if (model.MotherName != null)
+                model.MotherID = int.Parse(model.MotherName);
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
@@ -80,7 +96,9 @@ namespace _Anmol.WebApp.Controllers
                     {
                         if (model.ImagePath != null)
                         {
-                            System.IO.File.Delete(model.ImagePath);
+                            string path = @model.ImagePath;
+                            if (System.IO.File.Exists(path))
+                                System.IO.File.Delete(model.ImagePath);
                             string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
                             string filePath = Path.Combine(imageFolderName, fileName);
                             files.SaveAs(filePath);
@@ -126,10 +144,14 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult> DeleteCow(int CowId = 0)
+        public async Task<ActionResult> DeleteCow(string ImageName,int CowId = 0)
         {
             CowModel model = new CowModel();
             model.CowID = CowId;
+            string imageFolderName = Server.MapPath(ConfigItems.CowImagePath);
+            string filename = ImageName;
+            string filePath = Path.Combine(imageFolderName, filename);
+            System.IO.File.Delete(filePath);
             var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<CowModel>, CowModel>(model, "DeleteCow", SessionHelper.AuthToken);
             await DataSourceHelper.SaveAuditTrail("Delete Cow", "Delete");
             return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);

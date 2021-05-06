@@ -84,16 +84,18 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<CowModel> GetCowList(string name, int? CowId, int gen)
+        public ApiResponse<CowModel> GetCowList(string Name, int? CowId, int gen,int? FatherId, int? MotherId)
         {
             ApiResponse<CowModel> response = new ApiResponse<CowModel>();
             try
             {
                 GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
                 var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowList"
-                    ,Utility.GetSQLParam("name", SqlDbType.VarChar, (object)name ?? DBNull.Value)
+                    ,Utility.GetSQLParam("Name", SqlDbType.VarChar, (object)Name ?? DBNull.Value)
                     ,Utility.GetSQLParam("CowId", SqlDbType.Int, (object)CowId ?? DBNull.Value)
-                    ,Utility.GetSQLParam("gen", SqlDbType.Int, (object)gen ?? DBNull.Value));
+                    ,Utility.GetSQLParam("gen", SqlDbType.Int, (object)gen ?? DBNull.Value)
+                    ,Utility.GetSQLParam("FatherId", SqlDbType.Int, (object)FatherId ?? DBNull.Value)
+                    ,Utility.GetSQLParam("MotherId", SqlDbType.Int, (object)MotherId ?? DBNull.Value));
                 response.Data = result.ToList();
                 response.Success = true;
             }

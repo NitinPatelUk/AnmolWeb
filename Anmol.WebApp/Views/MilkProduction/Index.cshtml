@@ -1,4 +1,5 @@
-﻿@using _Anmol.Common;
+﻿@using _Anmol.Common
+@model _Anmol.Entity.MilkProductionModel
 @{
     ViewBag.Title = "Milk Production List";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -47,11 +48,11 @@
             <div class="ibox-content" style="display: none;">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Cow Name</label>
+                        <label>Cow ID</label>
                         @Html.TextBox("CowID", null, new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>Cow ID</label>
+                        <label>Cow Name</label>
                         @Html.TextBox("CowName", null, new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
@@ -94,18 +95,64 @@
         </div>
     </div>
 </div>
+<div class="row">
+<div class="col-md-3"></div>
+<div class="modal col-md-9" id="form1" role="dialog" aria-labelledby="projectModal-label" aria-hidden="true" style="position: absolute">
+    @using (Html.BeginForm(ActionHelper.SaveMilkProductionByID, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "formAddEditMilkProduction", @class = "form-horizontal", enctype = "multipart/form-data", }))
+    {
+        @Html.HiddenFor(model => model.MilkProductionID, new { @id="MilkProductionID2" });
+        @Html.HiddenFor(model => model.CowID, new { @id = "CowID2" });
+        <div class="row">
+            <div class="col-md-12 pt-2">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Cow Details</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <label>Cow Name</label>
+                            @Html.TextBoxFor(x => x.CowName, new { @class = "form-control ", @readonly = "true", @id = "CowName2" })
+                            @Html.ValidationMessageFor(m => m.CowName, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="row">
+                            <label>Milking Date</label>
+                            @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly = "true", @id = "MilkingDate2" })
+                            @Html.ValidationMessageFor(m => m.MilkingTime, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="row">
+                            <label>Milking Time</label>
+                            @Html.TextBoxFor(x => x.MilkingTime, new { @class = "form-control ", @readonly = "true", @id = "MilkingTime2" })
+                            @Html.ValidationMessageFor(m => m.MilkingTime, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="row">
+                            <label>Milk Quantity</label>
+                            @Html.TextBoxFor(x => x.MilkQty, new { @class = "form-control ", @required = "required", @id = "MilkQty2" })
+                            @Html.ValidationMessageFor(m => m.MilkQty, "", new { @class = "text-danger help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-right pb-5">
+                <button class="btn btn-primary" type="submit" id="btnCowSave" onclick="return checkvalidation();">Save</button>
+                <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+            </div>
+        </div>
+    }
+</div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         BindMilkProductionGrid();
     });
     function BindMilkProductionGrid() {
+        debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetMilkProductionList, ControllerHelper.MilkProduction)'),
             type: "GET",
             data: {
                 name: $('#CowName').val(),
                 CowID: $('#CowID').val(),
-                MilkDate: $('#MilkingDate').val(),
+                MilkingDate: $('#MilkingDate').val(),
                 MilkingTime: $('#MilkingTime').val(),
             },
             dataType: "json",
@@ -149,19 +196,19 @@
                             if (data === null) return "";
                             var date = new Date(parseInt(data.substr(6)));
                             var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            return ("0" + date.getDate()).slice(-2) + '/' + month + '/' + date.getFullYear();  
+                            return ("0" + date.getDate()).slice(-2) + '/' + month + '/' + date.getFullYear();
                         }
                     },
                     {
-                        "mData": "MilkingTime"                      
+                        "mData": "MilkingTime"
                     },
                     {
                         "mData": "MilkProductionID",
                         "className": "dt-center",
                         "orderable": false,
                         "render": function (data, type, row, meta) {
-                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetMilkProductionById, ControllerHelper.MilkProduction)?MilkProductionID=' + row.MilkProductionID+'" title="Edit Milk Production"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
-                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Milk Production" onclick="deleteMilkProductionClick(' + row.MilkProductionID+')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
+                            var ActionButtonEdit = '<a href="javascript:void(0)" title="Edit Milk Production" onclick="EditMilkProductionClick(\'' + row.MilkProductionID + '\',\'' + row.CowID + '\',\'' + row.CowName + '\',\'' + row.MilkQty + '\',\'' + row.MilkingDate + '\',\'' + row.MilkingTime + '\')" class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
+                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Milk Production" onclick="deleteMilkProductionClick(' + row.MilkProductionID + ')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;
                             return result;
@@ -178,14 +225,15 @@
         }
     }
 
-    function deleteMilkProductionClick(MilkProductionId) {
+    function deleteMilkProductionClick(milkProductionId) {
         bootbox.confirm("Are you sure you want to delete this record?", function (result) {
+            debugger;
             if (result) {
                 $.ajax({
                     url: '@Url.Action(ActionHelper.DeleteMilkProduction, ControllerHelper.MilkProduction)',
                     async: false,
                     type: 'POST',
-                    data: { MilkProductionID: MilkProductionId },
+                    data: { milkProductionId: milkProductionId },
                     success: function (data) {
                         if (data.Flag) {
                             BindMilkProductionGrid();
@@ -200,11 +248,39 @@
         });
     }
 
+    function EditMilkProductionClick(milkProductionId, CowID, CowName, MilkQty, MilkingDate, MilkingTime) {
+        debugger;
+        var date = new Date(parseInt(MilkingDate.substr(6)));
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        var today = date.getFullYear() + "-" + (month) + "-" + (day);
+        $('#CowName2').val(CowName);
+        $('#MilkingDate2').val(today);
+        $('#MilkingTime2').val(MilkingTime);
+        $('#MilkQty2').val(MilkQty);
+        $('#MilkProductionID2').val(milkProductionId);
+        $('#CowID2').val(CowID);
+        $('#form1').modal('show');
+    }
+
     function ClearSearchData() {
         $("#CowName").val("");
         $("#CowID").val("");
         $('#MilkingDate').val("");
         $('#MilkingTime').val("");
         BindMilkProductionGrid();
+    }
+    function CancelClick() {
+        $('#form1').modal('hide');
+    }
+
+    function checkvalidation() {
+        var form = $("#formAddEditCow")
+        if (form.valid()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 </script>
