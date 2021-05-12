@@ -35,11 +35,11 @@
 
 <div class="row pt-4">
     <div class="col-12">
-        <div class="ibox">
+        <div class="ibox collapse-link">
             <div class="ibox-title">
                 <h5>Search Cow</h5>
                 <div class="ibox-tools">
-                    <a class="collapse-link">
+                    <a class="">
                         <i class="fa fa-chevron-down"></i>
                     </a>
                 </div>
@@ -81,8 +81,7 @@
                         <thead>
                             <tr>
                                 <th>CowId</th>
-                                <th>Image</th>
-                                <th>CowName</th>
+                                <th>Cow Name</th>
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
                                 <th>Father</th>
@@ -96,12 +95,26 @@
         </div>
     </div>
 </div>
+@*For Image Popup modal*@
+<div class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: transparent;">
+            <div class="modal-header border-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-dark">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         BindCowGrid();
     });
     function BindCowGrid() {
-        debugger;
+        //debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetCowList, ControllerHelper.Cow)'),
             type: "GET",
@@ -118,7 +131,7 @@
 
     function GetData(data) {
         try {
-            
+
              var dt = $('#tblCow').DataTable();
                  if (dt != 'undefined') {
                     dt.destroy();
@@ -133,16 +146,13 @@
                 "aaData": data.Data,
                 "aoColumns": [
                     {
-                        "mData": "CowID",
+                        "mData": "CowID"
                     },
                     {
-                        
+                        "mData": "CowName",
                         "render": function (data, type, row, meta) {
-                            return '<img src="/Document/CowImage/' + row.ImageName + '"height="70px" width="100px"/>';
-                        }  
-                    },
-                    {
-                        "mData": "CowName"
+                            return '<a onclick=Popup_Image("' + row.ImageName + '")>' + row.CowName + '</a>';
+                        }
                     },
                     {
                         "mData": "gender"
@@ -217,5 +227,16 @@
         $("#FatherID").val("");
         $('#MotherID').val("");
         BindCowGrid();
+    }
+
+    function Popup_Image(image_name) {
+        if (image_name != "null") {
+            var html = '<img src="/Document/CowImage/' + image_name + '" style="height:100%;width:100%;" />';
+            $('.modal .modal-body').html(html);
+            $('.modal').modal('show');
+        }
+        else {
+            toastr.error("No image Available!");
+        }
     }
 </script>

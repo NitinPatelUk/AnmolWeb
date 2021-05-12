@@ -88,6 +88,8 @@
                                 <div class="embed-responsive embed-responsive-1by1" style="margin-top:10px">
                                     <iframe class="embed-responsive-item" src="~/Document/MedicalReport/@Model.ReportName" height="100px" width="100px"></iframe>
                                 </div>
+
+                                <button type="button" onclick="Preview_File()">Preview</button>
                                 @*<embed src="~/Document/MedicalReport/@Model.ReportName" width="100px" height="100px" allowfullscreen/>*@
                             </div>
                         </div>
@@ -121,9 +123,13 @@
     }
     $('#UploadReport').on('change', function ()
     {
-        debugger;
+        //debugger;
         files = $(this)[0].files; name = '';
         name = files[0].name
         $(".custom-file-label").html(name);
     });
+
+    function Preview_File() {
+        window.open('/{ControllerName}/GetReport, "_blank");
+    }
 </script>
