@@ -50,13 +50,13 @@
 <div class="content">
     @using (Html.BeginForm(ActionHelper.SaveMilkProduction, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "frmUserRole" }))
     {
-        @Html.HiddenFor(x=>x.StrCowList)
+        @Html.HiddenFor(x => x.StrCowList)
         <div class="ibox">
             <div class="ibox-content" style="display: grid;">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label>Date</label>
-                        @Html.TextBoxFor(x=>x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", id = "MilkingDate" })
+                        @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", id = "MilkingDate" })
                     </div>
                     <div class="col-md-4 form-group">
                         <label>Time</label>
@@ -88,13 +88,13 @@
                                 <tr>
                                     <td align="center">
                                         <span id="CowId_@count">@obj.CowID</span>
-                                        
+
                                     </td>
                                     <td align="left">
                                         @obj.CowName
                                     </td>
                                     <td align="left">
-                                        <input id="QTY_@count" name="QTY_@obj.CowID" type="number" value="0.0" class="form-control" />
+                                        <input id="QTY_@count" name="QTY_@obj.CowID" type="number" value="0.0" class="form-control" step=".1" />
                                     </td>
                                 </tr>
                             }
@@ -129,7 +129,7 @@
         });
         console.log(cowList);
         $("#StrCowList").val(JSON.stringify(cowList));
-        
+
     }
 
 

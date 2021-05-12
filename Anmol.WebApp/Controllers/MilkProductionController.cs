@@ -17,10 +17,10 @@ namespace _Anmol.WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, string MilkingDate, string MilkingTime)
+        public async Task<ActionResult> GetMilkProductionList(string name, int? CowId, string StartDate, string EndDate, string MilkingTime)
         {
             var result = new ApiResponse<MilkProductionModel>();
-            var uri = "GetMilkProductionList?name=" + name + "&cowId=" + CowId + "&MilkingDate=" + MilkingDate + "&MilkingTime=" + MilkingTime;
+            var uri = "GetMilkProductionList?name=" + name + "&cowId=" + CowId + "&StartDate=" + StartDate + "&EndDate=" + EndDate + "&MilkingTime=" + MilkingTime;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {
@@ -68,7 +68,8 @@ namespace _Anmol.WebApp.Controllers
             await DataSourceHelper.SaveAuditTrail("Delete Cow", "Delete");
             return Json(new { Flag = response.Success }, JsonRequestBehavior.AllowGet);
         }
-        public async Task<ActionResult> SaveMilkProductionByID(MilkProductionModel model) {
+        public async Task<ActionResult> SaveMilkProductionByID(MilkProductionModel model)
+        {
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
@@ -84,7 +85,7 @@ namespace _Anmol.WebApp.Controllers
             }
         }
         public async Task<ActionResult> GetMilkProductionById(int MilkProductionId = 0)
-         {
+        {
             MilkProductionModel model = new MilkProductionModel();
             var result = new ApiPostResponse<MilkProductionModel>();
             var uri = "GetMilkProductionById?milkproductionid=" + MilkProductionId;

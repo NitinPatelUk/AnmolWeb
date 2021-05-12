@@ -36,32 +36,40 @@
 
 <div class="row pt-4">
     <div class="col-12">
-        <div class="ibox">
+        <div class="ibox collapse-link">
             <div class="ibox-title">
                 <h5>Search Milk Production</h5>
                 <div class="ibox-tools">
-                    <a class="collapse-link">
+                    <a>
                         <i class="fa fa-chevron-down"></i>
                     </a>
                 </div>
             </div>
             <div class="ibox-content" style="display: none;">
                 <div class="row">
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
                         <label>Cow ID</label>
                         @Html.TextBox("CowID", null, new { @class = "form-control" })
                     </div>
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
                         <label>Cow Name</label>
                         @Html.TextBox("CowName", null, new { @class = "form-control" })
                     </div>
-                    <div class="col-md-3 form-group">
-                        <label>Milking Date</label>
-                        @Html.TextBox("MilkingDate", null, new { @class = "form-control", @type = "date" })
+                    <div class="col-md-2 form-group">
+                        <label>From Date</label>
+                        @Html.TextBox("StartDate", null, new { @class = "form-control", @type = "date" })
                     </div>
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
+                        <label>To Date</label>
+                        @Html.TextBox("EndDate", null, new { @class = "form-control", @type = "date" })
+                    </div>
+                    <div class="col-md-2 form-group">
                         <label>Milking Time</label>
-                        @Html.TextBox("MilkingTime", null, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.MilkingTime, new List<SelectListItem> {
+                                            new SelectListItem { Text = "Morning", Value = "Morning" },
+                                            new SelectListItem { Text = "Evening", Value = "Evening" }, },
+                        new { @class = "form-control", id = "MilkTime" })
+                        @*@Html.TextBox("MilkingTime", null, new { @class = "form-control" })*@
                     </div>
                 </div>
                 <div class="row">
@@ -96,49 +104,49 @@
     </div>
 </div>
 <div class="row">
-<div class="col-md-3"></div>
-<div class="modal col-md-9" id="form1" role="dialog" aria-labelledby="projectModal-label" aria-hidden="true" style="position: absolute">
-    @using (Html.BeginForm(ActionHelper.SaveMilkProductionByID, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "formAddEditMilkProduction", @class = "form-horizontal", enctype = "multipart/form-data", }))
-    {
-        @Html.HiddenFor(model => model.MilkProductionID, new { @id="MilkProductionID2" });
-        @Html.HiddenFor(model => model.CowID, new { @id = "CowID2" });
-        <div class="row">
-            <div class="col-md-12 pt-2">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Cow Details</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <label>Cow Name</label>
-                            @Html.TextBoxFor(x => x.CowName, new { @class = "form-control ", @readonly = "true", @id = "CowName2" })
-                            @Html.ValidationMessageFor(m => m.CowName, "", new { @class = "text-danger help-block" })
+    <div class="col-md-3"></div>
+    <div class="modal col-md-9" id="form1" role="dialog" aria-labelledby="projectModal-label" aria-hidden="true" style="position: absolute">
+        @using (Html.BeginForm(ActionHelper.SaveMilkProductionByID, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "formAddEditMilkProduction", @class = "form-horizontal", enctype = "multipart/form-data", }))
+        {
+            @Html.HiddenFor(model => model.MilkProductionID, new { @id = "MilkProductionID2" });
+            @Html.HiddenFor(model => model.CowID, new { @id = "CowID2" });
+            <div class="row">
+                <div class="col-md-12 pt-2">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Cow Details</h5>
                         </div>
-                        <div class="row">
-                            <label>Milking Date</label>
-                            @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly = "true", @id = "MilkingDate2" })
-                            @Html.ValidationMessageFor(m => m.MilkingTime, null, new { @class = "text-danger help-block" })
-                        </div>
-                        <div class="row">
-                            <label>Milking Time</label>
-                            @Html.TextBoxFor(x => x.MilkingTime, new { @class = "form-control ", @readonly = "true", @id = "MilkingTime2" })
-                            @Html.ValidationMessageFor(m => m.MilkingTime, "", new { @class = "text-danger help-block" })
-                        </div>
-                        <div class="row">
-                            <label>Milk Quantity</label>
-                            @Html.TextBoxFor(x => x.MilkQty, new { @class = "form-control ", @required = "required", @id = "MilkQty2" })
-                            @Html.ValidationMessageFor(m => m.MilkQty, "", new { @class = "text-danger help-block" })
+                        <div class="ibox-content">
+                            <div class="row">
+                                <label>Cow Name</label>
+                                @Html.TextBoxFor(x => x.CowName, new { @class = "form-control ", @readonly = "true", @id = "CowName2" })
+                                @Html.ValidationMessageFor(m => m.CowName, "", new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milking Date</label>
+                                @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly = "true", @id = "MilkingDate2" })
+                                @Html.ValidationMessageFor(m => m.MilkingTime, null, new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milking Time</label>
+                                @Html.TextBoxFor(x => x.MilkingTime, new { @class = "form-control ", @readonly = "true", @id = "MilkingTime2" })
+                                @Html.ValidationMessageFor(m => m.MilkingTime, "", new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milk Quantity</label>
+                                @Html.TextBoxFor(x => x.MilkQty, new { @class = "form-control ", @required = "required", @id = "MilkQty2" })
+                                @Html.ValidationMessageFor(m => m.MilkQty, "", new { @class = "text-danger help-block" })
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 text-right pb-5">
+                    <button class="btn btn-primary" type="submit" id="btnCowSave" onclick="return checkvalidation();">Save</button>
+                    <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+                </div>
             </div>
-            <div class="col-12 text-right pb-5">
-                <button class="btn btn-primary" type="submit" id="btnCowSave" onclick="return checkvalidation();">Save</button>
-                <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
-            </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -152,7 +160,8 @@
             data: {
                 name: $('#CowName').val(),
                 CowID: $('#CowID').val(),
-                MilkingDate: $('#MilkingDate').val(),
+                StartDate: $('#StartDate').val(),
+                EndDate: $('#EndDate').val(),
                 MilkingTime: $('#MilkingTime').val(),
             },
             dataType: "json",
