@@ -40,5 +40,11 @@ namespace _Anmol.Common
         public const string MilkProduction = "~/Views/MilkProduction/Index.cshtml";
         public const string AddUpdateMilkProduction = "~/Views/MilkProduction/AddUpdateMilkProduction.cshtml";
         #endregion
+
+        #region CUSTOMER TEMPORARY ORDER
+        public const string CustomerTemporaryOrder = "~/Views/CustomerTemporaryOrder/Index.cshtml";
+        public const string AddEditCustomerTemporaryOrder = "~/Views/CustomerTemporaryOrder/AddEditCustomerTemporaryOrder.cshtml";
+        #endregion
+
     }
 }
