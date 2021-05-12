@@ -26,6 +26,7 @@ namespace _Anmol.WebApp.Controllers
         {
             try
             {
+
                 var response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<LoginModel>, LoginModel>(model, "LoginUser", SessionHelper.AuthToken);
 
                 if (response != null && !response.Success)
