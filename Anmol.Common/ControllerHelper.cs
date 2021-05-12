@@ -37,6 +37,7 @@ namespace _Anmol.Common
         public const string SaveMilkProduction = "SaveMilkProduction";
         public const string AddEditMilkProduction = "AddEditMilkProduction";
         public const string SaveMilkProductionByID = "SaveMilkProductionByID";
+        public const string GetCustomerTemporaryOrderById = "GetCustomerTemporaryOrderById";
     }   
     public class ControllerHelper
     {
@@ -47,6 +48,7 @@ namespace _Anmol.Common
         public const string Customer = "Customer";
         public const string Medical = "Medical";
         public const string MilkProduction = "MilkProduction";
+        public const string CustomerTemporaryOrder = "CustomerTemporaryOrder";
     }
 }
 
