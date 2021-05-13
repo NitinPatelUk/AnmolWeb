@@ -1,0 +1,106 @@
+﻿@using _Anmol.Common
+@model _Anmol.Entity.CustomerTemporaryOrderModel
+@{
+    ViewBag.Title = "AddEditCustomerTemporaryOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Customer Temporary Order List</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.CustomerTemporaryOrder)">Customer Temporary Order List</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    @if (Model.CustTempOrdId > 0)
+                    {
+                        <strong>Edit Customer Temporary Order</strong>
+                    }
+                    else
+                    {
+                        <strong>Add New Customer Temporary Order</strong>
+                    }
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(ActionHelper.SaveCustomerTemporaryOrder, ControllerHelper.CustomerTemporaryOrder, FormMethod.Post, new { @id = "formAddEditCustomerTemporaryOrder", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(model => model.CustTempOrdId, "CustTempOrdId");
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Customer Temporary Order Details</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Customer Name *</label>
+                            @Html.DropDownListFor(x => x.CustID, new SelectList((IEnumerable<SelectListItem>)ViewBag.CustomerList, "Value", "Text"), "--- Select Customer ---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CustID, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label>Start Date *</label><br>
+                            @Html.TextBoxFor(x => x.StartDate, null, new { @class = "form-control", @type = "date", @Value=Model.StartDate.ToString("yyyy-MM-dd") })
+                            @Html.ValidationMessageFor(m => m.StartDate, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label>End Date *</label>
+                            @Html.TextBoxFor(x => x.EndDate, null, new { @class = "form-control", @type = "date", @Value=Model.EndDate.ToString("yyyy-MM-dd") })
+                            @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Delivery Time *</label>
+                            @Html.DropDownListFor(x => x.DeliveryTime, new List<SelectListItem> {
+                                           new SelectListItem { Text = "Morning", Value = "Morning" },
+                                           new SelectListItem { Text = "Evening", Value = "Evening" }, },"--- Select Delivery Time ---",new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.DeliveryTime, null, new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label>Quantity *</label>
+                            @Html.TextBoxFor(x => x.Quantity, null, new { @class = "form-control", @type="number", @step=".01" })
+                            @Html.ValidationMessageFor(m => m.Quantity, null, new { @class = "text-danger help-block" })
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right pb-5">
+            <button class="btn btn-primary" type="submit" id="btnCustomerTemporaryOrderSave" onclick="return checkvalidation();">Save</button>
+            <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#side-menu li.active').removeClass('active');
+        $("#CustomerTemporayOrderMenu").addClass("active");
+    });
+
+    function checkvalidation() {
+        var form = $("#formAddEditCustomerTemporaryOrder")
+        if (form.valid()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function CancelClick() {
+
+        window.location.href ="@Url.Action(ActionHelper.Index, ControllerHelper.CustomerTemporaryOrder)";
+    }
+    
+</script>
