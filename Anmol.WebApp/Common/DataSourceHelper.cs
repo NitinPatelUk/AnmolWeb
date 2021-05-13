@@ -126,5 +126,26 @@ namespace _Anmol.WebApp.Common
                 return new List<SelectListItem>();
             }
         }
+
+        public static IEnumerable<SelectListItem> GetCustomerList()
+        {
+            var result = new ApiResponse<CustomerModel>();
+            var uri = "GetCustomerList?name=" + null + "&Zipcode=" + null + "&ContactNumber=" + null + "&CustAddress=" + null;
+            result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                IEnumerable<SelectListItem> items = result.Data
+                .Select(c => new SelectListItem
+                {
+                    Value = Convert.ToString(c.CustID),
+                    Text = c.CustName
+                });
+                return items;
+            }
+            else
+            {
+                return new List<SelectListItem>();
+            }
+        }
     }
 }
