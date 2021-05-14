@@ -227,6 +227,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
     <Compile Include="Controllers\MilkProductionController.cs" />
+    <Compile Include="Controllers\PermenentOrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -3115,6 +3116,8 @@
     <Content Include="Views\Medical\AddEditMedical.cshtml" />
     <Content Include="Views\MilkProduction\Index.cshtml" />
     <Content Include="Views\MilkProduction\AddUpdateMilkProduction.cshtml" />
+    <Content Include="Views\PermenentOrder\Index.cshtml" />
+    <Content Include="Views\PermenentOrder\AddEditPermenentOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
