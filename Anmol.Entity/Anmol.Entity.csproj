@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CowModel.cs" />
     <Compile Include="CustomerModel.cs" />
+    <Compile Include="CustomerTemporaryOrderModel.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="MedicalModel.cs" />
     <Compile Include="MilkProductionModel.cs" />
