@@ -27,6 +27,7 @@ namespace _Anmol.Entity
         public string gender { get; set; }
         public string LoggedinUserName { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
+        public int? Lactation { get; set; }
     }
 
 }

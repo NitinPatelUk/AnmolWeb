@@ -48,7 +48,8 @@ namespace _Anmol.Service
                     Utility.GetSQLParam("Notes", SqlDbType.VarChar, (object)model.Notes ?? DBNull.Value),
                     Utility.GetSQLParam("ImageName", SqlDbType.VarChar, (object)model.ImageName?? DBNull.Value),
                     Utility.GetSQLParam("ImagePath", SqlDbType.VarChar, (object)model.ImagePath ?? DBNull.Value),
-                    Utility.GetSQLParam("IsMilkable", SqlDbType.Bit, (object)model.IsMilkable ?? DBNull.Value), 
+                    Utility.GetSQLParam("IsMilkable", SqlDbType.Bit, (object)model.IsMilkable ?? DBNull.Value),
+                    Utility.GetSQLParam("Lactation", SqlDbType.Int, (object)model.Lactation ?? DBNull.Value),
                     Utility.GetSQLParam("Gender", SqlDbType.VarChar, (object)model.gender ?? DBNull.Value), 
                     Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)
                    );
@@ -84,7 +85,7 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<CowModel> GetCowList(string Name, int? CowId, int gen,int? FatherId, int? MotherId)
+        public ApiResponse<CowModel> GetCowList(string Name, int? CowId,int gen,int? FatherId, int? MotherId)
         {
             ApiResponse<CowModel> response = new ApiResponse<CowModel>();
             try
@@ -93,7 +94,7 @@ namespace _Anmol.Service
                 var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowList"
                     ,Utility.GetSQLParam("Name", SqlDbType.VarChar, (object)Name ?? DBNull.Value)
                     ,Utility.GetSQLParam("CowId", SqlDbType.Int, (object)CowId ?? DBNull.Value)
-                    ,Utility.GetSQLParam("gen", SqlDbType.Int, (object)gen ?? DBNull.Value)
+                    , Utility.GetSQLParam("gen", SqlDbType.Int, (object)gen ?? DBNull.Value)
                     ,Utility.GetSQLParam("FatherId", SqlDbType.Int, (object)FatherId ?? DBNull.Value)
                     ,Utility.GetSQLParam("MotherId", SqlDbType.Int, (object)MotherId ?? DBNull.Value));
                 response.Data = result.ToList();

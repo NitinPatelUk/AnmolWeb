@@ -88,30 +88,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 form-group" id="incexcvat">
+                        <div class="col-md-2 form-group" id="incexcvat">
                             <label> </label>
                             <div class="custom-control custom-switch switch-success">
                                 @Html.CheckBoxFor(x => x.IsMilkable, new { @class = "custom-control-input" })
                                 <label class="custom-control-label" id="lblIsMilkable" for="IsMilkable">Is Milkable</label>
                             </div>
                         </div>
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
                             <label>Place Of Origin</label>
                             @Html.TextBoxFor(x => x.PlaceOfOrigin, new { @class = "form-control ", @required = "required" })
                             @Html.ValidationMessageFor(m => m.PlaceOfOrigin, "", new { @class = "text-danger help-block" })
                         </div>
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
                             <label>Notes</label>
                             @Html.TextAreaFor(x => x.Notes, new { @class = "form-control " })
                             @Html.ValidationMessageFor(m => m.Notes, "", new { @class = "text-danger help-block" })
                         </div>
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
                             <label>Image</label>
                             <div class="custom-file mb-2">
                                 <input type="file" class="custom-file-input" id="UploadImage" name="UploadImage" value="UploadImage" multiple="multiple" accept="image/*"><br>
                                 <label class="custom-file-label" for="UploadImage">@Model.ImageName</label>
                                 
                             </div>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label>Lactation</label>
+                            <input class="form-control" type="number" id="Lactation" name="Lactation" />
                         </div>
                     </div>
                     <div class="row">

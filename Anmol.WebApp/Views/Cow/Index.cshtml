@@ -82,6 +82,7 @@
                             <tr>
                                 <th>CowId</th>
                                 <th>Cow Name</th>
+                                <th>Lactation</th>
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
                                 <th>Father</th>
@@ -153,6 +154,9 @@
                         "render": function (data, type, row, meta) {
                             return '<a onclick=Popup_Image("' + row.ImageName + '")>' + row.CowName + '</a>';
                         }
+                    },
+                    {
+                        "mData": "Lactation"
                     },
                     {
                         "mData": "gender"
