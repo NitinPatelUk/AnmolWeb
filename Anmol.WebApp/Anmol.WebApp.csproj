@@ -3115,6 +3115,7 @@
     <Content Include="Views\Medical\AddEditMedical.cshtml" />
     <Content Include="Views\MilkProduction\Index.cshtml" />
     <Content Include="Views\MilkProduction\AddUpdateMilkProduction.cshtml" />
+    <Content Include="Views\Cow\GetCowDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

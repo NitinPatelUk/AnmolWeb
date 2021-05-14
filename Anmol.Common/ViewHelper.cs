@@ -24,6 +24,7 @@ namespace _Anmol.Common
         #region COW
         public const string Cow = "~/Views/Cow/Index.cshtml";
         public const string AddEditCow = "~/Views/Cow/AddEditCow.cshtml";
+        public const string GetCowDetails = "~/Views/Cow/GetCowDetails.cshtml";
         #endregion
 
         #region CUSTOMER

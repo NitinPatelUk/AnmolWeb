@@ -20,6 +20,7 @@ namespace _Anmol.Common
         public const string GetCowById = "GetCowById";
         public const string GetCowList = "GetCowList";
         public const string GetBullList = "GetBullList";
+        public const string GetCowDetails = "GetCowDetails";
         public const string GetAllCowList = "GetAllCowList";
         public const string DeleteCow = "DeleteCow";
         public const string SaveCow = "SaveCow";

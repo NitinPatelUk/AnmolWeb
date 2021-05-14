@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Father Name</label>
-                        @Html.DropDownList("FatherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
+                       @Html.DropDownList("FatherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Mother Name</label>
@@ -183,8 +183,9 @@
                         "render": function (data, type, row, meta) {
                             var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=' + row.CowID+'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Cow" onclick="deleteCowClick(\'' + row.CowID + '\',\'' + row.ImageName + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
-                            var result =  ActionButtonEdit;
-                            result = result + ActionButtonDelete;
+                            var ActionButtonDetails = '<a href="@Url.Action(ActionHelper.GetCowDetails, ControllerHelper.Cow)?cowId=' + row.CowID +'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-info-circle text-primary"></i></a>';
+                            var result = ActionButtonEdit;
+                            result = result + ActionButtonDelete + ActionButtonDetails;
                             return result;
                         }
                     }

@@ -81,15 +81,16 @@ namespace _Anmol.WebApp.Controllers
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Data != null)
             {
-                model = result.Data;
+                model = result.Data;                
             }
             else
             {
                 TempData["Error"] = "Somthing went wrong.";
-                return View(ViewHelper.Cow);
+                return RedirectToAction(ActionHelper.Index, ControllerHelper.Cow);
+               // return View(ViewHelper.Cow);
             }
 
-            return View(ViewHelper.AddEditCow, model);
+            return View(ViewHelper.GetCowDetails, model);
         }
 
         [HttpPost]
