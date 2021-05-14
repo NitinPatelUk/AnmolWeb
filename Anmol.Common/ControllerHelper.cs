@@ -41,6 +41,10 @@ namespace _Anmol.Common
         public const string GetCustomerTemporaryOrderList = "GetCustomerTemporaryOrderList";
         public const string DeleteCustomerTemporaryOrder = "DeleteCustomerTemporaryOrder";
         public const string SaveCustomerTemporaryOrder = "SaveCustomerTemporaryOrder";
+        public const string GetMilkOrderById = "GetMilkOrderById";
+        public const string GetOrderList = "GetOrderList";
+        public const string DeleteMilkOrder = "DeleteMilkOrder";
+        public const string SaveMilkOrder = "SaveMilkOrder";
     }   
     public class ControllerHelper
     {
