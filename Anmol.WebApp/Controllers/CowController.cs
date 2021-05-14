@@ -21,11 +21,11 @@ namespace _Anmol.WebApp.Controllers
 
         public async Task<ActionResult> GetCowList(string name, int? CowId, string fatherid, string motherid)
         {
-            int FatherId=0;
-            int MotherId=0;
-            if (fatherid !="")
+            int FatherId = 0;
+            int MotherId = 0;
+            if (fatherid != "")
                 FatherId = int.Parse(fatherid);
-            if(motherid !="")
+            if (motherid != "")
                 MotherId = int.Parse(motherid);
             var result = new ApiResponse<CowModel>();
             var uri = "GetCowList?name=" + name + "&cowId=" + CowId + "&gen=0&FatherId=" + FatherId + "&MotherId=" + MotherId;
@@ -42,34 +42,54 @@ namespace _Anmol.WebApp.Controllers
 
 
         public async Task<ActionResult> GetCowById(int CowId)
+        {
+            ViewBag.BullList = DataSourceHelper.GetBullList();
+            ViewBag.CowList = DataSourceHelper.GetCowList();
+            var model = new CowModel();
+            if (CowId > 0)
             {
-                ViewBag.BullList = DataSourceHelper.GetBullList();
-                ViewBag.CowList = DataSourceHelper.GetCowList();
-                var model = new CowModel();
-                if (CowId > 0)
+                var result = new ApiPostResponse<CowModel>();
+                var uri = "GetCowById?cowId=" + CowId;
+                result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
+                if (result.Data != null)
                 {
-                    var result = new ApiPostResponse<CowModel>();
-                    var uri = "GetCowById?cowId=" + CowId;
-                    result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
-                    if (result.Data != null)
-                    {
-                        model = result.Data;
-                        if(model.FatherID!=null)
-                            model.FatherName = result.Data.FatherID.ToString();
-                        if (model.MotherID != null)
-                            model.MotherName = result.Data.MotherID.ToString();
-                }
-                    else
-                    {
-                        TempData["Error"] = "Somthing went wrong.";
-                        return View(ViewHelper.Cow);
-                    }
+                    model = result.Data;
+                    if (model.FatherID != null)
+                        model.FatherName = result.Data.FatherID.ToString();
+                    if (model.MotherID != null)
+                        model.MotherName = result.Data.MotherID.ToString();
                 }
                 else
                 {
-                    model.CowID = 0;
+                    TempData["Error"] = "Somthing went wrong.";
+                    return View(ViewHelper.Cow);
                 }
-                return View(ViewHelper.AddEditCow, model);
+            }
+            else
+            {
+                model.CowID = 0;
+            }
+            return View(ViewHelper.AddEditCow, model);
+        }
+
+        public async Task<ActionResult> GetCowDetails(int CowId)
+        {
+            var model = new CowModel();
+
+            var result = new ApiPostResponse<CowModel>();
+            var uri = "GetCowDetails?cowId=" + CowId;
+            result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                model = result.Data;
+            }
+            else
+            {
+                TempData["Error"] = "Somthing went wrong.";
+                return View(ViewHelper.Cow);
+            }
+
+            return View(ViewHelper.AddEditCow, model);
         }
 
         [HttpPost]
@@ -105,7 +125,8 @@ namespace _Anmol.WebApp.Controllers
                             model.ImagePath = filePath;
                             model.ImageName = fileName;
                         }
-                        else {
+                        else
+                        {
                             string fileName = DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + Path.GetExtension(files.FileName);
                             string filePath = Path.Combine(imageFolderName, fileName);
                             files.SaveAs(filePath);
@@ -114,13 +135,13 @@ namespace _Anmol.WebApp.Controllers
                         }
                     }
                 }
-                
+
                 var response = new ApiResponse<CowModel>();
                 var url = "SaveCow";
                 response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<CowModel>, CowModel>(model, url, SessionHelper.AuthToken);
                 if (response.Success == true)
-                {                 
-                  
+                {
+
                     if (model.CowID > 0)
                     {
                         await DataSourceHelper.SaveAuditTrail("Edit Cow", "Edit");
@@ -144,7 +165,7 @@ namespace _Anmol.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult> DeleteCow(string ImageName,int CowId = 0)
+        public async Task<ActionResult> DeleteCow(string ImageName, int CowId = 0)
         {
             CowModel model = new CowModel();
             model.CowID = CowId;

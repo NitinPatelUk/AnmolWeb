@@ -28,6 +28,16 @@ namespace _Anmol.Entity
         public string LoggedinUserName { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
         public int? Lactation { get; set; }
+        public string TreatmentTitle { get; set; }
+        public DateTime? TreatmentDate { get; set; }
+        public string TreatmentNotes { get; set; }
+        public string ReportName { get; set; }
+        public string ReportNotes { get; set; }
+        public string LastProduction { get; set; }
+        public string Last7DaysProduction { get; set; }
+        public string Last30DaysProduction { get; set; }
+        public string Last365DaysProduction { get; set; }
+
     }
 
 }

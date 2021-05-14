@@ -28,6 +28,25 @@ namespace _Anmol.Service
             }
             return response;
         }
+        public ApiPostResponse<CowModel> GetCowDetails(int cowId)
+        {
+            ApiPostResponse<CowModel> response = new ApiPostResponse<CowModel>();
+            try
+            {
+                GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
+                var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowDetails",
+                    Utility.GetSQLParam("CowId", SqlDbType.Int, (object)cowId ?? DBNull.Value));
+                response.Data = result.FirstOrDefault();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message.Add(ex.Message);
+                response.Success = false;
+            }
+            return response;
+        }
         public ApiResponse<CowModel> SaveCow(CowModel model)
         {
             ApiResponse<CowModel> response = new ApiResponse<CowModel>();
