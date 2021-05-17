@@ -82,6 +82,8 @@
                 <h3>
                     @Html.DisplayFor(model => model.ReportName) -
                     @Html.DisplayFor(model => model.ReportNotes)
+
+                    <button onclick='GetClientReport("@Model.ReportName")' class="btn btn-info">Click to Show PDF</button>
                 </h3>
             }
 
@@ -89,3 +91,10 @@
     </div>       
 
 </div>
+
+<script>
+    function GetClientReport(ReportName) {
+        //alert(ReportName);
+        window.open('/Cow/GetReport?ReportName=' + ReportName, "_blank");
+    }
+</script>
