@@ -66,26 +66,26 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Medical Detail:</h2>
-            <h3>Treatment -</h3>
-            <h3>
-                @Html.DisplayFor(model => model.TreatmentDate) -
-                @Html.DisplayFor(model => model.TreatmentTitle) -
-                @Html.DisplayFor(model => model.TreatmentNotes)
-            </h3>
-            <h3>Reports -</h3>
-            <h3>
-                @Html.DisplayFor(model => model.ReportName) -
-                @Html.DisplayFor(model => model.ReportNotes)
-                <button onclick='GetClientReport("@Model.ReportName")' class="btn btn-info">Click to Show PDF</button>
-            </h3>
+            @if (Model.TreatmentTitle == "")
+            {
+                <h3>No Records Found!</h3>
+            }
+            else
+            {
+                <h3>Treatment -</h3>
+                <h3>
+                    @Html.DisplayFor(model => model.TreatmentDate) -
+                    @Html.DisplayFor(model => model.TreatmentTitle) -
+                    @Html.DisplayFor(model => model.TreatmentNotes)
+                </h3>
+                <h3>Reports -</h3>
+                <h3>
+                    @Html.DisplayFor(model => model.ReportName) -
+                    @Html.DisplayFor(model => model.ReportNotes)
+                </h3>
+            }
+
         </div>
     </div>       
 
 </div>
-
-<script>
-    function GetClientReport(ReportName) {
-        //alert(ReportName);
-        window.open('/Cow/GetReport?ReportName='+ReportName, "_blank");  
-}
-</script>
