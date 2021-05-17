@@ -19,6 +19,14 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
+        public FileResult GetReport(string ReportName)
+        {
+
+            string ReportURL = "~/Document/MedicalReport/" + ReportName;
+            byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
+            return File(FileBytes, "application/pdf");
+        }
+
         public async Task<ActionResult> GetCowList(string name, int? CowId, string fatherid, string motherid)
         {
             int FatherId = 0;
