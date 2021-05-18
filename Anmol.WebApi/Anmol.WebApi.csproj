@@ -272,11 +272,12 @@
     <Compile Include="Controllers\CommonAPIController.cs" />
     <Compile Include="Controllers\CowAPIController.cs" />
     <Compile Include="Controllers\CustomerAPIController.cs" />
-    <Compile Include="Controllers\CustomerDailyDeliveryController.cs" />
+    <Compile Include="Controllers\CustomerTemporaryOrderAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\MedicalAPIController.cs" />
     <Compile Include="Controllers\MilkProductionAPIController.cs" />
+    <Compile Include="Controllers\PermenentOrderAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

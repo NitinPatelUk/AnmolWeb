@@ -1,6 +1,6 @@
 ﻿@using _Anmol.Common;
 @{
-    ViewBag.Title = "Cow List";
+    ViewBag.Title = "Customer Temporary Order List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -15,29 +15,29 @@
 <div class="wrapper border-bottom white-bg page-heading">
     <div class="row">
         <div class="col-sm-8">
-            <h2><b>Cow List</b></h2>
+            <h2><b>Customer Temporary Order List</b></h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.CustomerTemporaryOrder)">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <strong>Cow List</strong>
+                    <strong>Customer Temporary Order List</strong>
                 </li>
             </ol>
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Cow </a>
+                <a href="@Url.Action(ActionHelper.GetCustomerTemporaryOrderById, ControllerHelper.CustomerTemporaryOrder)?CustTempOrdId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Customer Temporary Order </a>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row pt-4">
-    <div class="col-12">
+    <div class="col-12 ">
         <div class="ibox">
             <div class="ibox-title collapse-link">
-                <h5>Search Cow</h5>
+                <h5>Search Customer Temporary Order</h5>
                 <div class="ibox-tools">
                     <a class="">
                         <i class="fa fa-chevron-down"></i>
@@ -47,25 +47,28 @@
             <div class="ibox-content" style="display: none;">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Name</label>
-                        @Html.TextBox("CowName", null, new { @class = "form-control" })
+                        <label>Customer Name</label>
+                        @Html.DropDownList("CustName", new SelectList((IEnumerable<SelectListItem>)ViewBag.CustomerList, "Value", "Text"), "--- Select Customer ---", new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>ID</label>
-                        @Html.TextBox("CowID", null, new { @class = "form-control" })
+                        <label>Delivery Time</label>
+                        @Html.DropDownList("DeliveryTime", new List<SelectListItem> {
+                                            new SelectListItem { Text = "Morning", Value = "Morning" },
+                                            new SelectListItem { Text = "Evening", Value = "Evening" }, }, "--- Select Delivery Time ---",
+                        new { @class = "form-control" })
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>Father Name</label>
-                        @Html.DropDownList("FatherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.BullList, "Value", "Text"), "--- Select Father ---", new { @class = "form-control" })
+                        <label>Start Date</label>
+                        @Html.TextBox("StartDate", null, new { @class = "form-control", @type = "date" })
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>Mother Name</label>
-                        @Html.DropDownList("MotherID", new SelectList((IEnumerable<SelectListItem>)ViewBag.CowList, "Value", "Text"), "--- Select Mother ---", new { @class = "form-control" })
+                        <label>End Date</label>
+                        @Html.TextBox("EndDate", null, new { @class = "form-control", @type = "date" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <button class="btn btn-primary" onclick="BindCowGrid()">Search</button>
+                        <button class="btn btn-primary" onclick="BindCustomerTemporaryOrderGrid()">Search</button>
                         <button class="btn btn-secondary" onclick="ClearSearchData()">Clear</button>
                     </div>
                 </div>
@@ -77,15 +80,15 @@
         <div class="ibox">
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table id="tblCow" class="table table-bordered display w-100 mb-4">
+                    <table id="tblCustomerTemporaryOrder" class="table table-bordered display w-100 mb-4">
                         <thead>
                             <tr>
-                                <th>CowId</th>
-                                <th>Cow Name</th>
-                                <th>Gender</th>
-                                <th>Date of Birth</th>
-                                <th>Father</th>
-                                <th>Mother</th>
+                                <th>CustTempOrdId</th>
+                                <th>Customer Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Delivery Time</th>
+                                <th>Quantity</th>
                                 <th class="text-center" width="80">Actions</th>
                             </tr>
                         </thead>
@@ -95,34 +98,20 @@
         </div>
     </div>
 </div>
-@*For Image Popup modal*@
-<div class="modal fade">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: transparent;">
-            <div class="modal-header border-0">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-dark">X</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript">
     $(document).ready(function () {
-        BindCowGrid();
+        BindCustomerTemporaryOrderGrid();
     });
-    function BindCowGrid() {
+    function BindCustomerTemporaryOrderGrid() {
         //debugger;
         $.ajax({
-            url: encodeURI('@Url.Action(ActionHelper.GetCowList, ControllerHelper.Cow)'),
+            url: encodeURI('@Url.Action(ActionHelper.GetCustomerTemporaryOrderList, ControllerHelper.CustomerTemporaryOrder)'),
             type: "GET",
             data: {
-                name: $('#CowName').val(),
-                CowID: $('#CowID').val(),
-                fatherid: $('#FatherID').val(),
-                motherid: $('#MotherID').val()
+                CustName: $('#CustName').val(),
+                DeliveryTime: $('#DeliveryTime').val(),
+                StartDate: $('#StartDate').val(),
+                EndDate: $('#EndDate').val()
             },
             dataType: "json",
             success: GetData
@@ -132,11 +121,11 @@
     function GetData(data) {
         try {
 
-             var dt = $('#tblCow').DataTable();
+            var dt = $('#tblCustomerTemporaryOrder').DataTable();
                  if (dt != 'undefined') {
                     dt.destroy();
                     }
-                dt = $('#tblCow').DataTable({
+            dt = $('#tblCustomerTemporaryOrder').DataTable({
                 "lengthMenu": [50, 100, 200, 500],
                 "pageLength": 50,
                 "order": [0, 'desc'],
@@ -146,19 +135,13 @@
                 "aaData": data.Data,
                 "aoColumns": [
                     {
-                        "mData": "CowID"
+                        "mData": "CustTempOrdId"
                     },
                     {
-                        "mData": "CowName",
-                        "render": function (data, type, row, meta) {
-                            return '<a class="font-weight-bold" onclick=Popup_Image("' + row.ImageName + '")>' + row.CowName + '</a>';
-                        }
+                        "mData": "CustName"
                     },
                     {
-                        "mData": "gender"
-                    },
-                    {
-                        "mData": "DoB",
+                        "mData": "StartDate",
                         "render": function (data) {
                             if (data === null) return "";
                             var date = new Date(parseInt(data.substr(6)));
@@ -167,18 +150,27 @@
                         }
                     },
                     {
-                        "mData": "FatherName"
+                        "mData": "EndDate",
+                        "render": function (data) {
+                            if (data === null) return "";
+                            var date = new Date(parseInt(data.substr(6)));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            return ("0" + date.getDate()).slice(-2) + '/' + month + '/' + date.getFullYear();
+                        }
                     },
                     {
-                        "mData": "MotherName"
+                        "mData": "DeliveryTime"
                     },
                     {
-                        "mData": "CowID",
+                        "mData": "Quantity"
+                    },
+                    {
+                        "mData": "CustTempOrdId",
                         "className": "dt-center",
                         "orderable": false,
                         "render": function (data, type, row, meta) {
-                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=' + row.CowID+'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
-                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Cow" onclick="deleteCowClick(\'' + row.CowID + '\',\'' + row.ImageName + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
+                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCustomerTemporaryOrderById, ControllerHelper.CustomerTemporaryOrder)?CustTempOrdId=' + row.CustTempOrdId+'" title="Edit Customer Temporary Order"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
+                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Customer Temporary Order" onclick="deleteCustomerTemporaryOrderClick(\'' + row.CustTempOrdId + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
                             var result =  ActionButtonEdit;
                             result = result + ActionButtonDelete;
                             return result;
@@ -195,22 +187,21 @@
         }
     }
 
-    function deleteCowClick(CowID, ImageName) {
-        debugger;
+    function deleteCustomerTemporaryOrderClick(CustTempOrdId) {
+       // debugger;
         bootbox.confirm("Are you sure you want to delete this record?", function (result) {
             if (result) {
                 $.ajax({
-                    url: '@Url.Action(ActionHelper.DeleteCow, ControllerHelper.Cow)',
+                    url: '@Url.Action(ActionHelper.DeleteCustomerTemporaryOrder, ControllerHelper.CustomerTemporaryOrder)',
                     async: false,
                     type: 'POST',
                     data: {
-                        CowId: CowID,
-                        ImageName: ImageName
+                        CustTempOrdId: CustTempOrdId,
                     },
                     success: function (data) {
                         if (data.Flag) {
-                            BindCowGrid();
-                            toastr.success("Cow deleted successfully.");
+                            BindCustomerTemporaryOrderGrid();
+                            toastr.success("Customer Temporary Order deleted successfully.");
                         }
                         else {
                             toastr.error("Something Went Wrong.");
@@ -222,21 +213,11 @@
     }
 
     function ClearSearchData() {
-        $("#CowName").val("");
-        $("#CowID").val("");
-        $("#FatherID").val("");
-        $('#MotherID').val("");
-        BindCowGrid();
-    }
-
-    function Popup_Image(image_name) {
-        if (image_name != "null") {
-            var html = '<img src="/Document/CowImage/' + image_name + '" style="height:100%;width:100%;" />';
-            $('.modal .modal-body').html(html);
-            $('.modal').modal('show');
-        }
-        else {
-            toastr.error("No image Available!");
-        }
+        $("#CustName").val("");
+        $("#DeliveryTime").val("");
+        $("#StartDate").val("");
+        $('#EndDate').val("");
+        BindCustomerTemporaryOrderGrid();
     }
 </script>
+

@@ -10,11 +10,13 @@ namespace _Anmol.Entity
     {
         public int Id { get; set; }
 
-        public int CustTD { get; set; }
+        public int CustID { get; set; }
+
+        public string CustName { get; set; }
 
         public string DeliveryTime { get; set; }
 
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         public string LoggedinUserName { get; set; }
 
