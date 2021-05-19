@@ -28,7 +28,7 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetCowDetails")]
-        public ApiPostResponse<CowModel> GetCowDetails(int cowId)
+        public ApiResponse<CowModel> GetCowDetails(int cowId)
         {
             return _cowService.GetCowDetails(cowId);
         }

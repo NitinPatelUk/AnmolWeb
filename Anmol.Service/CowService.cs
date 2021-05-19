@@ -28,15 +28,15 @@ namespace _Anmol.Service
             }
             return response;
         }
-        public ApiPostResponse<CowModel> GetCowDetails(int cowId)
+        public ApiResponse<CowModel> GetCowDetails(int cowId)
         {
-            ApiPostResponse<CowModel> response = new ApiPostResponse<CowModel>();
+            ApiResponse<CowModel> response = new ApiResponse<CowModel>();
             try
             {
                 GenericRepository<CowModel> objGenericRepository = new GenericRepository<CowModel>();
                 var result = objGenericRepository.QuerySQL<CowModel>("SP_GetCowDetails",
                     Utility.GetSQLParam("CowId", SqlDbType.Int, (object)cowId ?? DBNull.Value));
-                response.Data = result.FirstOrDefault();
+                response.Data = result.ToList();
                 response.Success = true;
             }
             catch (Exception ex)

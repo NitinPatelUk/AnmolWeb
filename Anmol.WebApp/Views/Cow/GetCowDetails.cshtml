@@ -6,10 +6,10 @@
 
 <h2>Cow Details</h2>
 
-<div class="container">    
+<div class="container">
     <div class="row">
         <div class="col-md-8 text-center">
-                <img class="img-circle" src="~/Document/CowImage/@Model.ImageName" width='100' height='100' style="margin-top:15px;" onclick="Popup_Image('@Model.ImageName')">          
+            <img class="img-circle" src="~/Document/CowImage/@Model.ImageName" width='100' height='100' style="margin-top:15px;" onclick="Popup_Image('@Model.ImageName')">
         </div>
     </div>
 
@@ -18,10 +18,10 @@
             <h2>
                 @Html.DisplayFor(model => model.CowID) -
                 @Html.DisplayFor(model => model.CowName)
-            </h2>       
+            </h2>
         </div>
     </div>
-     
+
     <div class="row">
         <div class="col-md-6">
             <h2>Personal Details:</h2>
@@ -35,7 +35,7 @@
             </h3>
             <h3>
                 <label>DoB</label> -
-                @Model.DoB.Value.ToShortDateString()               
+                @Model.DoB.Value.ToShortDateString()
             </h3>
             <h3>
                 <label>Lactation</label> -
@@ -66,25 +66,43 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Medical Detail:</h2>
-            <h3>Treatment -</h3>
-            <h3>
-                @Html.DisplayFor(model => model.TreatmentDate) -
-                @Html.DisplayFor(model => model.TreatmentTitle) -
-                @Html.DisplayFor(model => model.TreatmentNotes)
-            </h3>
-            <h3>Reports -</h3>
-            <h3>
-                @Html.DisplayFor(model => model.ReportName) -
-                @Html.DisplayFor(model => model.ReportNotes)
-            </h3>
+            @if (Model.TreatmentTitle == "")
+            {
+                <h4>No Records Found!</h4>
+            }
+            else
+            {
+                <h3>Treatment -</h3>
+                foreach (var item in Model.CowMedicalDetails)
+                {
+
+                    <h4>
+                        <span>@item.TreatmentDate - </span>
+                        <span>@item.Heading - </span>
+                        <span>@item.TreatmentNotes</span>
+                    </h4>
+                }
+                <h3>Reports -</h3>
+                foreach (var item in Model.CowMedicalDetails)
+                {
+
+                    <h4>
+                        <span>@item.ReportName - </span>
+                        <span>@item.ReportNotes - </span>
+                        <button onclick='GetClientReport("@item.ReportName")' class="btn btn-info">Click to Show PDF</button>
+                    </h4>
+
+                }
+            }
+
         </div>
-    </div>       
+    </div>
 
 </div>
 
 <script>
     function GetClientReport(ReportName) {
         //alert(ReportName);
-        window.open('/Cow/GetReport?ReportName='+ReportName, "_blank");  
-}
+        window.open('/Cow/GetReport?ReportName=' + ReportName, "_blank");
+    }
 </script>

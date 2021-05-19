@@ -2,6 +2,7 @@
 using _Anmol.Entity;
 using _Anmol.WebApp.Common;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -84,20 +85,34 @@ namespace _Anmol.WebApp.Controllers
         {
             var model = new CowModel();
 
-            var result = new ApiPostResponse<CowModel>();
+            var result = new ApiResponse<CowModel>();
             var uri = "GetCowDetails?cowId=" + CowId;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
-            if (result.Data != null)
+            if (result != null)
             {
-                model = result.Data;                
+                IList<CowModel> CowDetailsList = new List<CowModel>();
+                CowDetailsList = result.Data;
+                model = result.Data[0];
+
+
+                foreach (var cowdetail in CowDetailsList)
+                {
+                    MedicalModel mm = new MedicalModel();
+                    mm.TreatmentDate = cowdetail.TreatmentDate;
+                    mm.TreatmentNotes = cowdetail.TreatmentNotes;
+                    mm.Heading = cowdetail.TreatmentTitle;
+                    mm.ReportName = cowdetail.ReportName;
+                    mm.ReportNotes = cowdetail.ReportNotes;
+
+                    model.CowMedicalDetails.Add(mm);
+                }
             }
             else
             {
                 TempData["Error"] = "Somthing went wrong.";
                 return RedirectToAction(ActionHelper.Index, ControllerHelper.Cow);
-               // return View(ViewHelper.Cow);
+                // return View(ViewHelper.Cow);
             }
-
             return View(ViewHelper.GetCowDetails, model);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
@@ -38,6 +39,11 @@ namespace _Anmol.Entity
         public decimal? Last30DaysProduction { get; set; }
         public decimal? Last365DaysProduction { get; set; }
 
-    }
+        public List<MedicalModel> CowMedicalDetails { get; set; }
 
+        public CowModel()
+        {
+            CowMedicalDetails = new List<MedicalModel>();
+        }
+    }
 }
