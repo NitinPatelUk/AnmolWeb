@@ -33,10 +33,10 @@ namespace _Anmol.Entity
         public string TreatmentNotes { get; set; }
         public string ReportName { get; set; }
         public string ReportNotes { get; set; }
-        public decimal LastProduction { get; set; }
-        public decimal Last7DaysProduction { get; set; }
-        public decimal Last30DaysProduction { get; set; }
-        public decimal Last365DaysProduction { get; set; }
+        public decimal? LastProduction { get; set; }
+        public decimal? Last7DaysProduction { get; set; }
+        public decimal? Last30DaysProduction { get; set; }
+        public decimal? Last365DaysProduction { get; set; }
 
     }
 
