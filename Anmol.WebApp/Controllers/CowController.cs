@@ -22,9 +22,15 @@ namespace _Anmol.WebApp.Controllers
 
         public FileResult GetReport(string ReportName)
         {
-
-            string ReportURL = "~/Document/MedicalReport/" + ReportName;
+            string ReportFolderName = Server.MapPath(ConfigItems.MedicalReportPath);
+            string ReportURL = Path.Combine(ReportFolderName, ReportName);
+            //string ReportURL = "~/Document/MedicalReport/" + ReportName;
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
+
+
+
+            //string ReportURL = "~/Document/MedicalReport/" + ReportName;
+            //byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
         }
 
