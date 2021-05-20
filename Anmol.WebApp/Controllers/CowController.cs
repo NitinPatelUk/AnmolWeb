@@ -100,17 +100,16 @@ namespace _Anmol.WebApp.Controllers
                 CowDetailsList = result.Data;
                 model = result.Data[0];
 
-
                 foreach (var cowdetail in CowDetailsList)
                 {
-                    MedicalModel mm = new MedicalModel();
-                    mm.TreatmentDate = cowdetail.TreatmentDate;
-                    mm.TreatmentNotes = cowdetail.TreatmentNotes;
-                    mm.Heading = cowdetail.TreatmentTitle;
-                    mm.ReportName = cowdetail.ReportName;
-                    mm.ReportNotes = cowdetail.ReportNotes;
-
-                    model.CowMedicalDetails.Add(mm);
+                    model.CowMedicalDetails.Add(new MedicalModel()
+                    {
+                        TreatmentDate = cowdetail.TreatmentDate,
+                        TreatmentNotes = cowdetail.TreatmentNotes,
+                        Heading = cowdetail.TreatmentTitle,
+                        ReportName = cowdetail.ReportName,
+                        ReportNotes = cowdetail.ReportNotes
+                    });
                 }
             }
             else

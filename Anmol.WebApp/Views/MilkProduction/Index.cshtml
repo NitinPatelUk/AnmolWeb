@@ -36,8 +36,8 @@
 
 <div class="row pt-4">
     <div class="col-12">
-        <div class="ibox collapse-link">
-            <div class="ibox-title">
+        <div class="ibox ">
+            <div class="ibox-title collapse-link">
                 <h5>Search Milk Production</h5>
                 <div class="ibox-tools">
                     <a>
@@ -67,8 +67,8 @@
                         <label>Milking Time</label>
                         @Html.DropDownListFor(x => x.MilkingTime, new List<SelectListItem> {
                                             new SelectListItem { Text = "Morning", Value = "Morning" },
-                                            new SelectListItem { Text = "Evening", Value = "Evening" }, },
-                        new { @class = "form-control", id = "MilkTime" })
+                                            new SelectListItem { Text = "Evening", Value = "Evening" }, },"--Select Milking TIme--",
+                        new { @class = "form-control", id = "MilkingTime" })
                         @*@Html.TextBox("MilkingTime", null, new { @class = "form-control" })*@
                     </div>
                 </div>
@@ -153,7 +153,7 @@
         BindMilkProductionGrid();
     });
     function BindMilkProductionGrid() {
-        debugger;
+        //debugger;
         $.ajax({
             url: encodeURI('@Url.Action(ActionHelper.GetMilkProductionList, ControllerHelper.MilkProduction)'),
             type: "GET",
@@ -275,7 +275,8 @@
     function ClearSearchData() {
         $("#CowName").val("");
         $("#CowID").val("");
-        $('#MilkingDate').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
         $('#MilkingTime').val("");
         BindMilkProductionGrid();
     }
