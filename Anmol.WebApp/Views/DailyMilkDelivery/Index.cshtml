@@ -1,0 +1,156 @@
+﻿@using _Anmol.Common;
+@{
+    ViewBag.Title = "Daily Milk Delivery List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dataTables_filter input {
+        outline: 0;
+        width: 200px;
+        padding: 7px 12px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+</style>
+<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2><b>Daily Milk Delivery List</b></h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <strong>Daily Delivery</strong>
+                </li>
+            </ol>
+        </div>
+        @*<div class="col-sm-4">
+            <div class="title-action">
+                <a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Cow </a>
+            </div>
+        </div>*@
+    </div>
+</div>
+
+<div class="row pt-4">
+    <div class="col-12">
+        <div class="ibox">
+            <div class="ibox-title collapse-link">
+                <h5>Search Daily Delivery</h5>
+                <div class="ibox-tools">
+                    <a class="">
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" style="display: none;">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Delivery Date</label>
+                        @Html.TextBox("DeliveryDate", null, new { @class = "form-control", @type = "date" })
+                    </div>                
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-primary" onclick="BindCowGrid()">Search</button>
+                        <button class="btn btn-secondary" onclick="ClearSearchData()">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table id="tblCow" class="table table-bordered display w-100 mb-4">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Delivery Time</th>
+                                <th>Permanent Order</th>
+                                <th>Temporary Order</th>
+                                <th>Final Delivery</th>
+                                <th>Total Rate</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        BindCowGrid();
+    });
+    function BindCowGrid() {
+        //debugger;
+        $.ajax({
+            url: encodeURI('@Url.Action(ActionHelper.GetDailyDeliveryList, ControllerHelper.DailyMilkDelivery)'),
+            type: "GET",
+            data: {
+                DeliveryDate: $('#DeliveryDate').val()
+            },
+            dataType: "json",
+            success: GetData
+        });
+    }
+
+    function GetData(data) {
+        try {
+
+             var dt = $('#tblCow').DataTable();
+                 if (dt != 'undefined') {
+                    dt.destroy();
+                    }
+                dt = $('#tblCow').DataTable({
+                "lengthMenu": [50, 100, 200, 500],
+                "pageLength": 50,
+                "order": [0, 'desc'],
+                "dom": 'frtlip',
+                "bFilter": true,
+                "autoWidth": true,
+                "aaData": data.Data,
+                "aoColumns": [
+                    {
+                        "mData": "CustName"
+                    },
+                    {
+                        "mData": "DeliveryTime"
+                    },
+                    {
+                        "mData": "PermemetOrder"
+                    },
+                    {
+                        "mData": "TempararyOrder"
+                    },
+                    {
+                        "mData": "FinalDelivery"
+                    },
+                    {
+                        "mData": "TotalRate"
+                    },
+                ]
+            });
+            $(".dataTables_length").css('clear', 'none');
+            $(".dataTables_length").css('margin-right', '20px');
+            $(".dataTables_info").css('clear', 'none');
+            $(".dataTables_info").css('padding', '0');
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+
+    function ClearSearchData() {
+        $("#DeliveryDate").val("");
+        BindCowGrid();
+    }
+
+</script>
+
+

@@ -234,6 +234,7 @@
     <Compile Include="Controllers\CowController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerTemporaryOrderController.cs" />
+    <Compile Include="Controllers\DailyMilkDeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
     <Compile Include="Controllers\MilkProductionController.cs" />
@@ -3130,6 +3131,7 @@
     <Content Include="Views\PermenentOrder\AddEditPermenentOrder.cshtml" />
     <Content Include="Views\CustomerTemporaryOrder\AddEditCustomerTemporaryOrder.cshtml" />
     <Content Include="Views\CustomerTemporaryOrder\Index.cshtml" />
+    <Content Include="Views\DailyMilkDelivery\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

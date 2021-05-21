@@ -273,6 +273,7 @@
     <Compile Include="Controllers\CowAPIController.cs" />
     <Compile Include="Controllers\CustomerAPIController.cs" />
     <Compile Include="Controllers\CustomerTemporaryOrderAPIController.cs" />
+    <Compile Include="Controllers\DailyMilkDeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\MedicalAPIController.cs" />
