@@ -238,6 +238,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
     <Compile Include="Controllers\MilkProductionController.cs" />
+    <Compile Include="Controllers\MonthlyBillController.cs" />
     <Compile Include="Controllers\PermenentOrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -3132,6 +3133,7 @@
     <Content Include="Views\CustomerTemporaryOrder\AddEditCustomerTemporaryOrder.cshtml" />
     <Content Include="Views\CustomerTemporaryOrder\Index.cshtml" />
     <Content Include="Views\DailyMilkDelivery\Index.cshtml" />
+    <Content Include="Views\MonthlyBill\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

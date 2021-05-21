@@ -278,6 +278,7 @@
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\MedicalAPIController.cs" />
     <Compile Include="Controllers\MilkProductionAPIController.cs" />
+    <Compile Include="Controllers\MonthlyBillAPIController.cs" />
     <Compile Include="Controllers\PermenentOrderAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
