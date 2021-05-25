@@ -38,6 +38,7 @@ namespace _Anmol.Common
         public const string SaveMilkProduction = "SaveMilkProduction";
         public const string AddEditMilkProduction = "AddEditMilkProduction";
         public const string SaveMilkProductionByID = "SaveMilkProductionByID";
+        public const string GetReport = "GetReport";
     }   
     public class ControllerHelper
     {

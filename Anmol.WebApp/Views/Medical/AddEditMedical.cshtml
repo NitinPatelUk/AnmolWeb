@@ -85,11 +85,15 @@
                             <div class="custom-file mb-2">
                                 <input type="file" class="custom-file-input" id="UploadReport" name="UploadReport" value="UploadReport" accept="application/msword, text/plain, application/pdf, image/*">
                                 <label class="custom-file-label" for="UploadReport">@Model.ReportName</label>
-                                <div class="embed-responsive embed-responsive-1by1" style="margin-top:10px">
-                                    <iframe class="embed-responsive-item" src="~/Document/MedicalReport/@Model.ReportName" height="100px" width="100px"></iframe>
-                                </div>
+                                @*@if (Model.ReportName != null)
+                                {*@
+                                    <div id="pdfview" class="embed-responsive embed-responsive-1by1" style="margin-top:10px">
+                                        <iframe class="embed-responsive-item" src="~/Document/MedicalReport/@Model.ReportName" height="100px" width="100px"></iframe>
+                                    </div>
 
-                                <button type="button" onclick="Preview_File()">Preview</button>
+                                    <button type="button" onclick="Preview_File('@Model.ReportName')">Preview</button>
+                                @*}*@
+
                                 @*<embed src="~/Document/MedicalReport/@Model.ReportName" width="100px" height="100px" allowfullscreen/>*@
                             </div>
                         </div>
@@ -104,9 +108,16 @@
     </div>
 }
 <script type="text/javascript">
+   
     $(document).ready(function () {
         $('#side-menu li.active').removeClass('active');
         $("#Cowmenu").addClass("active");
+
+        if ($('#ReportName').val() == "") {
+            $('#pdfview').hide();
+        }
+        
+
     });
 
     function checkvalidation() {
@@ -127,9 +138,27 @@
         files = $(this)[0].files; name = '';
         name = files[0].name
         $(".custom-file-label").html(name);
+
+        $('#pdfview').show();
+
+        var preview = document.querySelector('iframe');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+            // convert file to base64 string
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        
     });
 
-    function Preview_File() {
-        window.open('/{ControllerName}/GetReport', "_blank");
+    function Preview_File(ReportName) {
+        if (ReportName != "") {
+            window.open('/Cow/GetReport?ReportName=' + ReportName, "_blank");
+        }
+        
     }
 </script>
