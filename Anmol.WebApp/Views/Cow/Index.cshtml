@@ -183,7 +183,7 @@
                         "render": function (data, type, row, meta) {
                             var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCowById, ControllerHelper.Cow)?cowId=' + row.CowID+'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Cow" onclick="deleteCowClick(\'' + row.CowID + '\',\'' + row.ImageName + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
-                            var ActionButtonDetails = '<a href="@Url.Action(ActionHelper.GetCowDetails, ControllerHelper.Cow)?cowId=' + row.CowID +'" title="Edit Cow"   class="btn-link btn-sm px-1"><i class="fa fa-info-circle text-primary"></i></a>';
+                            var ActionButtonDetails = '<a onclick="CowDetails(' + row.CowID + ')" title="Cow Details" class="btn-link btn-sm px-1"><i class="fa fa-info-circle text-primary"></i></a>';
                             var result = ActionButtonEdit;
                             result = result + ActionButtonDelete + ActionButtonDetails;
                             return result;
@@ -243,5 +243,37 @@
         else {
             toastr.error("No image Available!");
         }
+    }
+
+    function CowDetails(CowID) {
+        $.ajax({
+            url: '@Url.Action(ActionHelper.GetCowDetails,ControllerHelper.Cow)',
+            async: false,
+            type: 'GET',
+            data: {
+                CowId: CowID
+            },
+            success: function (response) {
+
+                bootbox.dialog({
+                    title: 'Cow Details',
+                    message: response,
+                    size: 'large',
+                    buttons: {
+                        cancel: {
+                            label: "Close",
+                            className: 'btn-primary'
+                        }
+
+                    }
+                });
+
+
+            },
+            error: function () {
+                alert("error");
+            }
+
+        });
     }
 </script>
