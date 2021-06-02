@@ -1,0 +1,150 @@
+body {
+    background-color: #f8f9f5;
+    font-family: "Poppins";
+    font-size: 14px;
+}
+
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 0 3px 1px #e6e9d9;
+    color: #1b1b1b;
+}
+
+    .navbar .navbar-brand img {
+        position: absolute;
+        top: 3px;
+    }
+
+    .navbar li.nav-item a.nav-link {
+        padding: 1rem 1rem;
+    }
+
+    .navbar li.nav-item.active a.nav-link {
+        border-bottom: solid 2px #ffc300;
+        color: #ffc300;
+    }
+
+    .navbar li.nav-item.active svg {
+        fill: #ffc300;
+    }
+
+@media screen and (max-width: 767px) {
+    body {
+        margin-bottom: 5em;
+    }
+
+    .navbar-mobile-menu {
+        width: 100%;
+        bottom: 0;
+        z-index: 1;
+    }
+
+        .navbar-mobile-menu ul.list-unstyled {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #3a4e57;
+            margin-bottom: 0px;
+            width: 100%;
+        }
+
+            .navbar-mobile-menu ul.list-unstyled li {
+                text-align: center;
+            }
+
+                .navbar-mobile-menu ul.list-unstyled li a {
+                    text-decoration: none;
+                    display: inline-block;
+                    padding: 10px 7px;
+                }
+
+                    .navbar-mobile-menu ul.list-unstyled li a svg {
+                        fill: #ffffff;
+                    }
+
+                    .navbar-mobile-menu ul.list-unstyled li a p {
+                        margin-bottom: 0px;
+                        font-size: 10px;
+                        color: #ffffff;
+                    }
+
+                    .navbar-mobile-menu ul.list-unstyled li a:hover {
+                        color: #ffc300;
+                    }
+
+                        .navbar-mobile-menu ul.list-unstyled li a:hover svg {
+                            fill: #ffc300;
+                        }
+
+                .navbar-mobile-menu ul.list-unstyled li.active p {
+                    color: #ffc300;
+                }
+
+                .navbar-mobile-menu ul.list-unstyled li.active svg {
+                    fill: #ffc300;
+                }
+}
+
+}
+
+.customer-details-box .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.customer-details-box .table {
+    font-size: 14px;
+}
+
+.customer-details-box .action-btn button.btn.btn-sm {
+    font-size: .800rem;
+    padding: 0.15rem 0.5rem;
+}
+
+.customer-details-box .customer-detail-card-list h4 {
+    color: #3a4e57;
+}
+
+.customer-details-box .customer-detail-card-list p {
+    margin-bottom: 0px;
+}
+
+.customer-details-box .font-weight-bold {
+    font-weight: 500 !important;
+}
+
+@media screen and (max-width: 767px) {
+    .navbar .navbar-brand {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+    }
+
+        .navbar .navbar-brand img {
+            position: relative;
+            top: 3px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+    .customer-details-box .customer-detail-card-list p {
+        margin-bottom: 10px;
+    }
+
+    .customer-details-box .action-btn button.btn.btn-sm {
+        font-size: .600rem;
+        padding: 0.15rem 0.5rem;
+        width: 51.68px;
+        margin-bottom: 2px;
+    }
+
+    .customer-details-box .customer-today-order .action-btn {
+        text-align: right;
+    }
+}
+
+
+
+/*# sourceMappingURL=style.css.map */

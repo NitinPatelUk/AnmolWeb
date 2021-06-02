@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewBag.Title = "GetDeliveryHistory";
+    Layout = "~/Views/Shared/_LayoutForCustomer.cshtml";
+}
+
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div class="card ">
+            <div class="card-body table-responsive">
+                <table id="DeliveryHistoryInfo" class="table">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Sr.</th>
+                            <th>
+                                Date
+                                <a href="javascript:void(0) " class="filter-btn" data-toggle="modal" data-target="#customerfiltertModal">
+                                    <svg version="1.1 " id="Capa_1 " xmlns="http://www.w3.org/2000/svg " xmlns:xlink="http://www.w3.org/1999/xlink " x="0px " y="0px " width="14px " height="14px " viewBox="0 0 459 459 " style="enable-background:new 0 0 459 459; " xml:space="preserve ">
+                                        <g>
+                                            <g id="filter ">
+                                                <path d="M178.5,382.5h102v-51h-102V382.5z M0,76.5v51h459v-51H0z M76.5,255h306v-51h-306V255z " />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </th>
+                            <th>Delivery Milk</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center ">
+                        <tr>
+                            <th scope="row ">1</th>
+                            <td>05/05/2021</td>
+                            <td>8</td>
+                            <td>
+                                <div class="action-btn ">
+                                    <button type="button " class="btn btn-primary btn-sm ">View</button>
+                                    <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                    <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row ">2</th>
+                            <td>05/05/2021</td>
+                            <td>8</td>
+                            <td>
+                                <div class="action-btn ">
+                                    <button type="button " class="btn btn-primary btn-sm ">View</button>
+                                    <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                    <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row ">3</th>
+                            <td>05/05/2021</td>
+                            <td>8</td>
+                            <td>
+                                <div class="action-btn ">
+                                    <button type="button " class="btn btn-primary btn-sm ">View</button>
+                                    <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                    <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row ">4</th>
+                            <td>05/05/2021</td>
+                            <td>8</td>
+                            <td>
+                                <div class="action-btn ">
+                                    <button type="button " class="btn btn-primary btn-sm ">View</button>
+                                    <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                    <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*</div>*@
+
+
+<div class="modal fade" id="customerfiltertModal" tabindex="-1" role="dialog" aria-labelledby="customerfiltertLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h5 class="modal-title" id="customerfiltertModal ">Find From & To Date</h5>
+                <button type="button " class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
+            </div>
+            <div class="modal-body ">
+                <form class="row g-3 ">
+                    <div class="col-md-6 ">
+                        <label for="formdate " class="form-label ">Form Date</label>
+                        <input type="date " class="form-control " id="formdate ">
+                    </div>
+                    <div class="col-md-6 ">
+                        <label for="todate " class="form-label ">To Date</label>
+                        <input type="date " class="form-control " id="todate ">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-secondary " data-dismiss="modal ">Close</button>
+                <button type="button " class="btn btn-primary btn-default">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#navbarNav li.active").removeClass("active");
+        $(".list-unstyled li").removeClass("active");
+        $("#DeliveryHistory").addClass("active");
+        $(".list-unstyled #DeliveryHistory").addClass("active");
+
+        //BindGrid();
+
+     
+
+    });
+
+      function BindGrid() {
+            var DeliveryHisInfoTable;
+            if (DeliveryHisInfoTable != undefined) {
+                DeliveryHisInfoTable.destroy();
+            }
+
+            /*DeliveryHisInfoTable = $('#DeliveryHistoryInfo').DataTable();*/
+            DeliveryHisInfoTable = $('#DeliveryHistoryInfo').DataTable({
+                /*'destroy': true,*/
+            'ajax': {
+                "type": "GET",
+                "url": '@Url.Action("GetDeliveryHistoryList", "DeliveryHistoryDetails")',
+
+                "dataSrc": function (e) {
+                    return e;
+                }
+                },
+                'order': [[0, "asc"]],
+                'columns': [
+                    { "data": "SrNO", "orderable": true },
+                    {
+                      "data": "DeliveryDate", "orderable": true,
+                     //"render": function (data, type, row) {
+
+                     //    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                     //}
+                    },
+                    {
+                        "data": "DeliveryMilk", "orderable": true,
+                     //"render": function (data, type, row) {
+
+                     //    return moment(new Date(data)).format('MM/DD/YYYY')
+
+                     //}
+                    },
+                    {
+                     "sClass": "action", "orderable": false,
+                        "render": function (data, type, row) {
+                            var divstart = ' <div class="action-btn ">'
+                            var ActionButtonView = '<button type="button " style = "margin-right : 4px;" class="btn btn-primary btn-sm ">View</button>';
+                            var ActionButtonEdit = '<button type="button " style = "margin-right : 4px;" class="btn btn-warning btn-sm ">Edit</button>';
+                            var ActionButtonDelete = '<button type="button " class="btn btn-danger btn-sm ">Delete</button></div>';
+                            var result = divstart + ActionButtonView;
+                            result = result + ActionButtonEdit;
+                            result = result + ActionButtonDelete;
+                            return result;
+                        }
+                    },
+            ]
+           });
+
+
+        }
+</script>

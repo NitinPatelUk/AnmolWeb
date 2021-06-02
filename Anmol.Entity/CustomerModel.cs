@@ -19,5 +19,10 @@ namespace _Anmol.Entity
         public string SecondarContactNumber { get; set; }
         public bool IsActive { get; set; }
         public string LoggedinUserName { get; set; }
+            
+        [Required(ErrorMessage = "PassWord is required.")]
+        //[MinLength(8, ErrorMessage = "Password Length Must be 8 Letter")]
+        [StringLength(50,MinimumLength =8, ErrorMessage = "Password Length Must be 8 Letter")]
+        public string Password { get; set; }
     }
 }

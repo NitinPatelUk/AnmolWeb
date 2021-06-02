@@ -47,10 +47,19 @@ namespace _Anmol.WebApp.Controllers
                     {
                         SessionHelper.UserId = result.UserId;
                         SessionHelper.LoggedInUserName = result.FullName;
+                        model.UserRole = result.UserRole;
                     }
                     await DataSourceHelper.SaveAuditTrail("Logged in into the system", "Login");
                 }
-                return RedirectToAction(ActionHelper.Index, ControllerHelper.User);
+                // return RedirectToAction(ActionHelper.Index, ControllerHelper.User);
+                if (model.UserRole != "Customer")
+                {
+                    return RedirectToAction(ActionHelper.Index, ControllerHelper.User);
+                }
+                else
+                {
+                    return RedirectToAction(ActionHelper.CustomerOwnDetails, ControllerHelper.CustomerDetails);
+                }
             }
             catch (Exception ex)
             {

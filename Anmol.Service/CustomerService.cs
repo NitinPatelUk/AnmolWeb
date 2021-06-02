@@ -68,7 +68,8 @@ namespace _Anmol.Service
                     Utility.GetSQLParam("ZipCode", SqlDbType.Int, (object)model.ZipCode ?? DBNull.Value),
                     Utility.GetSQLParam("SecondaryContact", SqlDbType.VarChar, (object)model.SecondaryContact ?? DBNull.Value),
                     Utility.GetSQLParam("SecondarContactNumber", SqlDbType.VarChar, (object)model.SecondarContactNumber ?? DBNull.Value),
-                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)
+                    Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value),
+                    Utility.GetSQLParam("Password", SqlDbType.VarChar, (object)model.Password ?? DBNull.Value)
                    );
                 response.Data = result.ToList();
                 response.Success = true;

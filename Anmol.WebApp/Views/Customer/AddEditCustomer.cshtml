@@ -64,13 +64,18 @@
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label>Secondary Name</label>
-                            @Html.TextBoxFor(x => x.SecondaryContact, new { @class = "form-control "})
+                            @Html.TextBoxFor(x => x.SecondaryContact, new { @class = "form-control " })
                             @Html.ValidationMessageFor(m => m.SecondaryContact, "", new { @class = "text-danger help-block" })
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Secondary Contact</label>
-                            @Html.TextBoxFor(x => x.SecondarContactNumber, new { @class = "form-control "})
+                            @Html.TextBoxFor(x => x.SecondarContactNumber, new { @class = "form-control " })
                             @Html.ValidationMessageFor(m => m.SecondarContactNumber, "", new { @class = "text-danger help-block" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Password *</label>
+                            @Html.TextBoxFor(x => x.Password, new { @class = "form-control ", @required = "required" , @minlength = 8 })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger help-block" })                            
                         </div>
                     </div>
                 </div>

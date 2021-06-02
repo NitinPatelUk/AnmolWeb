@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "GetMilkOrderDetail";
+    Layout = "~/Views/Shared/_LayoutForCustomer.cshtml";
+}
+
+
+
+<div class="card customer-detail-card-list customer-today-order">
+    <div class="card-body">
+        <div class="row d-flex align-items-center">
+            <div class="col-sm-2 col-6">
+                <p>Today Order</p>
+                <h3 class="font-weight-bold">10</h3>
+            </div>
+            <div class="col-sm-10 col-6 text-right">
+                <div class="action-btn text-right">
+                    <button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#temporaryModal">Add</button>
+                </div>
+            </div>
+        </div>
+        <!-- table-list -->
+        <div class="row ">
+            <div class="col-sm-12 table-responsive ">
+                <div class="card ">
+                    <div class="card-body table-responsive ">
+                        <table id="MilkOrderData" class="table ">
+                            <thead class="text-center ">
+                                <tr>
+                                    <th scope="col ">Sr.</th>
+                                    <th scope="col ">Form Date</th>
+                                    <th scope="col ">To Date</th>
+                                    <th scope="col ">Temporary Order</th>
+                                    <th scope="col ">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr>
+                                    <th scope="row ">1</th>
+                                    <td>05/05/2021</td>
+                                    <td>08/05/2021</td>
+                                    <td>8</td>
+                                    <td>
+                                        <div class="action-btn ">
+                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row ">2</th>
+                                    <td>05/05/2021</td>
+                                    <td>08/05/2021</td>
+                                    <td>8</td>
+                                    <td>
+                                        <div class="action-btn ">
+                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row ">3</th>
+                                    <td>05/05/2021</td>
+                                    <td>08/05/2021</td>
+                                    <td>8</td>
+                                    <td>
+                                        <div class="action-btn ">
+                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row ">4</th>
+                                    <td>05/05/2021</td>
+                                    <td>08/05/2021</td>
+                                    <td>8</td>
+                                    <td>
+                                        <div class="action-btn ">
+                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
+                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@*</div>*@
+
+<div class="modal fade" id="temporaryModal" tabindex="-1" role="dialog" aria-labelledby="temporaryModalLebel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h5 class="modal-title " id="temporaryModalLebel ">Temparary Order</h5>
+                <button type="button" class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
+            </div>
+            <div class="modal-body ">
+                <form class="row g-3 ">
+                    <div class="col-md-6 ">
+                        <label for="formdate " class="form-label ">Form Date</label>
+                        <input type="date" class="form-control " id="formdate ">
+                    </div>
+                    <div class="col-md-6 ">
+                        <label for="todate " class="form-label ">To Date</label>
+                        <input type="date" class="form-control " id="todate ">
+                    </div>
+                    <div class="col-md-12 ">
+                        <label for="quntity " class="form-label ">Quantity</label>
+                        <input type="text" class="form-control " id="quantity ">
+                    </div>
+                    <div class="col-md-12 ">
+                        <label for="reason " class="form-label ">Reason</label>
+                        <input type="text" class="form-control " id="reason ">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal ">Close</button>
+                <button type="button" class="btn btn-primary btn-default">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#navbarNav li.active").removeClass("active")
+        $("#MilkOrder").addClass("active");
+        $(".list-unstyled li").removeClass("active");
+        $(".list-unstyled #MilkOrder").addClass("active");
+
+
+       // BindGrid();
+
+    });
+
+     function BindGrid() {
+            var MilkOrderInfoTable;
+         if (MilkOrderInfoTable != undefined) {
+             MilkOrderInfoTable.destroy();
+            }
+
+            /*DeliveryHisInfoTable = $('#DeliveryHistoryInfo').DataTable();*/
+         MilkOrderInfoTable = $('#MilkOrderData').DataTable({
+                /*'destroy': true,*/
+            'ajax': {
+                "type": "GET",
+                "url": '@Url.Action("GetMilkOrerDetail", "MilkOrderDetails")',
+
+                "dataSrc": function (e) {
+                    return e;
+                }
+             },
+                'order': [[0, "asc"]],
+                'columns': [
+                    { "data": "SrNO", "orderable": true },
+                    {
+                        "data": "FromDate", "orderable": true,
+                     //"render": function (data, type, row) {
+
+                     //    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                     //}
+                    },
+                    {
+                        "data": "ToDate", "orderable": true,
+                    },
+                    {
+                        "data": "TemporaryOrder", "orderable": true,
+                     //"render": function (data, type, row) {
+
+                     //    return moment(new Date(data)).format('MM/DD/YYYY')
+
+                     //}
+                    },
+                    {
+                     "sClass": "action", "orderable": false,
+                        "render": function (data, type, row) {
+                            var divstart = ' <div class="action-btn ">'
+                            var ActionButtonEdit = '<button type="button " style = "margin-right : 4px;" class="btn btn-warning btn-sm ">Edit</button>';
+                            var ActionButtonDelete = '<button type="button " class="btn btn-danger btn-sm ">Delete</button></div>';
+                            var result = divstart;
+                            result = result + ActionButtonEdit;
+                            result = result + ActionButtonDelete;
+                            return result;
+                        }
+                    },
+            ]
+           });
+
+
+        }
+</script>
+
+
