@@ -47,6 +47,9 @@ namespace _Anmol.Common
         public const string SaveMilkOrder = "SaveMilkOrder";
         public const string GetDailyDeliveryList = "GetDailyDeliveryList";
         public const string GetMonthlyBillList = "GetMonthlyBillList";
+        public const string GetUserRoleList = "GetUserRoleList";
+        public const string GetUserRoleRightsById = "GetUserRoleRightsById";
+        public const string SaveUserRoleRights = "SaveUserRoleRights";
     }   
     public class ControllerHelper
     {
@@ -61,6 +64,7 @@ namespace _Anmol.Common
         public const string PermenentOrder = "PermenentOrder";
         public const string DailyMilkDelivery = "DailyMilkDelivery";
         public const string MonthlyBill = "MonthlyBill";
+        public const string UserRoleRights = "UserRoleRights";
     }
 }
 

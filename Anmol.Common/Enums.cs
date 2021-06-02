@@ -74,7 +74,17 @@ namespace _Anmol.Common
                        ?.Description
                    ?? value.ToString();
         }
-
+        public enum AccessRight
+        {
+            [Description("View")]
+            View = 1,
+            [Description("Create")]
+            Create = 2,
+            [Description("Edit")]
+            Edit = 3,
+            [Description("Delete")]
+            Delete = 4
+        }
 
     }
 }

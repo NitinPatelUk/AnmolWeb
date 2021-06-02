@@ -1,4 +1,5 @@
-﻿@using _Anmol.Common;
+﻿@using _Anmol.Common
+@using _Anmol.Web.Common
 @{
     ViewBag.Title = "Customer Temporary Order List";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,7 +28,10 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a href="@Url.Action(ActionHelper.GetCustomerTemporaryOrderById, ControllerHelper.CustomerTemporaryOrder)?CustTempOrdId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Customer Temporary Order </a>
+                @if (AuthorizationHelper.IsAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(), Enums.AccessRight.Create))
+                {
+                    <a href="@Url.Action(ActionHelper.GetCustomerTemporaryOrderById, ControllerHelper.CustomerTemporaryOrder)?CustTempOrdId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Customer Temporary Order </a>
+                }
             </div>
         </div>
     </div>
@@ -171,8 +175,13 @@
                         "render": function (data, type, row, meta) {
                             var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetCustomerTemporaryOrderById, ControllerHelper.CustomerTemporaryOrder)?CustTempOrdId=' + row.CustTempOrdId+'" title="Edit Customer Temporary Order"   class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Customer Temporary Order" onclick="deleteCustomerTemporaryOrderClick(\'' + row.CustTempOrdId + '\')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
-                            var result =  ActionButtonEdit;
-                            result = result + ActionButtonDelete;
+                            var result = '';
+                            if ('@AuthorizationHelper.IsActionAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(),"Index", Enums.AccessRight.Edit)' == 'True') {
+                                result = result + ActionButtonEdit;
+                            }
+                            if ('@AuthorizationHelper.IsActionAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(), "Index", Enums.AccessRight.Delete)' == 'True') {
+                                result = result + ActionButtonDelete;
+                            }
                             return result;
                         }
                     }

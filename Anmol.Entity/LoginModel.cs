@@ -12,5 +12,8 @@ namespace _Anmol.Entity
         public string EmailAddress { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
+        public string Menu { get; set; }
+        public string UserRole { get; set; }
+        public int UserRoleId { get; set; }
     }
 }

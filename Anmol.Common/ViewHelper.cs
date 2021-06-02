@@ -51,5 +51,9 @@ namespace _Anmol.Common
         public const string AddEditPermanentOrder = "~/Views/PermenentOrder/AddEditPermenentOrder.cshtml";
         #endregion
 
+        #region User Role Rights
+        public const string ManageUserRoleRights = "~/Views/UserRoleRights/ManageUserRoleRights.cshtml";
+        #endregion
+
     }
 }

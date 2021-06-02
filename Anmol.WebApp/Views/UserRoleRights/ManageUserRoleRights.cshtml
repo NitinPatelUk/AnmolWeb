@@ -1,0 +1,149 @@
+﻿@using _Anmol.Common
+@model _Anmol.Entity.UserRoleRightsModel
+@{
+    /**/
+
+    ViewBag.Title = "Manage User Role Rights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .tblMenu td {
+        height: 30px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+</style>
+<div class="content">
+    @*@Html.Partial("~/Views/Shared/_Notifications.cshtml")*@
+    @using (Html.BeginForm(ActionHelper.SaveUserRoleRights, ControllerHelper.UserRoleRights, FormMethod.Post, new { @id = "frmUserRole" }))
+    {
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                <legend class="text-bold pt-0">
+                    <i class="icon-info22 position-left"></i>
+                    Edit User Role
+                </legend>
+
+                <div class="col-lg-12" style="padding:0px; margin-top:30px;">
+                    <fieldset>
+                        <legend class="text-bold pt-0">
+                            <i class="icon-files-empty position-left"></i>Assign Rights
+                        </legend>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12" style="padding:0px;border:1px solid #e5e5e5; min-height:100px; padding:20px;">
+                    <table width="100%" class="tblMenu">
+                        <tr>
+                            <td height="40px;" style="width: 30%"><strong>Menu</strong> </td>
+                            <td align="center"><strong><input type="checkbox" rolename="view" onchange="CheckAll(this);" id="chkView" /> View</strong></td>
+                            <td align="center"><strong><input type="checkbox" rolename="create" onchange="CheckAll(this);" id="chkCreate" /> Create</strong></td>
+                                <td align="center"><strong><input type="checkbox" rolename="edit" onchange="CheckAll(this);" id="chkEdit" /> Edit</strong></td>
+                                <td align="center"><strong><input type="checkbox" rolename="delete" onchange="CheckAll(this);" id="chkDelete" /> Delete</strong></td>
+                        </tr>
+                        @foreach (var obj in Model.UserRoleRights)
+                        {
+                            <tr group="menu" menuid="@obj.MenuId">
+                                @if (obj.MenuLevel > 1)
+                                {
+                                    <td style="padding-left:15px;">@obj.MenuName</td>
+                                }
+                                else
+                                {
+                                    <td>@obj.MenuName</td>
+                                }
+                                <td align="center">
+                                    @{ string isViewChecked = @obj.ViewRight == true ? "checked=true" : ""; }
+                                    <input id="chk_view_@obj.MenuId" rolename="view" type="checkbox" @isViewChecked />
+                                </td>
+                                <td align="center">
+                                    @{ string isCreateChecked = @obj.CreateRight == true ? "checked=true" : ""; }
+                                    <input id="chk_create_@obj.MenuId" rolename="create" type="checkbox" @isCreateChecked />
+                                </td>
+                                <td align="center">
+                                    @{ string isEditChecked = @obj.EditRight == true ? "checked=true" : ""; }
+                                    <input id="chk_edit_@obj.MenuId" rolename="edit" type="checkbox" @isEditChecked />
+                                </td>
+                                <td align="center">
+                                    @{ string isDeleteChecked = @obj.DeleteRight == true ? "checked=true" : ""; }
+                                    <input id="chk_delete_@obj.MenuId" rolename="delete" type="checkbox" @isDeleteChecked />
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-12 mt-3 pb-4">
+                    @*style="padding:0px; margin-top:20px;"*@
+                    @Html.HiddenFor(x => x.UserRoleId)
+                    @Html.HiddenFor(x => x.strRoleRights)
+                    <input type="submit" class="btn btn-primary" style="float:right" value="Submit" onclick="return SaveUserRole();">
+                    <input type="button" class="btn btn-default mr-2" style="float:right" data-dismiss="modal" value="Cancel" onclick="goBack()">
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        var ViewStatus = true;
+        var CreateStatus = true;
+        var EditStatus = true;
+        var DeleteStatus = true;
+
+        $('tr[group="menu"]').each(function () {
+            var MenuId = $(this).attr("menuId");
+            if ($('#chk_view_' + MenuId + '').is(":checked") == false) {
+                ViewStatus = false;
+            }
+            if ($('#chk_create_' + MenuId + '').is(":checked") == false) {
+                CreateStatus = false;
+            }
+            if ($('#chk_edit_' + MenuId + '').is(":checked") == false) {
+                EditStatus = false;
+            }
+            if ($('#chk_delete_' + MenuId + '').is(":checked") == false) {
+                DeleteStatus = false;
+            }
+        });
+        $('#chkView').prop("checked", ViewStatus);
+        $('#chkCreate').prop("checked", CreateStatus);
+        $('#chkEdit').prop("checked", EditStatus);
+        $('#chkDelete').prop("checked", DeleteStatus);
+    });
+
+    function CheckAll(_this) {
+        var flag = $(_this).is(":checked");
+        var roleName = $(_this).attr("rolename");
+        $('input[rolename="' + roleName + '"]').each(function () {
+            if (flag == true) {
+                $(this).prop("checked", true);
+            }
+            else {
+                $(this).prop("checked", false);
+            }
+        });
+    }
+
+    function goBack() {
+        history.back(1);
+    }
+
+    function SaveUserRole() {
+        var roleRights = new Array();
+
+        $('tr[group="menu"]').each(function () {
+            var menuId = $(this).attr("menuId");
+            roleRights.push({
+                MenuId: menuId,
+                ViewRight: $('#chk_view_' + menuId + '').is(":checked"),
+                CreateRight: $('#chk_create_' + menuId + '').is(":checked"),
+                EditRight: $('#chk_edit_' + menuId + '').is(":checked"),
+                DeleteRight: $('#chk_delete_' + menuId + '').is(":checked")
+            })
+        });
+
+        $("#strRoleRights").val(JSON.stringify(roleRights));
+        //$("#strDealerRights").val(JSON.stringify(DealerRights));
+    }
+</script>

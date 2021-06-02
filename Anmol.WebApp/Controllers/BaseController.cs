@@ -1,4 +1,5 @@
 ﻿using _Anmol.Common;
+using _Anmol.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,10 @@ namespace _Anmol.WebApp.Controllers
                 }
                 return;
             }
-
+            if (!AuthorizationHelper.IsAuthorized(filterContext))
+            {
+                filterContext.Result = new HttpStatusCodeResult(401, "Unauthorized, Access Denied!");
+            }
             filterContext.HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
             filterContext.HttpContext.Response.Cache.SetValidUntilExpires(false);
             filterContext.HttpContext.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);

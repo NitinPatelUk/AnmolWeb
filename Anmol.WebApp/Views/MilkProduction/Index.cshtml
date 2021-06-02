@@ -1,4 +1,5 @@
 ﻿@using _Anmol.Common
+@using _Anmol.Web.Common
 @model _Anmol.Entity.MilkProductionModel
 @{
     ViewBag.Title = "Milk Production List";
@@ -28,7 +29,10 @@
         </div>
         <div class="col-sm-4">
             <div class="title-action">
-                <a href="@Url.Action(ActionHelper.AddEditMilkProduction, ControllerHelper.MilkProduction)" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Milk Production </a>
+                @if (AuthorizationHelper.IsAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(), Enums.AccessRight.Create))
+                {
+                    <a href="@Url.Action(ActionHelper.AddEditMilkProduction, ControllerHelper.MilkProduction)" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Add New Milk Production </a>
+                }
             </div>
         </div>
     </div>
@@ -96,49 +100,49 @@
     </div>
 </div>
 <div class="row">
-<div class="col-md-3"></div>
-<div class="modal col-md-9" id="form1" role="dialog" aria-labelledby="projectModal-label" aria-hidden="true" style="position: absolute">
-    @using (Html.BeginForm(ActionHelper.SaveMilkProductionByID, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "formAddEditMilkProduction", @class = "form-horizontal", enctype = "multipart/form-data", }))
-    {
-        @Html.HiddenFor(model => model.MilkProductionID, new { @id="MilkProductionID2" });
-        @Html.HiddenFor(model => model.CowID, new { @id = "CowID2" });
-        <div class="row">
-            <div class="col-md-12 pt-2">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Cow Details</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <label>Cow Name</label>
-                            @Html.TextBoxFor(x => x.CowName, new { @class = "form-control ", @readonly = "true", @id = "CowName2" })
-                            @Html.ValidationMessageFor(m => m.CowName, "", new { @class = "text-danger help-block" })
+    <div class="col-md-3"></div>
+    <div class="modal col-md-9" id="form1" role="dialog" aria-labelledby="projectModal-label" aria-hidden="true" style="position: absolute">
+        @using (Html.BeginForm(ActionHelper.SaveMilkProductionByID, ControllerHelper.MilkProduction, FormMethod.Post, new { @id = "formAddEditMilkProduction", @class = "form-horizontal", enctype = "multipart/form-data", }))
+        {
+            @Html.HiddenFor(model => model.MilkProductionID, new { @id = "MilkProductionID2" });
+            @Html.HiddenFor(model => model.CowID, new { @id = "CowID2" });
+            <div class="row">
+                <div class="col-md-12 pt-2">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Cow Details</h5>
                         </div>
-                        <div class="row">
-                            <label>Milking Date</label>
-                            @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly = "true", @id = "MilkingDate2" })
-                            @Html.ValidationMessageFor(m => m.MilkingTime, null, new { @class = "text-danger help-block" })
-                        </div>
-                        <div class="row">
-                            <label>Milking Time</label>
-                            @Html.TextBoxFor(x => x.MilkingTime, new { @class = "form-control ", @readonly = "true", @id = "MilkingTime2" })
-                            @Html.ValidationMessageFor(m => m.MilkingTime, "", new { @class = "text-danger help-block" })
-                        </div>
-                        <div class="row">
-                            <label>Milk Quantity</label>
-                            @Html.TextBoxFor(x => x.MilkQty, new { @class = "form-control ", @required = "required", @id = "MilkQty2" })
-                            @Html.ValidationMessageFor(m => m.MilkQty, "", new { @class = "text-danger help-block" })
+                        <div class="ibox-content">
+                            <div class="row">
+                                <label>Cow Name</label>
+                                @Html.TextBoxFor(x => x.CowName, new { @class = "form-control ", @readonly = "true", @id = "CowName2" })
+                                @Html.ValidationMessageFor(m => m.CowName, "", new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milking Date</label>
+                                @Html.TextBoxFor(x => x.MilkingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly = "true", @id = "MilkingDate2" })
+                                @Html.ValidationMessageFor(m => m.MilkingTime, null, new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milking Time</label>
+                                @Html.TextBoxFor(x => x.MilkingTime, new { @class = "form-control ", @readonly = "true", @id = "MilkingTime2" })
+                                @Html.ValidationMessageFor(m => m.MilkingTime, "", new { @class = "text-danger help-block" })
+                            </div>
+                            <div class="row">
+                                <label>Milk Quantity</label>
+                                @Html.TextBoxFor(x => x.MilkQty, new { @class = "form-control ", @required = "required", @id = "MilkQty2" })
+                                @Html.ValidationMessageFor(m => m.MilkQty, "", new { @class = "text-danger help-block" })
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 text-right pb-5">
+                    <button class="btn btn-primary" type="submit" id="btnCowSave" onclick="return checkvalidation();">Save</button>
+                    <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
+                </div>
             </div>
-            <div class="col-12 text-right pb-5">
-                <button class="btn btn-primary" type="submit" id="btnCowSave" onclick="return checkvalidation();">Save</button>
-                <button class="btn btn-secondary" type="button" onclick="CancelClick()">Cancel</button>
-            </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -209,8 +213,13 @@
                         "render": function (data, type, row, meta) {
                             var ActionButtonEdit = '<a href="javascript:void(0)" title="Edit Milk Production" onclick="EditMilkProductionClick(\'' + row.MilkProductionID + '\',\'' + row.CowID + '\',\'' + row.CowName + '\',\'' + row.MilkQty + '\',\'' + row.MilkingDate + '\',\'' + row.MilkingTime + '\')" class="btn-link btn-sm px-1"><i class="fa fa-pencil text-primary"></i></a>';
                             var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete Milk Production" onclick="deleteMilkProductionClick(' + row.MilkProductionID + ')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
-                            var result =  ActionButtonEdit;
-                            result = result + ActionButtonDelete;
+                            var result = "";
+                            if ('@AuthorizationHelper.IsActionAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(),"Index", Enums.AccessRight.Edit)' == 'True') {
+                                result = result + ActionButtonEdit;
+                            }
+                            if ('@AuthorizationHelper.IsActionAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(), "Index", Enums.AccessRight.Delete)' == 'True') {
+                                result = result + ActionButtonDelete;
+                            }
                             return result;
                         }
                     }

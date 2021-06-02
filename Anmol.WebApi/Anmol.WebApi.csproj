@@ -281,6 +281,7 @@
     <Compile Include="Controllers\MonthlyBillAPIController.cs" />
     <Compile Include="Controllers\PermenentOrderAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Controllers\UserRoleRightsAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -349,6 +350,7 @@
     <Folder Include="Views\CustomerDailyDeliveryHangfire\" />
     <Folder Include="Views\MedicalAPI\" />
     <Folder Include="Views\MilkProductionAPI\" />
+    <Folder Include="Views\UserRoleRightsAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

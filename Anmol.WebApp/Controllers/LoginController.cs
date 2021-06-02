@@ -9,6 +9,7 @@ using _Anmol.WebApp.Common;
 using _Anmol.Common;
 using _Anmol.Entity;
 using _Anmol.Service;
+using _Anmol.Web.Common;
 
 namespace _Anmol.WebApp.Controllers
 {
@@ -47,10 +48,30 @@ namespace _Anmol.WebApp.Controllers
                     {
                         SessionHelper.UserId = result.UserId;
                         SessionHelper.LoggedInUserName = result.FullName;
+                        SessionHelper.Menu = result.Menu;
+                        SessionHelper.RoleName = result.UserRole;
+                        SessionHelper.UserRoleId = result.UserRoleId;
+                        SessionHelper.UserAccessRights = AuthorizationHelper.GetUserAccessRights();
                     }
                     await DataSourceHelper.SaveAuditTrail("Logged in into the system", "Login");
                 }
-                return RedirectToAction(ActionHelper.Index, ControllerHelper.User);
+                List<UserRightsModel> userrights = AuthorizationHelper.GetUserAccessRights();
+                if (userrights.Count == 1)
+                {
+                    var menulist = userrights.FirstOrDefault();
+                    return RedirectToAction(menulist.Action, menulist.Controller);
+                }
+                else
+                {
+                    var parentmenuid = userrights.Where(m => m.ParentMenuId == 0 && m.MenuId != 1).OrderBy(m => m.DisplayOrder).FirstOrDefault().MenuId;
+                    var menulist = userrights.Where(m => m.ParentMenuId == parentmenuid).OrderBy(m => m.DisplayOrder).FirstOrDefault();
+                    if (menulist == null)
+                    {
+                        menulist = userrights.Where(m => m.MenuId == parentmenuid).OrderBy(m => m.DisplayOrder).FirstOrDefault();
+                    }
+                    return RedirectToAction(menulist.Action, menulist.Controller);
+                }
+                //return RedirectToAction(ActionHelper.Index, ControllerHelper.User);
             }
             catch (Exception ex)
             {

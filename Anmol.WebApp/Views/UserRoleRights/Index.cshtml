@@ -1,0 +1,116 @@
+﻿@using _Anmol.Common
+@using _Anmol.Web.Common 
+@model _Anmol.Entity.UserRoleRightsModel
+@{
+    ViewBag.Title = "Manage User Role Rights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .dataTables_filter input {
+        outline: 0;
+        width: 200px;
+        padding: 7px 12px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+</style>
+<div class="wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2><b>Manage User Role Rights</b></h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action(ActionHelper.Index, ControllerHelper.Home)">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <strong>Manage User Role Rights</strong>
+                </li>
+            </ol>
+        </div>
+        @*<div class="col-sm-4">
+                <a href="@Url.Action(ActionHelper.GetProjectDetailById, ControllerHelper.UserRole)?projectDetailId=0" class="btn btn-sm btn-primary float-right m-t-n-xs"><i class="fa fa-plus"></i> Assign Rights </a>
+            </div>*@
+    </div>
+</div>
+<div class="row pt-4">
+    <div class="col-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table id="tblUserRole" class="table table-bordered display w-100 mb-4">
+                        <thead>
+                            <tr>
+                                <th>UserRole Id</th>
+                                <th>Role Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        BindUserRoleListGrid();
+    });
+    function BindUserRoleListGrid() {
+        $.ajax({
+            url: encodeURI('@Url.Action(ActionHelper.GetUserRoleList, ControllerHelper.UserRoleRights)'),
+            type: "GET",
+            data: {},
+            dataType: "json",
+            success: GetUserRoleList
+        });
+    }
+    function GetUserRoleList(data) {
+        try {
+            var dt = $('#tblUserRole').DataTable();
+                 if (dt != 'undefined') {
+                    dt.destroy();
+                    }
+
+            dt = $('#tblUserRole').DataTable({
+                "lengthMenu": [50, 100, 200, 500],
+                "pageLength": 50,
+                "order": [],
+                "dom": 'frtlip',
+                "bFilter": true,
+                "autoWidth": true,
+                "aaData": data.Data,
+                "aoColumns": [
+                    {
+                        "mData": "UserRoleId",
+                        "visible": false
+                    },
+                    {
+                        "mData": "RoleName"
+                    },
+                    {
+                        "mData": "UserRoleId",
+                        "className": "dt-center",
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            var ActionButtonEdit = '<a href="@Url.Action(ActionHelper.GetUserRoleRightsById, ControllerHelper.UserRoleRights)?UserRoleId=' + row.UserRoleId + '" title="Edit user role rights" class="btn - link btn - sm px - 1"><i class="fa fa-pencil"></i></a>';
+                            var result = '';
+                            if ('@AuthorizationHelper.IsActionAccessRightExists(Url.RequestContext.RouteData.Values["controller"].ToString(),"Index", Enums.AccessRight.Edit)' == 'True') {
+                                result = result + ActionButtonEdit;
+                            }
+                            return result;
+                        }
+                    }
+                ]
+            });
+            $(".dataTables_length").css('clear', 'none');
+            $(".dataTables_length").css('margin-right', '20px');
+            $(".dataTables_info").css('clear', 'none');
+            $(".dataTables_info").css('padding', '0');
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+</script>
