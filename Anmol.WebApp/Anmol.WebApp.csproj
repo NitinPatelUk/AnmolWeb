@@ -233,12 +233,16 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CowController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerDetailsController.cs" />
     <Compile Include="Controllers\CustomerTemporaryOrderController.cs" />
     <Compile Include="Controllers\DailyMilkDeliveryController.cs" />
+    <Compile Include="Controllers\DeliveryHistoryDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
+    <Compile Include="Controllers\MilkOrderDetailsController.cs" />
     <Compile Include="Controllers\MilkProductionController.cs" />
     <Compile Include="Controllers\MonthlyBillController.cs" />
+    <Compile Include="Controllers\MonthlyBillDetailsController.cs" />
     <Compile Include="Controllers\PermenentOrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -257,6 +261,7 @@
     <Content Include="Content\datatables.min.css" />
     <Content Include="Content\datatables.min.js" />
     <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\Satva.png" />
     <Content Include="Content\images\Satva_S.png" />
     <Content Include="Content\jquery.dataTables.min.css" />
@@ -1568,6 +1573,7 @@
     <Content Include="Content\AnmolTheme\js\plugins\video\responsible-video.js" />
     <Content Include="Content\AnmolTheme\js\plugins\wow\wow.min.js" />
     <Content Include="Content\AnmolTheme\js\popper.min.js" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\Theme\css\animate.css" />
     <Content Include="Content\Theme\css\bootstrap.min.css" />
     <Content Include="Content\Theme\css\demo.css" />
@@ -3134,6 +3140,11 @@
     <Content Include="Views\CustomerTemporaryOrder\Index.cshtml" />
     <Content Include="Views\DailyMilkDelivery\Index.cshtml" />
     <Content Include="Views\MonthlyBill\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutForCustomer.cshtml" />
+    <Content Include="Views\CustomerDetails\CustomerOwnDetails.cshtml" />
+    <Content Include="Views\MonthlyBillDetails\GetMonthlyBillDetails.cshtml" />
+    <Content Include="Views\DeliveryHistoryDetails\GetDeliveryHistory.cshtml" />
+    <Content Include="Views\MilkOrderDetails\GetMilkOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

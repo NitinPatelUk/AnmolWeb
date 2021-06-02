@@ -46,7 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CowModel.cs" />
+    <Compile Include="CustomerDeliveryHistoryModel.cs" />
+    <Compile Include="CustomerMilkOrderModel.cs" />
     <Compile Include="CustomerModel.cs" />
+    <Compile Include="CustomerMonthlyBillModel.cs" />
+    <Compile Include="CustomerOwnDetailsModel.cs" />
     <Compile Include="CustomerTemporaryOrderModel.cs" />
     <Compile Include="DailyMilkDelivery.cs" />
     <Compile Include="LoginModel.cs" />
