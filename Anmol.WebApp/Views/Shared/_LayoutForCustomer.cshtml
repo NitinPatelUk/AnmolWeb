@@ -36,17 +36,17 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light mb-3 p-0">
         <div class="container ">
-            <a class="navbar-brand" href="@Url.Action(ActionHelper.CustomerOwnDetails, ControllerHelper.CustomerDetails)">
+            <a class="navbar-brand" href="@Url.Action(ActionHelper.GetCustomerOwnDetails, ControllerHelper.CustomerOwnDetails)">
                 <img src="~/Content/images/logo.png" alt="" width="100px">
             </a>
             <div class="d-none d-sm-block d-lg-block" id="navbarNav">
-                <button class="navbar-toggler " type="button " data-bs-toggle="collapse " data-bs-target="#navbarNav " aria-controls="navbarNav " aria-expanded="false " aria-label="Toggle navigation ">
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse " data-bs-target="#navbarNav " aria-controls="navbarNav " aria-expanded="false " aria-label="Toggle navigation ">
                     <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse ">
                     <ul class="navbar-nav">
                         <li class="nav-item active" id="OwnerDetails">
-                            <a class="nav-link" aria-current="page" href="@Url.Action(ActionHelper.CustomerOwnDetails, ControllerHelper.CustomerDetails)">
+                            <a class="nav-link" aria-current="page" href="@Url.Action(ActionHelper.GetCustomerOwnDetails, ControllerHelper.CustomerOwnDetails)">
                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 460.8 460.8" style="enable-background:new 0 0 460.8 460.8;" xml:space="preserve" width="15" height="15">
                                 <g>
                                 <g>
@@ -86,7 +86,7 @@
                                             c39.949,0,72.459-32.509,72.459-72.459v-33.229H120.038z" />
                                     </g>
                                 </g>
-                                </svg> Milk Order List
+                                </svg> Temporary Order
                             </a>
                         </li>
                         <li class="nav-item " id="DeliveryHistory">
@@ -147,7 +147,7 @@
         <div class="navbar-mobile-menu position-fixed d-flex align-item-center justify-content-center">
             <ul class="list-unstyled">
                 <li class="active" id="OwnerDetails">
-                    <a href="@Url.Action(ActionHelper.CustomerOwnDetails, ControllerHelper.CustomerDetails)">
+                    <a href="@Url.Action(ActionHelper.GetCustomerOwnDetails, ControllerHelper.CustomerOwnDetails)">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 460.8 460.8" style="enable-background:new 0 0 460.8 460.8;" xml:space="preserve" width="15" height="15">
                         <g>
                         <g>

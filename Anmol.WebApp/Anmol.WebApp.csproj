@@ -233,7 +233,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CowController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\CustomerDetailsController.cs" />
+    <Compile Include="Controllers\CustomerOwnDetailsController.cs" />
     <Compile Include="Controllers\CustomerTemporaryOrderController.cs" />
     <Compile Include="Controllers\DailyMilkDeliveryController.cs" />
     <Compile Include="Controllers\DeliveryHistoryDetailsController.cs" />
@@ -3141,10 +3141,10 @@
     <Content Include="Views\DailyMilkDelivery\Index.cshtml" />
     <Content Include="Views\MonthlyBill\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutForCustomer.cshtml" />
-    <Content Include="Views\CustomerDetails\CustomerOwnDetails.cshtml" />
     <Content Include="Views\MonthlyBillDetails\GetMonthlyBillDetails.cshtml" />
     <Content Include="Views\DeliveryHistoryDetails\GetDeliveryHistory.cshtml" />
     <Content Include="Views\MilkOrderDetails\GetMilkOrderDetail.cshtml" />
+    <Content Include="Views\CustomerOwnDetails\GetCustomerOwnDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
