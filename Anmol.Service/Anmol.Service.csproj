@@ -55,6 +55,7 @@
     <Compile Include="CowService.cs" />
     <Compile Include="CommonService.cs" />
     <Compile Include="CustomerDailyDeliveryService.cs" />
+    <Compile Include="CustomerOwnDetailsService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="CustomerTemporaryOrderService.cs" />
     <Compile Include="DeliveryHistoryDetailsService.cs" />

@@ -8,10 +8,10 @@ namespace _Anmol.Entity
 {
     public class CustomerOwnDetailsModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string ContactNo { get; set; }
-        public double DailyOrder { get; set; }
+        public int? CustID { get; set; }
+        public string CustName { get; set; }
+        public string CustAddress { get; set; }
+        public string ContactNumber { get; set; }
+        public decimal DailyOrder { get; set; }
     }
 }

@@ -48,10 +48,11 @@ namespace _Anmol.Common
         public const string GetDailyDeliveryList = "GetDailyDeliveryList";
         public const string GetMonthlyBillList = "GetMonthlyBillList";
 
-        public const string CustomerOwnDetails = "CustomerOwnDetails";
+        //public const string CustomerOwnDetails = "CustomerOwnDetails";
         public const string GetMilkOrderDetail = "GetMilkOrderDetail";
         public const string GetMonthlyBillDetails = "GetMonthlyBillDetails";
         public const string GetDeliveryHistory = "GetDeliveryHistory";
+        public const string GetCustomerOwnDetails = "GetCustomerOwnDetails";
         public const string GetMilkOrderList = "GetMilkOrderList";
         public const string GetMilkOrderDetailById = "GetMilkOrderDetailById";
         public const string SaveTemporaryMilkOrder = "SaveTemporaryMilkOrder";
@@ -71,10 +72,12 @@ namespace _Anmol.Common
         public const string DailyMilkDelivery = "DailyMilkDelivery";
         public const string MonthlyBill = "MonthlyBill";
         
-        public const string CustomerDetails = "CustomerDetails";
+        //public const string CustomerDetails = "CustomerDetails";
         public const string MilkOrderDetails = "MilkOrderDetails";
         public const string MonthlyBillDetails = "MonthlyBillDetails";
         public const string DeliveryHistoryDetails = "DeliveryHistoryDetails";
+
+        public const string CustomerOwnDetails = "CustomerOwnDetails";
     }
 }
 

@@ -58,7 +58,7 @@ namespace _Anmol.WebApp.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(ActionHelper.CustomerOwnDetails, ControllerHelper.CustomerDetails);
+                    return RedirectToAction(ActionHelper.GetCustomerOwnDetails, ControllerHelper.CustomerOwnDetails);
                 }
             }
             catch (Exception ex)
