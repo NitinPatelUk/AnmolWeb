@@ -1,21 +1,19 @@
-﻿
+﻿@using _Anmol.Common
 @{
     ViewBag.Title = "GetMilkOrderDetail";
     Layout = "~/Views/Shared/_LayoutForCustomer.cshtml";
 }
-
-
 
 <div class="card customer-detail-card-list customer-today-order">
     <div class="card-body">
         <div class="row d-flex align-items-center">
             <div class="col-sm-2 col-6">
                 <p>Today Order</p>
-                <h3 class="font-weight-bold">10</h3>
+                <h3 class="font-weight-bold todayOrder"></h3>
             </div>
             <div class="col-sm-10 col-6 text-right">
                 <div class="action-btn text-right">
-                    <button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#temporaryModal">Add</button>
+                    <button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#temporaryModal" onclick="addtemporder()">Add Temporary Order</button>
                 </div>
             </div>
         </div>
@@ -24,66 +22,15 @@
             <div class="col-sm-12 table-responsive ">
                 <div class="card ">
                     <div class="card-body table-responsive ">
-                        <table id="MilkOrderData" class="table ">
-                            <thead class="text-center ">
+                        <table id="tblMilkOrder" class="table text-center">
+                            <thead>
                                 <tr>
-                                    <th scope="col ">Sr.</th>
-                                    <th scope="col ">Form Date</th>
-                                    <th scope="col ">To Date</th>
-                                    <th scope="col ">Temporary Order</th>
-                                    <th scope="col ">Action</th>
+                                    <th>Form Date</th>
+                                    <th>To Date</th>
+                                    <th>Temporary Order</th>                                    
+                                    <th class="text-center col-1" width="80">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center ">
-                                <tr>
-                                    <th scope="row ">1</th>
-                                    <td>05/05/2021</td>
-                                    <td>08/05/2021</td>
-                                    <td>8</td>
-                                    <td>
-                                        <div class="action-btn ">
-                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
-                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row ">2</th>
-                                    <td>05/05/2021</td>
-                                    <td>08/05/2021</td>
-                                    <td>8</td>
-                                    <td>
-                                        <div class="action-btn ">
-                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
-                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row ">3</th>
-                                    <td>05/05/2021</td>
-                                    <td>08/05/2021</td>
-                                    <td>8</td>
-                                    <td>
-                                        <div class="action-btn ">
-                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
-                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row ">4</th>
-                                    <td>05/05/2021</td>
-                                    <td>08/05/2021</td>
-                                    <td>8</td>
-                                    <td>
-                                        <div class="action-btn ">
-                                            <button type="button " class="btn btn-warning btn-sm ">Edit</button>
-                                            <button type="button " class="btn btn-danger btn-sm ">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -98,104 +45,188 @@
     <div class="modal-dialog ">
         <div class="modal-content ">
             <div class="modal-header ">
-                <h5 class="modal-title " id="temporaryModalLebel ">Temparary Order</h5>
-                <button type="button" class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
+                <h5 class="modal-title " id="temporaryModalLebel ">Temparary Order</h5>                
+                <button type="button" class="btn-close close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
-                <form class="row g-3 ">
+                <form class="row g-3" id="TempOrderForm">
                     <div class="col-md-6 ">
-                        <label for="formdate " class="form-label ">Form Date</label>
-                        <input type="date" class="form-control " id="formdate ">
+                        <label for="formdate" class="form-label">From Date</label>
+                        <input type="date" class="form-control" id="fromDate" required>
                     </div>
-                    <div class="col-md-6 ">
-                        <label for="todate " class="form-label ">To Date</label>
-                        <input type="date" class="form-control " id="todate ">
+                    <div class="col-md-6">
+                        <label for="todate" class="form-label">To Date</label>
+                        <input type="date" class="form-control" id="toDate" required>
                     </div>
-                    <div class="col-md-12 ">
-                        <label for="quntity " class="form-label ">Quantity</label>
-                        <input type="text" class="form-control " id="quantity ">
+                    <div class="col-md-12">
+                        <label for="quntity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="milkQuantity" min="0" required>
                     </div>
-                    <div class="col-md-12 ">
-                        <label for="reason " class="form-label ">Reason</label>
-                        <input type="text" class="form-control " id="reason ">
+                    <div class="col-md-12">
+                        <label for="reason" class="form-label">Reason</label>
+                        <input type="text" class="form-control" id="reason" required>
                     </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-default" onclick="validate()">Save</button>
                 </form>
             </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-secondary " data-dismiss="modal ">Close</button>
-                <button type="button" class="btn btn-primary btn-default">Save</button>
-            </div>
+            @*<div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary btn-default" onclick="saveTemporaryOrder()">Save</button>
+            </div>*@
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    var CustomerTempOrderId = 0;
     $(document).ready(function () {
         $("#navbarNav li.active").removeClass("active")
         $("#MilkOrder").addClass("active");
         $(".list-unstyled li").removeClass("active");
         $(".list-unstyled #MilkOrder").addClass("active");
-
-
-       // BindGrid();
+        BindMilkOrderGrid();
 
     });
+    function BindMilkOrderGrid() {
+        $.ajax({
+            url: encodeURI('@Url.Action(ActionHelper.GetMilkOrderList, ControllerHelper.MilkOrderDetails)'),
+            type: "GET",
+            data: {
+            },
+            dataType: "json",
+            success: GetData
+        });
+    }
+    function GetData(data) {
+        try {
+            var dt = $('#tblMilkOrder').DataTable();
+                 if (dt != 'undefined') {
+                    dt.destroy();
+                    }
 
-     function BindGrid() {
-            var MilkOrderInfoTable;
-         if (MilkOrderInfoTable != undefined) {
-             MilkOrderInfoTable.destroy();
-            }
-
-            /*DeliveryHisInfoTable = $('#DeliveryHistoryInfo').DataTable();*/
-         MilkOrderInfoTable = $('#MilkOrderData').DataTable({
-                /*'destroy': true,*/
-            'ajax': {
-                "type": "GET",
-                "url": '@Url.Action("GetMilkOrerDetail", "MilkOrderDetails")',
-
-                "dataSrc": function (e) {
-                    return e;
-                }
-             },
-                'order': [[0, "asc"]],
-                'columns': [
-                    { "data": "SrNO", "orderable": true },
+            dt = $('#tblMilkOrder').DataTable({
+                "lengthMenu": [50, 100, 200, 500],
+                "pageLength": 50,
+                "order": [0, 'desc'],
+                "dom": 'frtlip',
+                "bFilter": true,
+                "autoWidth": true,
+                "aaData": data.Data,                
+                "aoColumns": [
                     {
-                        "data": "FromDate", "orderable": true,
-                     //"render": function (data, type, row) {
-
-                     //    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                     //}
+                        "mData": "strFromDate",
                     },
                     {
-                        "data": "ToDate", "orderable": true,
+                        "mData": "strToDate",
                     },
                     {
-                        "data": "TemporaryOrder", "orderable": true,
-                     //"render": function (data, type, row) {
-
-                     //    return moment(new Date(data)).format('MM/DD/YYYY')
-
-                     //}
+                        "mData": "TemporaryOrder",
                     },
                     {
-                     "sClass": "action", "orderable": false,
-                        "render": function (data, type, row) {
-                            var divstart = ' <div class="action-btn ">'
-                            var ActionButtonEdit = '<button type="button " style = "margin-right : 4px;" class="btn btn-warning btn-sm ">Edit</button>';
-                            var ActionButtonDelete = '<button type="button " class="btn btn-danger btn-sm ">Delete</button></div>';
-                            var result = divstart;
-                            result = result + ActionButtonEdit;
-                            result = result + ActionButtonDelete;
-                            return result;
+                        "mData": "CustID",
+                        "className": "dt-center",
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            var ActionButtonEdit = '<a class="btn-link btn-sm px-1" href="javascript:;" title="Edit milk order"  onclick="OpenMilkOrderPopUp(' + row.CustTempOrdId + ',\'' + row.strFromDate + '\',\'' + row.strToDate + '\',\'' + row.TemporaryOrder + '\',\'' + row.Reason + '\')"><i class="fa fa-pencil"></i></a>';
+                            var result = ActionButtonEdit;
+                            var ActionButtonDelete = '<a href="javascript:void(0)" title="Delete milk order" onclick="deleteTemporaryOrder(' + row.CustTempOrdId + ')" class="btn-link btn-sm px-1"><i class="fa fa-trash text-primary"></i></a>';
+                            return result + ActionButtonDelete;
                         }
-                    },
-            ]
-           });
-
-
+                    }
+                ],               
+                "drawCallback": function () {
+                    $(".todayOrder").text($("#tblMilkOrder tr").length-1);
+                }
+            });
+            $(".dataTables_length").css('clear', 'none');
+            $(".dataTables_length").css('margin-right', '20px');
+            $(".dataTables_info").css('clear', 'none');
+            $(".dataTables_info").css('padding', '0');
+        } catch (e) {
+            alert(e.message);
         }
+    }  
+
+    function validate() {
+        var form = $("#TempOrderForm");
+        console.log(form.valid());
+        if (!form.valid()) {           
+            return;
+        }
+    }
+
+    function saveTemporaryOrder() {
+        //debugger;
+        //var form = $("#TempOrderForm");
+        //if (!form.valid()) {
+        //    alert('valid');
+        //    return;
+        //}
+        $.ajax({
+            url: encodeURI('@Url.Action(ActionHelper.SaveTemporaryMilkOrder, ControllerHelper.MilkOrderDetails)'),
+            async: false,
+            type: 'POST',
+            data: {
+                CustTempOrdId: CustomerTempOrderId, FromDate: $("#fromDate").val(), ToDate: $("#toDate").val(), Quantity: $("#milkQuantity").val(),
+                Reason: $("#reason").val()
+            },
+            success: function (data) {
+                if (data.Flag) {
+                    $("#temporaryModal").modal('toggle');
+                    toastr.success('Temporary order saved successfully');
+                    BindMilkOrderGrid();
+                    CustomerTempOrderId = 0;
+                }
+                else {
+                    toastr.error('Something went wrong, Please try again later!');
+                }
+            }
+        });
+    }
+
+    function OpenMilkOrderPopUp(TempCustOrderId, strFromDate, strToDate, Quantiy, Reason) {
+        var FromDate = strFromDate.split("/").reverse().join("-");
+        var ToDate = strToDate.split("/").reverse().join("-");
+        $("#fromDate").val(FromDate);
+        $("#toDate").val(ToDate);
+        $("#milkQuantity").val(Quantiy);
+        $("#reason").val(Reason);
+        CustomerTempOrderId = TempCustOrderId;
+        $("#temporaryModal").modal('show');
+    }
+    function addtemporder() {
+        $("#fromDate").val("");
+        $("#toDate").val("");
+        $("#milkQuantity").val("");
+        $("#reason").val("");
+        CustomerTempOrderId = 0;
+    }
+
+    function deleteTemporaryOrder(CustTempOrdId) {       
+        bootbox.confirm("Are you sure you want to delete this record?", function (result) {
+            if (result) {
+                $.ajax({
+                    url: '@Url.Action(ActionHelper.DeleteCustomerTemporaryOrder, ControllerHelper.CustomerTemporaryOrder)',
+                    async: false,
+                    type: 'POST',
+                    data: {
+                        CustTempOrdId: CustTempOrdId,
+                    },
+                    success: function (data) {
+                        if (data.Flag) {
+                            BindMilkOrderGrid();
+                            toastr.success("Temporary Order deleted successfully.");
+                        }
+                        else {
+                            toastr.error("Something Went Wrong.");
+                        }
+                    }
+                });
+            }
+        });
+    }
+
 </script>
 
 

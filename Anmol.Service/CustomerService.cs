@@ -102,5 +102,25 @@ namespace _Anmol.Service
             }
             return response;
         }
+
+        public ApiPostResponse<CustomerModel> GetCustomerDetails(int custId)
+        {
+            ApiPostResponse<CustomerModel> response = new ApiPostResponse<CustomerModel>();
+            try
+            {
+                GenericRepository<CustomerModel> objGenericRepository = new GenericRepository<CustomerModel>();
+                var result = objGenericRepository.QuerySQL<CustomerModel>("SP_GetCustomerDetails",
+                    Utility.GetSQLParam("CustId", SqlDbType.Int, (object)custId ?? DBNull.Value));
+                response.Data = result.FirstOrDefault();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message.Add(ex.Message);
+                response.Success = false;
+            }
+            return response;
+        }
     }
 }

@@ -52,6 +52,10 @@ namespace _Anmol.Common
         public const string GetMilkOrderDetail = "GetMilkOrderDetail";
         public const string GetMonthlyBillDetails = "GetMonthlyBillDetails";
         public const string GetDeliveryHistory = "GetDeliveryHistory";
+        public const string GetMilkOrderList = "GetMilkOrderList";
+        public const string GetMilkOrderDetailById = "GetMilkOrderDetailById";
+        public const string SaveTemporaryMilkOrder = "SaveTemporaryMilkOrder";
+        public const string GetCustomerMilkOrderHistory = "GetCustomerMilkOrderHistory";
     }   
     public class ControllerHelper
     {

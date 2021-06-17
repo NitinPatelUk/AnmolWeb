@@ -44,7 +44,8 @@ namespace _Anmol.Service
                     Utility.GetSQLParam("StartDate", SqlDbType.DateTime, (object)model.StartDate ?? DBNull.Value),
                     Utility.GetSQLParam("EndDate", SqlDbType.DateTime, (object)model.EndDate ?? DBNull.Value),
                     Utility.GetSQLParam("DeliveryTime", SqlDbType.VarChar, (object)model.DeliveryTime ?? DBNull.Value),
-                    Utility.GetSQLParam("Quantity", SqlDbType.Decimal, (object)model.Quantity ?? DBNull.Value),
+                    Utility.GetSQLParam("Quantity", SqlDbType.Decimal, (object)model.Quantity ?? DBNull.Value),                    
+                    Utility.GetSQLParam("Reason", SqlDbType.VarChar, DBNull.Value),
                     Utility.GetSQLParam("LoggedinUserName", SqlDbType.VarChar, (object)model.LoggedinUserName ?? DBNull.Value)
                    );
                 response.Data = result.ToList();

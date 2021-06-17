@@ -20,5 +20,8 @@ namespace _Anmol.Entity
         public bool IsActive { get; set; }
         public string LoggedinUserName { get; set; }
         public string Password { get; set; }
+        public bool IsMorning { get; set; }
+        public bool IsEvening { get; set; }
+        public decimal? Quantity { get; set; }
     }
 }
