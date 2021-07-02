@@ -100,5 +100,25 @@ namespace _Anmol.Service
             }
             return response;
         }
+
+        public ApiResponse<CustomerTemporaryOrderModel> GetCustTempOrderByID(int CustID)
+        {
+            ApiResponse<CustomerTemporaryOrderModel> response = new ApiResponse<CustomerTemporaryOrderModel>();
+            try
+            {
+                GenericRepository<CustomerTemporaryOrderModel> objGenericRepository = new GenericRepository<CustomerTemporaryOrderModel>();
+                var result = objGenericRepository.QuerySQL<CustomerTemporaryOrderModel>("SP_GetCustTempOrderById",
+                    Utility.GetSQLParam("CustID", SqlDbType.Int, (object)CustID ?? DBNull.Value));
+                response.Data = result.ToList();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message.Add(ex.Message);
+                response.Success = false;
+            }
+            return response;
+        }
     }
 }
