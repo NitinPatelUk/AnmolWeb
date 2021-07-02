@@ -58,8 +58,10 @@
     <Compile Include="CustomerOwnDetailsService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="CustomerTemporaryOrderService.cs" />
+    <Compile Include="DeliveryHistoryDetailsService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="MedicalService.cs" />
+    <Compile Include="MilkOrderDetailsService.cs" />
     <Compile Include="MilkProductionService.cs" />
     <Compile Include="MonthlyBillService.cs" />
     <Compile Include="PermenentOrderService.cs" />

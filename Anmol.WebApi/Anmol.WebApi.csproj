@@ -275,9 +275,11 @@
     <Compile Include="Controllers\CustomerOwnDetailsAPIController.cs" />
     <Compile Include="Controllers\CustomerTemporaryOrderAPIController.cs" />
     <Compile Include="Controllers\DailyMilkDeliveryController.cs" />
+    <Compile Include="Controllers\DeliveryHistoryDetailsAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\MedicalAPIController.cs" />
+    <Compile Include="Controllers\MilkOrderDetailsAPIController.cs" />
     <Compile Include="Controllers\MilkProductionAPIController.cs" />
     <Compile Include="Controllers\MonthlyBillAPIController.cs" />
     <Compile Include="Controllers\PermenentOrderAPIController.cs" />
@@ -348,7 +350,9 @@
     <Folder Include="Views\CowAPI\" />
     <Folder Include="Views\CustomerAPI\" />
     <Folder Include="Views\CustomerDailyDeliveryHangfire\" />
+    <Folder Include="Views\DeliveryHistoryDetailsAPI\" />
     <Folder Include="Views\MedicalAPI\" />
+    <Folder Include="Views\MilkOrderDetailsAPI\" />
     <Folder Include="Views\MilkProductionAPI\" />
   </ItemGroup>
   <ItemGroup>

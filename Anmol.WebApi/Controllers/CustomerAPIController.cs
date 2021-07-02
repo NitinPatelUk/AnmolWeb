@@ -44,5 +44,11 @@ namespace _Anmol.WebApi.Controllers
         {
             return _customerService.DeleteCustomer(model);
         }
+
+        [Route("GetCustomerDetails")]
+        public ApiPostResponse<CustomerModel> GetCustomerDetails(int custId)
+        {
+            return _customerService.GetCustomerDetails(custId);
+        }
     }
 }
