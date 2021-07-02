@@ -41,6 +41,7 @@ namespace _Anmol.Common
         public const string GetCustomerTemporaryOrderList = "GetCustomerTemporaryOrderList";
         public const string DeleteCustomerTemporaryOrder = "DeleteCustomerTemporaryOrder";
         public const string SaveCustomerTemporaryOrder = "SaveCustomerTemporaryOrder";
+        public const string GetCustTempOrderByID = "GetCustTempOrderByID";
         public const string GetMilkOrderById = "GetMilkOrderById";
         public const string GetOrderList = "GetOrderList";
         public const string DeleteMilkOrder = "DeleteMilkOrder";
@@ -53,6 +54,8 @@ namespace _Anmol.Common
         public const string GetMonthlyBillDetails = "GetMonthlyBillDetails";
         public const string GetDeliveryHistory = "GetDeliveryHistory";
         public const string GetCustomerOwnDetails = "GetCustomerOwnDetails";
+        public const string SaveCustomerOwnDetails = "SaveCustomerOwnDetails";
+        public const string GetCustomerOwnDetailsById = "GetCustomerOwnDetailsById";
     }   
     public class ControllerHelper
     {

@@ -18,10 +18,10 @@ namespace _Anmol.WebApp.Controllers
             return View();
         }
 
-        public async Task<ActionResult> GetDailyDeliveryList(string DeliveryDate)
+        public async Task<ActionResult> GetDailyDeliveryList(string CustName,DateTime FromDate,DateTime ToDate)
         {
             var result = new ApiResponse<DailyMilkDelivery>();
-            var uri = "GetDailyDeliveryList?DeliveryDate=" + DeliveryDate;
+            var uri = "GetDailyDeliveryList?CustName="+CustName+"&FromDate=" + FromDate + "&ToDate=" + ToDate;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {

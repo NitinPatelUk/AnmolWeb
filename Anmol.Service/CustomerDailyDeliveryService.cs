@@ -33,14 +33,16 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string DeliveryDate)
+        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string CustName,DateTime FromDate,DateTime ToDate)
         {
             ApiResponse<DailyMilkDelivery> response = new ApiResponse<DailyMilkDelivery>();
             try
             {
                 GenericRepository<DailyMilkDelivery> objGenericRepository = new GenericRepository<DailyMilkDelivery>();
                 var result = objGenericRepository.QuerySQL<DailyMilkDelivery>("SP_GetCustomerDailyMilkDelivery"
-                    , Utility.GetSQLParam("DeliveryDate", SqlDbType.VarChar, (object)DeliveryDate ?? DBNull.Value));
+                    , Utility.GetSQLParam("CustName", SqlDbType.VarChar, (object)CustName ?? DBNull.Value)
+                    , Utility.GetSQLParam("FromDate", SqlDbType.DateTime, (object)FromDate ?? DBNull.Value)
+                    , Utility.GetSQLParam("ToDate", SqlDbType.DateTime, (object)ToDate ?? DBNull.Value));
                 response.Data = result.ToList();
                 response.Success = true;
             }

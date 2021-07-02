@@ -3145,6 +3145,8 @@
     <Content Include="Views\DeliveryHistoryDetails\GetDeliveryHistory.cshtml" />
     <Content Include="Views\MilkOrderDetails\GetMilkOrderDetail.cshtml" />
     <Content Include="Views\CustomerOwnDetails\GetCustomerOwnDetails.cshtml" />
+    <Content Include="Views\CustomerTemporaryOrder\AddEditCustomerTemporaryOrderCustomer.cshtml" />
+    <Content Include="Views\CustomerOwnDetails\EditCustomerOwnDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,5 +13,7 @@ namespace _Anmol.Entity
         public string Password { get; set; }
         public string FullName { get; set; }
         public string UserRole { get; set; }
+
+        public int? UserRoleId { get; set; }
     }
 }

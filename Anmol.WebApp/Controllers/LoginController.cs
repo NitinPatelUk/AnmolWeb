@@ -48,6 +48,8 @@ namespace _Anmol.WebApp.Controllers
                         SessionHelper.UserId = result.UserId;
                         SessionHelper.LoggedInUserName = result.FullName;
                         model.UserRole = result.UserRole;
+                        SessionHelper.UserRoleId = (int)result.UserRoleId;
+                        
                     }
                     await DataSourceHelper.SaveAuditTrail("Logged in into the system", "Login");
                 }

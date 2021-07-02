@@ -39,8 +39,9 @@ namespace _Anmol.WebApp.Controllers
         public async Task<ActionResult> GetCustomerTemporaryOrderById(int CustTempOrdId)
         {
             ViewBag.CustomerList = DataSourceHelper.GetCustomerList();
-            
             var model = new CustomerTemporaryOrderModel();
+            int CustID = SessionHelper.UserId;
+            //model.LoggedinUserName = SessionHelper.LoggedInUserName;
             if (CustTempOrdId > 0)
             {
                 var result = new ApiPostResponse<CustomerTemporaryOrderModel>();
@@ -62,7 +63,16 @@ namespace _Anmol.WebApp.Controllers
                 model.StartDate = DateTime.Today;
                 model.EndDate = DateTime.Today;
             }
-            return View(ViewHelper.AddEditCustomerTemporaryOrder, model);
+            //return View(ViewHelper.AddEditCustomerTemporaryOrder, model);
+            //if (model.LoggedinUserName==model.)
+            if(CustID>0)
+            {
+                return View(ViewHelper.AddEditCustomerTemporaryOrderCustomer, model);
+            }
+            else
+            {
+                return View(ViewHelper.AddEditCustomerTemporaryOrder, model);
+            }
         }
 
         [HttpPost]
@@ -71,7 +81,7 @@ namespace _Anmol.WebApp.Controllers
             try
             {
                 model.LoggedinUserName = SessionHelper.LoggedInUserName;
-
+                
                 var response = new ApiResponse<CustomerTemporaryOrderModel>();
                 var url = "SaveCustomerTemporaryOrder";
                 response = await WebApiHelper.HttpClientPostPassEntityReturnEntity<ApiResponse<CustomerTemporaryOrderModel>, CustomerTemporaryOrderModel>(model, url, SessionHelper.AuthToken);
@@ -92,7 +102,15 @@ namespace _Anmol.WebApp.Controllers
                 {
                     TempData["Error"] = response.Message;
                 }
-                return RedirectToAction(ActionHelper.Index, ControllerHelper.CustomerTemporaryOrder);
+                if (SessionHelper.UserRoleId == 0)
+                {
+                    ViewBag.CustomerList = DataSourceHelper.GetCustomerList();
+                    return View(ViewHelper.GetMilkOrderDetail, model);
+                }
+                else
+                {
+                    return RedirectToAction(ActionHelper.Index, ControllerHelper.CustomerTemporaryOrder);
+                }
             }
             catch (Exception ex)
             {

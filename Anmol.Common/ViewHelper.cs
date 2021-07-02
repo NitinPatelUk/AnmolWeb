@@ -44,12 +44,19 @@ namespace _Anmol.Common
         #region CUSTOMER TEMPORARY ORDER
         public const string CustomerTemporaryOrder = "~/Views/CustomerTemporaryOrder/Index.cshtml";
         public const string AddEditCustomerTemporaryOrder = "~/Views/CustomerTemporaryOrder/AddEditCustomerTemporaryOrder.cshtml";
+        public const string AddEditCustomerTemporaryOrderCustomer = "~/Views/CustomerTemporaryOrder/AddEditCustomerTemporaryOrderCustomer.cshtml";
+        public const string GetMilkOrderDetail = "~/Views/MilkOrderDetails/GetMilkOrderDetail.cshtml";
         #endregion
 
         #region Customer Permanent Order
         public const string PermanentOrder = "~/Views/PermenentOrder/Index.cshtml";
         public const string AddEditPermanentOrder = "~/Views/PermenentOrder/AddEditPermenentOrder.cshtml";
         #endregion
+
+        #region Customer Own Details
+        public const string GetCustomerOwnDetails = "~/Views/CustomerOwnDetails/GetCustomerOwnDetails.cshtml";
+        public const string EditCustomerOwnDetails = "~/Views/CustomerOwndetails/EditCustomerOwnDetails.cshtml";
+#endregion
 
     }
 }

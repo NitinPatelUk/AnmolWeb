@@ -9,7 +9,7 @@ namespace _Anmol.Entity
 {
     public class CustomerTemporaryOrderModel
     {
-        public int CustTempOrdId { get; set; }
+        public int? CustTempOrdId { get; set; }
         [Required(ErrorMessage ="Customer name is Required")]
         public int CustID { get; set; }
         public string CustName { get; set; }

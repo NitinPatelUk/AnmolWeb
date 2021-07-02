@@ -13,5 +13,8 @@ namespace _Anmol.Entity
         public string CustAddress { get; set; }
         public string ContactNumber { get; set; }
         public decimal DailyOrder { get; set; }
+        public string DeliveryTime { get; set; }
+
+        public decimal Quantity { get; set; }
     }
 }

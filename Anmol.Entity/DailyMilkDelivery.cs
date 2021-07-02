@@ -20,5 +20,11 @@ namespace _Anmol.Entity
 
         public decimal TotalRate { get; set; }
 
+        public DateTime DeliveryDate { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
     }
 }

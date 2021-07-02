@@ -45,5 +45,11 @@ namespace _Anmol.WebApi.Controllers
         {
             return _customerTemporaryOrderService.GetCustomerTemporaryOrderList(CustName, DeliveryTime, StartDate, EndDate);
         }
+
+        [Route("GetCustTempOrderByID")]
+        public ApiResponse<CustomerTemporaryOrderModel> GetCustTempOrderByID(int CustID)
+        {
+            return _customerTemporaryOrderService.GetCustTempOrderByID(CustID);
+        }
     }
 }

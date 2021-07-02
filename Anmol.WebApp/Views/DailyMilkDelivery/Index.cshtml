@@ -47,9 +47,17 @@
             <div class="ibox-content" style="display: none;">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Delivery Date</label>
-                        @Html.TextBox("DeliveryDate", null, new { @class = "form-control", @type = "date" })
-                    </div>                
+                        <label>Customer Name</label>
+                        @Html.TextBox("CustName", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Start Date</label>
+                        @Html.TextBox("FromDate", null, new { @class = "form-control", @type = "date" })
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>End Date</label>
+                        @Html.TextBox("ToDate", null, new { @class = "form-control", @type = "date" })
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
@@ -69,6 +77,7 @@
                         <thead>
                             <tr>
                                 <th>Customer Name</th>
+                                <th>Delivery Date</th>
                                 <th>Delivery Time</th>
                                 <th>Permanent Order</th>
                                 <th>Temporary Order</th>
@@ -93,7 +102,9 @@
             url: encodeURI('@Url.Action(ActionHelper.GetDailyDeliveryList, ControllerHelper.DailyMilkDelivery)'),
             type: "GET",
             data: {
-                DeliveryDate: $('#DeliveryDate').val()
+                CustName: $('#CustName').val(),
+                FromDate: $('#FromDate').val(),
+                ToDate: $('#ToDate').val()
             },
             dataType: "json",
             success: GetData
@@ -120,6 +131,18 @@
                         "mData": "CustName"
                     },
                     {
+                        "mData": "DeliveryDate",
+                        "type": "date ",
+                        "render": function (value) {
+                            if (value === null) return "";
+                            var pattern = /Date\(([^)]+)\)/;//date format from server side
+                            var results = pattern.exec(value);
+                            var dt = new Date(parseFloat(results[1]));
+
+                            return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                        }
+                    },
+                    {
                         "mData": "DeliveryTime"
                     },
                     {
@@ -133,7 +156,7 @@
                     },
                     {
                         "mData": "TotalRate"
-                    },
+                    }
                 ]
             });
             $(".dataTables_length").css('clear', 'none');
@@ -147,7 +170,9 @@
 
 
     function ClearSearchData() {
-        $("#DeliveryDate").val("");
+        $("#CustName").val("");
+        $("#FromDate").val("");
+        $("#ToDate").val("");
         BindCowGrid();
     }
 

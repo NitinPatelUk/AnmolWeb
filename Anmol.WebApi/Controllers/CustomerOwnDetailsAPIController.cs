@@ -25,5 +25,17 @@ namespace _Anmol.WebApi.Controllers
         {
             return _CustomerOwnDetails.GetCustomerOwnDetails(CustID);
         }
+
+        [Route("SaveCustomerOwnDetails")]
+        public ApiResponse<CustomerOwnDetailsModel> SaveCustomerOwnDetails(CustomerOwnDetailsModel model)
+        {
+            return _CustomerOwnDetails.SaveCustomerOwnDetails(model);
+        }
+
+        [Route("GetCustomerOwnDetailsById")]
+        public ApiPostResponse<CustomerOwnDetailsModel> GetCustomerOwnDetailsById(int? CustID)
+        {
+            return _CustomerOwnDetails.GetCustomerOwndetailsById(CustID);
+        }
     }
 }

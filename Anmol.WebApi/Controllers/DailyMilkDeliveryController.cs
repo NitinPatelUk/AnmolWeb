@@ -21,9 +21,9 @@ namespace _Anmol.WebApi.Controllers
         }
 
         [Route("GetDailyDeliveryList")]
-        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string DeliveryDate)
+        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string CustName,DateTime FromDate,DateTime ToDate)
         {
-            return _CustomerDailyDeliveryService.GetDailyDeliveryList(DeliveryDate);
+            return _CustomerDailyDeliveryService.GetDailyDeliveryList(CustName,FromDate, ToDate);
         }
     }
 }
