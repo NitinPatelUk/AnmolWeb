@@ -33,7 +33,7 @@ namespace _Anmol.Service
             return response;
         }
 
-        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string CustName,DateTime FromDate,DateTime ToDate)
+        public ApiResponse<DailyMilkDelivery> GetDailyDeliveryList(string CustName,DateTime? FromDate,DateTime? ToDate)
         {
             ApiResponse<DailyMilkDelivery> response = new ApiResponse<DailyMilkDelivery>();
             try

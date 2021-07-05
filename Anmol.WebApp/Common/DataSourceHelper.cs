@@ -64,6 +64,27 @@ namespace _Anmol.WebApp.Common
             }
         }
 
+        public static IEnumerable<SelectListItem> GetDailyDeliveryList()
+        {
+            var result = new ApiResponse<DailyMilkDelivery>();
+            var uri = "GetDailyDeliveryList?CustName=" + null + "&FromDate=" + null + "&ToDate=" + null ;
+            result = WebApiHelper.HttpClientRequestResponseSync(result, uri, SessionHelper.AuthToken);
+            if (result.Data != null)
+            {
+                IEnumerable<SelectListItem> items = result.Data
+                .Select(c => new SelectListItem
+                {
+                    Value = Convert.ToString(c.CustName),
+                    Text = c.CustName+"-"+c.FromDate+"-"+c.ToDate
+                });
+                return items;
+            }
+            else
+            {
+                return new List<SelectListItem>();
+            }
+        }
+
         public static IEnumerable<SelectListItem> GetCowList()
         {
             var result = new ApiResponse<CowModel>();

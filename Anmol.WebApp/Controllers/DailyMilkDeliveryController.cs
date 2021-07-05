@@ -15,13 +15,15 @@ namespace _Anmol.WebApp.Controllers
         // GET: DailyMilkDelivery
         public ActionResult Index()
         {
+            ViewBag.GetDailyDeliveryList = DataSourceHelper.GetDailyDeliveryList();
             return View();
         }
 
-        public async Task<ActionResult> GetDailyDeliveryList(string CustName,DateTime FromDate,DateTime ToDate)
+        public async Task<ActionResult> GetDailyDeliveryList(string CustName,DateTime? FromDate,DateTime? ToDate)
         {
+
             var result = new ApiResponse<DailyMilkDelivery>();
-            var uri = "GetDailyDeliveryList?CustName="+CustName+"&FromDate=" + FromDate + "&ToDate=" + ToDate;
+            var uri = "GetDailyDeliveryList?CustName="+ CustName +"&FromDate=" + FromDate + "&ToDate=" + ToDate;
             result = await WebApiHelper.HttpClientRequestResponse(result, uri, SessionHelper.AuthToken);
             if (result.Success)
             {

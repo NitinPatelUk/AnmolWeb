@@ -22,9 +22,9 @@ namespace _Anmol.Entity
 
         public DateTime DeliveryDate { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
     }
 }
